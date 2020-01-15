@@ -19,4 +19,24 @@ class ReturnUser implements IReturn
         $this->surname = $surname;
         $this->balance = $balance;
     }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getSurname()
+    {
+        return $this->surname;
+    }
+
+    public function getBalance()
+    {
+        return $this->balance;
+    }
 }

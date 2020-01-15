@@ -5,6 +5,7 @@ namespace App\Tests;
 use App\AlphabeticStringValidator;
 use PHPUnit\Framework\TestCase;
 
+
 class AlphabeticStringValidatorTest extends TestCase
 {
     /** @test */

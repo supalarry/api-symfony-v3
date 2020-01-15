@@ -42,6 +42,14 @@ class Users implements IEntity
         return $this->id;
     }
 
+    /* for testing purposes, so that UsersTestRepository can simulate creation of an user */
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     public function getName(): ?string
     {
         return $this->name;

@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\CreateUser;
 use App\Entity\Users;
 use App\Exception\CreateUserServiceException;
+use App\GetUsers;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -14,12 +16,12 @@ class UsersController extends AbstractController
 {
     /**
      * @Route("/users", name="createUser", methods={"POST"})
+     * @param CreateUser $createUserService
      * @return JsonResponse
      */
-    public function createUser(): JsonResponse
+    public function createUser(CreateUser $createUserService): JsonResponse
     {
         try {
-            $createUserService = $this->get('CreateUserService');
             $createdUser = $createUserService->handle();
             return $this->json($createdUser, Response::HTTP_CREATED);
         } catch (CreateUserServiceException $e){
@@ -40,11 +42,12 @@ class UsersController extends AbstractController
 
     /**
      * @Route("/users", name="getUser", methods={"GET"})
+     * @param GetUsers $getUsersService
      * @return JsonResponse
      */
-    public function getUsers(): JsonResponse
+    public function getUsers(GetUsers $getUsersService): JsonResponse
     {
-        $getUsersService = $this->get('GetUserService');
+        //$getUsersService = $this->get('GetUserService');
         $users = $getUsersService->getUsers();
         return $this->json($users, Response::HTTP_OK);
     }

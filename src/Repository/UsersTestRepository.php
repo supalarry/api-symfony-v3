@@ -19,6 +19,7 @@ class UsersTestRepository implements IRepository
 
     public function save(IEntity $newUser): void
     {
+        $newUser->setId($this->id);
         $db[$this->id] = $newUser;
         $this->id++;
     }

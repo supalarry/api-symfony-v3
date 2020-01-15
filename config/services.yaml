@@ -10,7 +10,6 @@ services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-        public: true
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -24,19 +23,17 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    #App\Interfaces\IRepository: '@UsersRepository'
+    App\Interfaces\IRepository: '@UsersTestRepository'
+
     UsersRepository:
         class: App\Repository\UsersRepository
-        public: true
 
     UsersTestRepository:
         class: App\Repository\UsersTestRepository
-        public: true
 
     CreateUserService:
         class: App\CreateUser
-        arguments:
-            $requestStack: '@requestStack'
-            $repository: '@UsersTestRepository'
 
     GetUsers:
         class: App\GetUsers

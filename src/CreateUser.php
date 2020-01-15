@@ -41,11 +41,11 @@ class CreateUser implements IHandle
             $newUser->setBalance(10000);
             $this->repository->save($newUser);
         } catch (JsonToArrayException $e) {
-            throw new CreateUserServiceException($e);
+            throw new CreateUserServiceException($e->getErrors());
         } catch (ValidateUserException $e) {
-            throw new CreateUserServiceException($e);
+            throw new CreateUserServiceException($e->getErrors());
         } catch (ORMException $e) {
-            throw new CreateUserServiceException([$e]);
+            throw new CreateUserServiceException(array($e));
         }
         /* return created user object for response body */
         return new ReturnUser(
