@@ -6,6 +6,7 @@ use App\CreateUser;
 use App\Entity\Users;
 use App\Exception\CreateUserServiceException;
 use App\GetUsers;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -25,13 +26,13 @@ class UsersController extends AbstractController
             $createdUser = $createUserService->handle();
             return $this->json($createdUser, Response::HTTP_CREATED);
         } catch (CreateUserServiceException $e){
-            return $this->json($e, Response::HTTP_BAD_REQUEST);
+            return $this->json($e->getErrors(), Response::HTTP_BAD_REQUEST);
         }
     }
 
     /**
      * @Route("/users/{id}", name="getUser", methods={"GET"})
-     * @ParamConverter("user", class="Users")
+     * @Entity("user", expr="UsersRepository.find(id)")
      * @param Users $user
      * @return JsonResponse
      */

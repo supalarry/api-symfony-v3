@@ -9,8 +9,7 @@ use App\Exception\JsonToArrayException;
 
 class JsonToArrayTest extends TestCase
 {
-    /** @test */
-    public function valid_json()
+    public function test_valid_json()
     {
         $json_body = "{
             \"name\":\"john\",
@@ -35,8 +34,7 @@ class JsonToArrayTest extends TestCase
         $this->assertEquals($request_decoded['surname'], 'doe');
     }
 
-    /** @test */
-    public function invalid_json()
+    public function test_invalid_json()
     {
         /* we have comma after "doe" resulting in an invalid json when it is decoded */
         $json_body = "{
@@ -61,8 +59,7 @@ class JsonToArrayTest extends TestCase
 
     }
 
-    /** @test */
-    public function empty_json_body()
+    public function test_empty_json_body()
     {
         $json_body = "{}";
 
@@ -82,8 +79,7 @@ class JsonToArrayTest extends TestCase
         $this->assertEmpty($request_decoded);
     }
 
-    /** @test */
-    public function empty_json()
+    public function test_empty_json()
     {
         $json_body = "";
 

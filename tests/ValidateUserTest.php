@@ -2,15 +2,16 @@
 
 namespace App\Tests;
 
+use App\AlphabeticStringValidator;
 use App\Entity\Users;
+use App\ErrorsLoader;
 use App\Exception\ValidateUserException;
 use App\ValidateUser;
 use PHPUnit\Framework\TestCase;
 
 class ValidateUserTest extends TestCase
 {
-    /** @test */
-    public function valid_keys_and_values()
+    public function test_valid_keys_and_values()
     {
         $json_body = [
             Users::USER_NAME => "John",
@@ -19,7 +20,7 @@ class ValidateUserTest extends TestCase
 
         $errors = [];
 
-        $validator = new ValidateUser($json_body);
+        $validator = new ValidateUser($json_body, new AlphabeticStringValidator(), new ErrorsLoader());
 
         $validator->validateKeys();
 
@@ -28,8 +29,7 @@ class ValidateUserTest extends TestCase
         $this->assertEmpty($errors);
     }
 
-    /** @test */
-    public function name_key_not_set()
+    public function test_name_key_not_set()
     {
         $json_body = [
             "nameblablabla" => "John",
@@ -38,19 +38,18 @@ class ValidateUserTest extends TestCase
 
         $errors = [];
 
-        $validator = new ValidateUser($json_body);
+        $validator = new ValidateUser($json_body, new AlphabeticStringValidator(), new ErrorsLoader());
 
         try {
             $validator->validateKeys();
         } catch (ValidateUserException $e){
             $errors = $validator->getErrors();
             $this->assertArrayHasKey(Users::USER_NAME, $errors);
-            $this->assertEquals($errors[Users::USER_NAME], 'name key not set');
+            $this->assertEquals($errors[Users::USER_NAME][0], 'name key not set');
         }
     }
 
-    /** @test */
-    public function name_key_invalid()
+    public function test_name_key_invalid()
     {
         $json_body = [
             Users::USER_NAME => "John55",
@@ -59,19 +58,18 @@ class ValidateUserTest extends TestCase
 
         $errors = [];
 
-        $validator = new ValidateUser($json_body);
+        $validator = new ValidateUser($json_body, new AlphabeticStringValidator(), new ErrorsLoader());
 
         try {
             $validator->validateKeys();
         } catch (ValidateUserException $e){
             $errors = $validator->getErrors();
             $this->assertArrayHasKey(Users::USER_NAME, $errors);
-            $this->assertEquals($errors[Users::USER_NAME], 'Invalid name. It can only consist of letters and can not be empty');
+            $this->assertEquals($errors[Users::USER_NAME][0], 'Invalid name. It can only consist of letters and can not be empty');
         }
     }
 
-    /** @test */
-    public function surname_key_not_set()
+    public function test_surname_key_not_set()
     {
         $json_body = [
             Users::USER_NAME => "John",
@@ -80,19 +78,18 @@ class ValidateUserTest extends TestCase
 
         $errors = [];
 
-        $validator = new ValidateUser($json_body);
+        $validator = new ValidateUser($json_body, new AlphabeticStringValidator(), new ErrorsLoader());
 
         try {
             $validator->validateKeys();
         } catch (ValidateUserException $e){
             $errors = $validator->getErrors();
             $this->assertArrayHasKey(Users::USER_SURNAME, $errors);
-            $this->assertEquals($errors[Users::USER_SURNAME], 'surname key not set');
+            $this->assertEquals($errors[Users::USER_SURNAME][0], 'surname key not set');
         }
     }
 
-    /** @test */
-    public function surname_key_invalid()
+    public function test_surname_key_invalid()
     {
         $json_body = [
             Users::USER_NAME => "John",
@@ -101,19 +98,18 @@ class ValidateUserTest extends TestCase
 
         $errors = [];
 
-        $validator = new ValidateUser($json_body);
+        $validator = new ValidateUser($json_body, new AlphabeticStringValidator(), new ErrorsLoader());
 
         try {
             $validator->validateKeys();
         } catch (ValidateUserException $e){
             $errors = $validator->getErrors();
             $this->assertArrayHasKey(Users::USER_SURNAME, $errors);
-            $this->assertEquals($errors[Users::USER_SURNAME], 'Invalid surname. It can only consist of letters and can not be empty');
+            $this->assertEquals($errors[Users::USER_SURNAME][0], 'Invalid surname. It can only consist of letters and can not be empty');
         }
     }
 
-    /** @test */
-    public function name_key_empty()
+    public function test_name_key_empty()
     {
         $json_body = [
             Users::USER_NAME => "",
@@ -122,19 +118,18 @@ class ValidateUserTest extends TestCase
 
         $errors = [];
 
-        $validator = new ValidateUser($json_body);
+        $validator = new ValidateUser($json_body, new AlphabeticStringValidator(), new ErrorsLoader());
 
         try {
             $validator->validateKeys();
         } catch (ValidateUserException $e){
             $errors = $validator->getErrors();
             $this->assertArrayHasKey(Users::USER_NAME, $errors);
-            $this->assertEquals($errors[Users::USER_NAME], 'Invalid name. It can only consist of letters and can not be empty');
+            $this->assertEquals($errors[Users::USER_NAME][0], 'Invalid name. It can only consist of letters and can not be empty');
         }
     }
 
-    /** @test */
-    public function surname_key_empty()
+    public function test_surname_key_empty()
     {
         $json_body = [
             Users::USER_NAME => "John",
@@ -143,19 +138,18 @@ class ValidateUserTest extends TestCase
 
         $errors = [];
 
-        $validator = new ValidateUser($json_body);
+        $validator = new ValidateUser($json_body, new AlphabeticStringValidator(), new ErrorsLoader());
 
         try {
             $validator->validateKeys();
         } catch (ValidateUserException $e){
             $errors = $validator->getErrors();
             $this->assertArrayHasKey(Users::USER_SURNAME, $errors);
-            $this->assertEquals($errors[Users::USER_SURNAME], 'Invalid surname. It can only consist of letters and can not be empty');
+            $this->assertEquals($errors[Users::USER_SURNAME][0], 'Invalid surname. It can only consist of letters and can not be empty');
         }
     }
 
-    /** @test */
-    public function no_keys()
+    public function test_no_keys()
     {
         $json_body = [
 
@@ -163,7 +157,7 @@ class ValidateUserTest extends TestCase
 
         $errors = [];
 
-        $validator = new ValidateUser($json_body);
+        $validator = new ValidateUser($json_body, new AlphabeticStringValidator(), new ErrorsLoader());
 
         try {
             $validator->validateKeys();
@@ -171,8 +165,8 @@ class ValidateUserTest extends TestCase
             $errors = $validator->getErrors();
             $this->assertArrayHasKey(Users::USER_NAME, $errors);
             $this->assertArrayHasKey(Users::USER_SURNAME, $errors);
-            $this->assertEquals($errors[Users::USER_NAME], 'name key not set');
-            $this->assertEquals($errors[Users::USER_SURNAME], 'surname key not set');
+            $this->assertEquals($errors[Users::USER_NAME][0], 'name key not set');
+            $this->assertEquals($errors[Users::USER_SURNAME][0], 'surname key not set');
         }
     }
 }

@@ -32,7 +32,7 @@ class CreateUser implements IHandle
             $converter = new JsonToArray($this->request);
             $dataArray = $converter->retrieve();
             /* validate data */
-            $validateUser = new ValidateUser($dataArray);
+            $validateUser = new ValidateUser($dataArray, new AlphabeticStringValidator(), new ErrorsLoader());
             $validateUser->validateKeys();
             /* create user */
             $newUser = new Users();
