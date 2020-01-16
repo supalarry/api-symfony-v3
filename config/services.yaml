@@ -23,8 +23,11 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    # The one that is not commented out is used as a repository for CreateUserService
     #App\Interfaces\IRepository: '@UsersRepository'
+    # for production environment
     App\Interfaces\IRepository: '@UsersTestRepository'
+    # for development environment
 
     UsersRepository:
         class: App\Repository\UsersRepository
@@ -35,5 +38,7 @@ services:
     CreateUserService:
         class: App\CreateUser
 
+    UserIdValidatorService:
+        class: App\UserIdValidator
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
