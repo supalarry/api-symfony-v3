@@ -4,5 +4,7 @@ namespace App\Interfaces;
 
 interface IRepository
 {
-    public function save(IEntity $entity);
+    public function create(array $characteristics): IEntity;
+    public function getById(int $id);
+    public function getAll(): array;
 }

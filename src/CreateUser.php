@@ -26,7 +26,6 @@ class CreateUser implements IHandle
 
     public function handle(): IReturn
     {
-        /* get json data as an array AND validate it */
         try {
             /* get json data */
             $converter = new JsonToArray($this->request);
@@ -35,11 +34,10 @@ class CreateUser implements IHandle
             $validateUser = new ValidateUser($dataArray, new AlphabeticStringValidator(), new ErrorsLoader());
             $validateUser->validateKeys();
             /* create user */
-            $newUser = new Users();
-            $newUser->setName($dataArray[Users::USER_NAME]);
-            $newUser->setSurname($dataArray[Users::USER_SURNAME]);
-            $newUser->setBalance(10000);
-            $this->repository->save($newUser);
+            $newUser = $this->repository->create([
+                Users::USER_NAME => $dataArray[Users::USER_NAME],
+                Users::USER_SURNAME => $dataArray[Users::USER_SURNAME]
+            ]);
         } catch (JsonToArrayException $e) {
             throw new CreateUserServiceException($e->getErrors());
         } catch (ValidateUserException $e) {
@@ -47,7 +45,7 @@ class CreateUser implements IHandle
         } catch (ORMException $e) {
             throw new CreateUserServiceException(array($e));
         }
-        /* return created user object for response body */
+        /* return created user object for JSON response body */
         return new ReturnUser(
             $newUser->getId(),
             $newUser->getName(),

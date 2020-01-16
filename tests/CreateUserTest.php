@@ -30,7 +30,6 @@ class CreateUserTest extends WebTestCase
         $this->assertArrayHasKey(Users::USER_SURNAME, $responseBody);
         $this->assertArrayHasKey(Users::USER_BALANCE, $responseBody);
         /* test key values */
-        $this->assertEquals($responseBody[Users::USER_ID], 1);
         $this->assertEquals($responseBody[Users::USER_NAME], "John");
         $this->assertEquals($responseBody[Users::USER_SURNAME], "Doe");
         $this->assertEquals($responseBody[Users::USER_BALANCE], 10000);
@@ -58,7 +57,49 @@ class CreateUserTest extends WebTestCase
 
         $responseBody = json_decode($client->getResponse()->getContent(), TRUE);
         $this->assertArrayHasKey('json', $responseBody);
-        $this->assertEquals($responseBody['json'], "Invalid JSON body");
+        $this->assertEquals($responseBody['json'], 'Syntax error');
+    }
+
+    public function test_empty_body()
+    {
+        $client = static::createClient();
+
+        $client->request(
+            'POST',
+            '/users',
+            array(),
+            array(),
+            array('CONTENT_TYPE' => 'application/json'),
+            ''
+        );
+
+        $this->assertEquals(Response::HTTP_BAD_REQUEST, $client->getResponse()->getStatusCode());
+
+        $responseBody = json_decode($client->getResponse()->getContent(), TRUE);
+        $this->assertArrayHasKey('json', $responseBody);
+        $this->assertEquals($responseBody['json'], 'Syntax error');
+    }
+
+    public function test_empty_json_object()
+    {
+        $client = static::createClient();
+
+        $client->request(
+            'POST',
+            '/users',
+            array(),
+            array(),
+            array('CONTENT_TYPE' => 'application/json'),
+            '{}'
+        );
+
+        $this->assertEquals(Response::HTTP_BAD_REQUEST, $client->getResponse()->getStatusCode());
+
+        $responseBody = json_decode($client->getResponse()->getContent(), TRUE);
+        $this->assertArrayHasKey(Users::USER_NAME, $responseBody);
+        $this->assertEquals($responseBody[Users::USER_NAME][0], "name key not set");
+        $this->assertArrayHasKey(Users::USER_SURNAME, $responseBody);
+        $this->assertEquals($responseBody[Users::USER_SURNAME][0], "surname key not set");
     }
 
     public function test_missing_name_key()

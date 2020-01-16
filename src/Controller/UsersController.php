@@ -3,11 +3,8 @@
 namespace App\Controller;
 
 use App\CreateUser;
-use App\Entity\Users;
 use App\Exception\CreateUserServiceException;
-use App\GetUsers;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use App\Interfaces\IRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,24 +29,27 @@ class UsersController extends AbstractController
 
     /**
      * @Route("/users/{id}", name="getUser", methods={"GET"})
-     * @Entity("user", expr="UsersRepository.find(id)")
-     * @param Users $user
-     * @return JsonResponse
+     * @param IRepository $repository
+     * @param string $id
+     * @return JsonResponse|Response
      */
-    public function getUserById(Users $user): JsonResponse
+
+    public function getUserById(IRepository $repository, string $id)
     {
-        return $this->json($user, Response::HTTP_OK);
+        $user = $repository->getById($id);
+        if ($user)
+            return $this->json($user, Response::HTTP_OK);
+        return new Response(null,Response::HTTP_NOT_FOUND);
     }
 
     /**
-     * @Route("/users", name="getUser", methods={"GET"})
-     * @param GetUsers $getUsersService
+     * @Route("/users", name="getUsers", methods={"GET"})
+     * @param IRepository $repository
      * @return JsonResponse
      */
-    public function getUsers(GetUsers $getUsersService): JsonResponse
+    public function getUsers(IRepository $repository): JsonResponse
     {
-        //$getUsersService = $this->get('GetUserService');
-        $users = $getUsersService->getUsers();
+        $users =  $repository->getAll();
         return $this->json($users, Response::HTTP_OK);
     }
 }

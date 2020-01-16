@@ -2,12 +2,19 @@
 
 namespace App\Tests;
 
-use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Response;
 
-class GetUsersTest extends TestCase
+class GetUsersTest extends WebTestCase
 {
-    public function testSomething()
+    public function test_users_no_slash()
     {
-        $this->assertTrue(true);
+        $client = static::createClient();
+
+        $client->request('GET', '/users');
+
+        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+
+        $responseBody = json_decode($client->getResponse()->getContent(), TRUE);
     }
 }

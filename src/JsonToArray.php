@@ -23,7 +23,7 @@ class JsonToArray
         if (json_last_error() === JSON_ERROR_NONE) {
             return ($dataDecoded);
         }
-        $this->errors['json'] = 'Invalid JSON body';
+        $this->errors['json'] = json_last_error_msg();
         throw new JsonToArrayException($this->errors);
     }
 }

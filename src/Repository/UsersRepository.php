@@ -25,37 +25,26 @@ class UsersRepository extends ServiceEntityRepository implements IRepository
         $this->em = $em;
     }
 
-    public function save(IEntity $newUser): void
+    public function create(array $characteristics): IEntity
     {
+        $newUser = new Users();
+        $newUser->setName($characteristics[Users::USER_NAME]);
+        $newUser->setSurname($characteristics[Users::USER_SURNAME]);
+        $newUser->setBalance(10000);
         $this->em->persist($newUser);
         $this->em->flush();
+        return $newUser;
     }
-    // /**
-    //  * @return Users[] Returns an array of Users objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Users
+    public function getById(int $id)
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $this->findOneBy([
+            "id" => $id
+        ]);
     }
-    */
+
+    public function getAll(): array
+    {
+        return $this->findAll();
+    }
 }
