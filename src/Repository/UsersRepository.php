@@ -3,10 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Users;
+use App\Interfaces\IUsersRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Interfaces\IRepository;
 use App\Interfaces\IEntity;
 
 /**
@@ -15,7 +15,7 @@ use App\Interfaces\IEntity;
  * @method Users[]    findAll()
  * @method Users[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UsersRepository extends ServiceEntityRepository implements IRepository
+class UsersRepository extends ServiceEntityRepository implements IUsersRepository
 {
     private $em;
 

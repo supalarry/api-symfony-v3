@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\CreateUser;
 use App\Exception\CreateUserServiceException;
-use App\Interfaces\IRepository;
+use App\Interfaces\IUsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,12 +29,12 @@ class UsersController extends AbstractController
 
     /**
      * @Route("/users/{id}", name="getUser", methods={"GET"})
-     * @param IRepository $repository
+     * @param IUsersRepository $repository
      * @param string $id
      * @return JsonResponse|Response
      */
 
-    public function getUserById(IRepository $repository, string $id)
+    public function getUserById(IUsersRepository $repository, string $id)
     {
         $user = $repository->getById($id);
         if ($user)
@@ -44,10 +44,10 @@ class UsersController extends AbstractController
 
     /**
      * @Route("/users", name="getUsers", methods={"GET"})
-     * @param IRepository $repository
+     * @param IUsersRepository $repository
      * @return JsonResponse
      */
-    public function getUsers(IRepository $repository): JsonResponse
+    public function getUsers(IUsersRepository $repository): JsonResponse
     {
         $users =  $repository->getAll();
         return $this->json($users, Response::HTTP_OK);

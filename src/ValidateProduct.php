@@ -17,11 +17,10 @@ class ValidateProduct
     private $titleValidator;
     private $errorsLoader;
 
-    public function __construct(array $jsonBody, UserIdValidator $idV, ProductTypeValidator $productTypeV, SkuValidator $skuV, TitleValidator $titleV, ErrorsLoader $errorsLoader)
+    public function __construct(array $jsonBody, ProductTypeValidator $productTypeV, TitleValidator $titleV, SkuValidator $skuV, ErrorsLoader $errorsLoader)
     {
         $this->jsonBody = $jsonBody;
         $this->errors = [];
-        $this->userIdValidator = $idV;
         $this->productTypeValidator = $productTypeV;
         $this->skuValidator = $skuV;
         $this->titleValidator = $titleV;

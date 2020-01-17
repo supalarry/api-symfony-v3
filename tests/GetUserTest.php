@@ -29,10 +29,10 @@ class GetUserTest extends WebTestCase
         $this->assertEquals($responseBody[Users::USER_SURNAME], "Doe");
         $this->assertEquals($responseBody[Users::USER_BALANCE], 10000);
         /* test value types */
-        $this->assertIsInt($responseBody['id']);
-        $this->assertIsString($responseBody['name']);
-        $this->assertIsString($responseBody['surname']);
-        $this->assertIsInt($responseBody['balance']);
+        $this->assertIsInt($responseBody[Users::USER_ID]);
+        $this->assertIsString($responseBody[Users::USER_NAME]);
+        $this->assertIsString($responseBody[Users::USER_SURNAME]);
+        $this->assertIsInt($responseBody[Users::USER_BALANCE]);
     }
 
     public function test_invalid_id()

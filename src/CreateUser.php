@@ -4,8 +4,8 @@
 namespace App;
 
 use App\Interfaces\IHandle;
-use App\Interfaces\IRepository;
 use App\Interfaces\IReturn;
+use App\Interfaces\IUsersRepository;
 use Doctrine\ORM\ORMException;
 use App\Exception\JsonToArrayException;
 use App\Exception\ValidateUserException;
@@ -18,7 +18,7 @@ class CreateUser implements IHandle
     private $request;
     private $repository;
 
-    public function __construct(RequestStack $requestStack, IRepository $repository)
+    public function __construct(RequestStack $requestStack, IUsersRepository $repository)
     {
         $this->request = $requestStack->getCurrentRequest();
         $this->repository = $repository;

@@ -4,13 +4,13 @@
 namespace App;
 
 
-use App\Interfaces\IRepository;
+use App\Interfaces\IProductsRepository;
 
 class SkuValidator
 {
     private $repository;
 
-    public function __construct(IRepository $repository)
+    public function __construct(IProductsRepository $repository)
     {
         $this->repository = $repository;
     }

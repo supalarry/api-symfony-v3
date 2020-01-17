@@ -3,13 +3,13 @@
 
 namespace App;
 
-use App\Interfaces\IRepository;
+use App\Interfaces\IUsersRepository;
 
 class UserIdValidator
 {
     private $repository;
 
-    public function __construct(IRepository $repository)
+    public function __construct(IUsersRepository $repository)
     {
         $this->repository = $repository;
     }

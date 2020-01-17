@@ -7,6 +7,7 @@ use App\ErrorsLoader;
 use App\Exception\ValidateProductException;
 use App\ProductTypeValidator;
 use App\Repository\ProductsTestRepository;
+use App\Repository\UsersTestRepository;
 use App\SkuValidator;
 use App\TitleValidator;
 use App\UserIdValidator;
@@ -26,9 +27,10 @@ class ValidateProductTest extends TestCase
 
         $errors = [];
 
-        $repository = new ProductsTestRepository();
+        $userIdValidator = new UserIdValidator(new UsersTestRepository());
+        $repository = new ProductsTestRepository($userIdValidator);
 
-        $validator = new ValidateProduct($json_body, new UserIdValidator($repository), new ProductTypeValidator(), new SkuValidator($repository), new TitleValidator(), new ErrorsLoader());
+        $validator = new ValidateProduct($json_body, new ProductTypeValidator(), new TitleValidator(), new SkuValidator($repository), new ErrorsLoader());
 
         $validator->validateKeys();
 
@@ -48,9 +50,10 @@ class ValidateProductTest extends TestCase
 
         $errors = [];
 
-        $repository = new ProductsTestRepository();
+        $userIdValidator = new UserIdValidator(new UsersTestRepository());
+        $repository = new ProductsTestRepository($userIdValidator);
 
-        $validator = new ValidateProduct($json_body, new UserIdValidator($repository), new ProductTypeValidator(), new SkuValidator($repository), new TitleValidator(), new ErrorsLoader());
+        $validator = new ValidateProduct($json_body, new ProductTypeValidator(), new TitleValidator(), new SkuValidator($repository), new ErrorsLoader());
 
         try {
             $validator->validateKeys();
@@ -72,9 +75,10 @@ class ValidateProductTest extends TestCase
 
         $errors = [];
 
-        $repository = new ProductsTestRepository();
+        $userIdValidator = new UserIdValidator(new UsersTestRepository());
+        $repository = new ProductsTestRepository($userIdValidator);
 
-        $validator = new ValidateProduct($json_body, new UserIdValidator($repository), new ProductTypeValidator(), new SkuValidator($repository), new TitleValidator(), new ErrorsLoader());
+        $validator = new ValidateProduct($json_body, new ProductTypeValidator(), new TitleValidator(), new SkuValidator($repository), new ErrorsLoader());
 
         try {
             $validator->validateKeys();
@@ -96,9 +100,10 @@ class ValidateProductTest extends TestCase
 
         $errors = [];
 
-        $repository = new ProductsTestRepository();
+        $userIdValidator = new UserIdValidator(new UsersTestRepository());
+        $repository = new ProductsTestRepository($userIdValidator);
 
-        $validator = new ValidateProduct($json_body, new UserIdValidator($repository), new ProductTypeValidator(), new SkuValidator($repository), new TitleValidator(), new ErrorsLoader());
+        $validator = new ValidateProduct($json_body, new ProductTypeValidator(), new TitleValidator(), new SkuValidator($repository), new ErrorsLoader());
 
         try {
             $validator->validateKeys();
@@ -120,9 +125,10 @@ class ValidateProductTest extends TestCase
 
         $errors = [];
 
-        $repository = new ProductsTestRepository();
+        $userIdValidator = new UserIdValidator(new UsersTestRepository());
+        $repository = new ProductsTestRepository($userIdValidator);
 
-        $validator = new ValidateProduct($json_body, new UserIdValidator($repository), new ProductTypeValidator(), new SkuValidator($repository), new TitleValidator(), new ErrorsLoader());
+        $validator = new ValidateProduct($json_body, new ProductTypeValidator(), new TitleValidator(), new SkuValidator($repository), new ErrorsLoader());
 
         try {
             $validator->validateKeys();
@@ -144,9 +150,10 @@ class ValidateProductTest extends TestCase
 
         $errors = [];
 
-        $repository = new ProductsTestRepository();
+        $userIdValidator = new UserIdValidator(new UsersTestRepository());
+        $repository = new ProductsTestRepository($userIdValidator);
 
-        $validator = new ValidateProduct($json_body, new UserIdValidator($repository), new ProductTypeValidator(), new SkuValidator($repository), new TitleValidator(), new ErrorsLoader());
+        $validator = new ValidateProduct($json_body, new ProductTypeValidator(), new TitleValidator(), new SkuValidator($repository), new ErrorsLoader());
 
         try {
             $validator->validateKeys();
@@ -169,9 +176,10 @@ class ValidateProductTest extends TestCase
 
         $errors = [];
 
-        $repository = new ProductsTestRepository();
+        $userIdValidator = new UserIdValidator(new UsersTestRepository());
+        $repository = new ProductsTestRepository($userIdValidator);
 
-        $validator = new ValidateProduct($json_body, new UserIdValidator($repository), new ProductTypeValidator(), new SkuValidator($repository), new TitleValidator(), new ErrorsLoader());
+        $validator = new ValidateProduct($json_body, new ProductTypeValidator(), new TitleValidator(), new SkuValidator($repository), new ErrorsLoader());
 
         try {
             $validator->validateKeys();
@@ -193,9 +201,10 @@ class ValidateProductTest extends TestCase
 
         $errors = [];
 
-        $repository = new ProductsTestRepository();
+        $userIdValidator = new UserIdValidator(new UsersTestRepository());
+        $repository = new ProductsTestRepository($userIdValidator);
 
-        $validator = new ValidateProduct($json_body, new UserIdValidator($repository), new ProductTypeValidator(), new SkuValidator($repository), new TitleValidator(), new ErrorsLoader());
+        $validator = new ValidateProduct($json_body, new ProductTypeValidator(), new TitleValidator(), new SkuValidator($repository), new ErrorsLoader());
 
         try {
             $validator->validateKeys();
@@ -217,9 +226,10 @@ class ValidateProductTest extends TestCase
 
         $errors = [];
 
-        $repository = new ProductsTestRepository();
+        $userIdValidator = new UserIdValidator(new UsersTestRepository());
+        $repository = new ProductsTestRepository($userIdValidator);
 
-        $validator = new ValidateProduct($json_body, new UserIdValidator($repository), new ProductTypeValidator(), new SkuValidator($repository), new TitleValidator(), new ErrorsLoader());
+        $validator = new ValidateProduct($json_body, new ProductTypeValidator(), new TitleValidator(), new SkuValidator($repository), new ErrorsLoader());
 
         try {
             $validator->validateKeys();
@@ -238,9 +248,10 @@ class ValidateProductTest extends TestCase
 
         $errors = [];
 
-        $repository = new ProductsTestRepository();
+        $userIdValidator = new UserIdValidator(new UsersTestRepository());
+        $repository = new ProductsTestRepository($userIdValidator);
 
-        $validator = new ValidateProduct($json_body, new UserIdValidator($repository), new ProductTypeValidator(), new SkuValidator($repository), new TitleValidator(), new ErrorsLoader());
+        $validator = new ValidateProduct($json_body, new ProductTypeValidator(), new TitleValidator(), new SkuValidator($repository), new ErrorsLoader());
 
         try {
             $validator->validateKeys();
@@ -268,9 +279,10 @@ class ValidateProductTest extends TestCase
 
         $errors = [];
 
-        $repository = new ProductsTestRepository();
+        $userIdValidator = new UserIdValidator(new UsersTestRepository());
+        $repository = new ProductsTestRepository($userIdValidator);
 
-        $validator = new ValidateProduct($json_body, new UserIdValidator($repository), new ProductTypeValidator(), new SkuValidator($repository), new TitleValidator(), new ErrorsLoader());
+        $validator = new ValidateProduct($json_body, new ProductTypeValidator(), new TitleValidator(), new SkuValidator($repository), new ErrorsLoader());
 
         try {
             $validator->validateKeys();

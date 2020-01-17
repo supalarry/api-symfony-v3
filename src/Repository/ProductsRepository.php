@@ -4,7 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Products;
 use App\Interfaces\IEntity;
+use App\Interfaces\IProductsRepository;
 use App\Interfaces\IRepository;
+use App\UserIdValidator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,14 +17,16 @@ use Doctrine\ORM\EntityManagerInterface;
  * @method Products[]    findAll()
  * @method Products[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ProductsRepository extends ServiceEntityRepository implements IRepository
+class ProductsRepository extends ServiceEntityRepository implements IProductsRepository
 {
     private $em;
+    private $userIdValidator;
 
-    public function __construct(ManagerRegistry $registry, EntityManagerInterface $em)
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $em, UserIdValidator $userIdValidator)
     {
         parent::__construct($registry, Products::class);
         $this->em = $em;
+        $this->userIdValidator = $userIdValidator;
     }
 
     public function create(array $characteristics): IEntity
@@ -38,15 +42,26 @@ class ProductsRepository extends ServiceEntityRepository implements IRepository
         return $newProduct;
     }
 
-    public function getById(int $id)
+    public function getById(int $id_user, int $id)
     {
-        return $this->findOneBy([
-            "id" => $id
-        ]);
+        if ($this->userIdValidator->validate($id_user))
+        {
+            return $this->findOneBy([
+                "id" => $id,
+                "ownerId" => $id_user
+            ]);
+        }
+        return (null);
     }
 
-    public function getAll(): array
+    public function getAll(int $id_user)
     {
-        return $this->findAll();
+        if ($this->userIdValidator->validate($id_user))
+        {
+            return $this->findBy([
+                "ownerId" => $id_user
+            ]);
+        }
+        return (null);
     }
 }

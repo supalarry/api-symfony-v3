@@ -7,17 +7,21 @@ namespace App\Repository;
 use App\Entity\Products;
 use App\Entity\Users;
 use App\Interfaces\IEntity;
-use App\Interfaces\IRepository;
+use App\Interfaces\IProductsRepository;
+use App\UserIdValidator;
 
-class ProductsTestRepository implements IRepository
+class ProductsTestRepository implements IProductsRepository
 {
     private $db;
     private $id;
+    private $userIdValidator;
 
-    public function __construct()
+    public function __construct(UserIdValidator $userIdValidator)
     {
         $this->db = [];
         $this->id = 1;
+        $this->userIdValidator = $userIdValidator;
+        /* Upon creation of test database, insert sample product for testing */
         $this->create([
             Products::PRODUCT_OWNER_ID => 1,
             Products::PRODUCT_TYPE => "t-shirt",
@@ -41,22 +45,57 @@ class ProductsTestRepository implements IRepository
         return $newProduct;
     }
 
-    public function getById(int $id)
+    public function getById(int $id_user, int $id)
     {
-        if (array_key_exists($id, $this->db))
-            return $this->db[$id];
+        if ($this->userIdValidator->validate($id_user))
+        {
+            if (array_key_exists($id, $this->db) && $this->db[$id]->getOwnerId() === $id_user)
+            {
+                return $this->db[$id];
+            }
+        }
         return null;
     }
 
-    public function getAll(): array
+    public function getAll(int $id_user)
     {
-        return $this->db;
+        if ($this->userIdValidator->validate($id_user))
+        {
+            $products = [];
+            foreach ($this->db as $product)
+            {
+                if ($product->getOwnerId() === $id_user)
+                    $products[] = $product;
+            }
+            return $products;
+        }
+        return (null);
     }
 
     public function findOneBy(array $characteristics)
     {
-        if ($characteristics["sku"] === "100-abc-999")
-            return (true);
+        $characteristicsCount = count ($characteristics);
+        $characteristicsFound = 0;
+        foreach ($this->db as $product)
+        {
+            foreach ($characteristics as $key => $value)
+            {
+                if ($key === Products::PRODUCT_ID && $product->getId() === $value)
+                    $characteristicsFound++;
+                elseif($key === Products::PRODUCT_OWNER_ID && $product->getOwnerId() === $value)
+                    $characteristicsFound++;
+                elseif($key === Products::PRODUCT_TYPE && $product->getType() === $value)
+                    $characteristicsFound++;
+                elseif($key === Products::PRODUCT_TITLE && $product->getTitle() === $value)
+                    $characteristicsFound++;
+                elseif($key === Products::PRODUCT_SKU && $product->getSku() === $value)
+                    $characteristicsFound++;
+                elseif($key === Products::PRODUCT_COST && $product->getCost() === $value)
+                    $characteristicsFound++;
+            }
+            if ($characteristicsFound === $characteristicsCount)
+                return (true);
+        }
         return (null);
     }
 }

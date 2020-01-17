@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Products implements IEntity
 {
     const PRODUCT_ID = "id";
-    const PRODUCT_OWNER_ID = "owner_id";
+    const PRODUCT_OWNER_ID = "ownerId";
     const PRODUCT_TYPE = "type";
     const PRODUCT_TITLE = "title";
     const PRODUCT_SKU = "sku";

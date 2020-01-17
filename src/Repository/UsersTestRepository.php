@@ -4,10 +4,10 @@
 namespace App\Repository;
 
 use App\Entity\Users;
-use App\Interfaces\IRepository;
 use App\Interfaces\IEntity;
+use App\Interfaces\IUsersRepository;
 
-class UsersTestRepository implements IRepository
+class UsersTestRepository implements IUsersRepository
 {
     private $db;
     private $id;
@@ -43,6 +43,6 @@ class UsersTestRepository implements IRepository
 
     public function getAll(): array
     {
-        return $this->db;
+        return array_values($this->db);
     }
 }

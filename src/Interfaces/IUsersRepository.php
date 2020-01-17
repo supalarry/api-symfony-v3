@@ -2,9 +2,7 @@
 
 namespace App\Interfaces;
 
-interface IRepository
+interface IUsersRepository
 {
     public function create(array $characteristics): IEntity;
-    public function getById(int $id);
-    public function getAll(): array;
 }

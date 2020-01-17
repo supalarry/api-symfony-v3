@@ -23,20 +23,33 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
-    # The one that is not commented out is used as a repository for CreateUserService
-    #App\Interfaces\IRepository: '@UsersRepository'
-    # for production environment
-    App\Interfaces\IRepository: '@UsersTestRepository'
-    # for development environment
+    # users and products repositories for deployment
+    #App\Interfaces\IUsersRepository: '@UsersRepository'
+    #App\Interfaces\IProductsRepository: '@ProductsRepository'
 
+    # users and products repositories for testing
+    App\Interfaces\IUsersRepository: '@UsersTestRepository'
+    App\Interfaces\IProductsRepository: '@ProductsTestRepository'
+
+    # -------- repositories --------
     UsersRepository:
         class: App\Repository\UsersRepository
+
+    ProductsRepository:
+        class: App\Repository\ProductsRepository
 
     UsersTestRepository:
         class: App\Repository\UsersTestRepository
 
+    ProductsTestRepository:
+        class: App\Repository\ProductsTestRepository
+    # ------------------------------
+
     CreateUserService:
         class: App\CreateUser
+
+    CreateProductService:
+        class: App\CreateProduct
 
     UserIdValidatorService:
         class: App\UserIdValidator
