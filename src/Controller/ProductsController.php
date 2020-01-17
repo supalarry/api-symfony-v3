@@ -16,12 +16,13 @@ class ProductsController extends AbstractController
     /**
      * @Route("/users/{id_user}/products", name="createProduct", methods={"POST"})
      * @param CreateProduct $createProductService
+     * @param int $id_user
      * @return JsonResponse
      */
-    public function createProduct(CreateProduct $createProductService)
+    public function createProduct(CreateProduct $createProductService, int $id_user)
     {
         try {
-            $createdProduct = $createProductService->handle();
+            $createdProduct = $createProductService->handle($id_user);
             return $this->json($createdProduct, Response::HTTP_CREATED);
         } catch (CreateProductServiceException $e){
             return $this->json($e->getErrors(), Response::HTTP_BAD_REQUEST);

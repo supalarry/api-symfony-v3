@@ -13,7 +13,7 @@ use App\Exception\CreateUserServiceException;
 use App\Entity\Users;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class CreateUser implements IHandle
+class CreateUser
 {
     private $request;
     private $repository;

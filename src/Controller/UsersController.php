@@ -30,11 +30,11 @@ class UsersController extends AbstractController
     /**
      * @Route("/users/{id}", name="getUser", methods={"GET"})
      * @param IUsersRepository $repository
-     * @param string $id
+     * @param int $id
      * @return JsonResponse|Response
      */
 
-    public function getUserById(IUsersRepository $repository, string $id)
+    public function getUserById(IUsersRepository $repository, int $id)
     {
         $user = $repository->getById($id);
         if ($user)

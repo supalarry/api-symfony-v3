@@ -14,7 +14,7 @@ use App\Interfaces\IReturn;
 use Doctrine\ORM\ORMException;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class CreateProduct implements IHandle
+class CreateProduct
 {
     private $request;
     private $repository;
@@ -27,12 +27,9 @@ class CreateProduct implements IHandle
         $this->userIdValidator = $userIdValidator;
     }
 
-    public function handle(): IReturn
+    public function handle(int $id_user): IReturn
     {
-        $path = $this->request->getRequestUri();
-        $userId = (int) explode("/", $path)[2];
-
-        if (!$this->userIdValidator->validate($userId))
+        if (!$this->userIdValidator->validate($id_user))
             throw new CreateProductServiceException(["id" => "invalid user"]);
 
         try {
@@ -44,7 +41,7 @@ class CreateProduct implements IHandle
             $validateProduct->validateKeys();
             /* create user */
             $newProduct = $this->repository->create([
-                Products::PRODUCT_OWNER_ID => $userId,
+                Products::PRODUCT_OWNER_ID => $id_user,
                 Products::PRODUCT_TYPE => $dataArray[Products::PRODUCT_TYPE],
                 Products::PRODUCT_TITLE => $dataArray[Products::PRODUCT_TITLE],
                 Products::PRODUCT_SKU => $dataArray[Products::PRODUCT_SKU],
