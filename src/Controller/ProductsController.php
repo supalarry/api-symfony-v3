@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\CreateProduct;
 use App\Exception\CreateProductServiceException;
 use App\Interfaces\IProductsRepository;
-use PHPUnit\Util\Json;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;

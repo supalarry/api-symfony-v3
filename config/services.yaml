@@ -24,12 +24,12 @@ services:
         tags: ['controller.service_arguments']
 
     # users and products repositories for deployment
-    #App\Interfaces\IUsersRepository: '@UsersRepository'
-    #App\Interfaces\IProductsRepository: '@ProductsRepository'
+    App\Interfaces\IUsersRepository: '@UsersRepository'
+    App\Interfaces\IProductsRepository: '@ProductsRepository'
 
     # users and products repositories for testing
-    App\Interfaces\IUsersRepository: '@UsersTestRepository'
-    App\Interfaces\IProductsRepository: '@ProductsTestRepository'
+    # App\Interfaces\IUsersRepository: '@UsersTestRepository'
+    # App\Interfaces\IProductsRepository: '@ProductsTestRepository'
 
     # -------- repositories --------
     UsersRepository:
@@ -53,5 +53,23 @@ services:
 
     UserIdValidatorService:
         class: App\UserIdValidator
+
+    DomesticAddressValidatorService:
+        class: App\DomesticAddressValidator
+
+    StreetValidatorService:
+        class: App\StreetValidator
+
+    StateValidatorService:
+        class: App\StateValidator
+
+    CountryValidatorService:
+        class: App\CountryValidator
+
+    ZipCodeValidatorService:
+        class: App\ZipCodeValidator
+
+    PhoneValidatorService:
+        class: App\PhoneValidator
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
