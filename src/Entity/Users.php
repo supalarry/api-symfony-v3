@@ -85,4 +85,11 @@ class Users implements IEntity
 
         return $this;
     }
+
+    public function subtractBalance(int $amount): self
+    {
+        $this->balance -= $amount;
+
+        return $this;
+    }
 }

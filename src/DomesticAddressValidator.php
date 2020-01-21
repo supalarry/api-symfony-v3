@@ -29,7 +29,7 @@ class DomesticAddressValidator
         $this->errorsLoader = $errors;
     }
 
-    public function validate(array $address)
+    public function validate(array $address): bool
     {
         if (!isset($address['name']))
             $this->errorsLoader->load('name', 'name key not set', $this->errors);
@@ -65,7 +65,9 @@ class DomesticAddressValidator
         }
 
         if (!empty($this->errors))
-            throw new AddressException($this->errors);
+            return (false);
+
+        return (true);
     }
 
     public function getErrors(): array

@@ -6,7 +6,6 @@ use App\AlphabeticStringValidator;
 use App\CountryValidator;
 use App\DomesticAddressValidator;
 use App\ErrorsLoader;
-use App\Exception\ValidateDomesticAddressException;
 use App\PhoneValidator;
 use App\StateValidator;
 use App\StreetValidator;
@@ -29,7 +28,9 @@ class DomesticAddressValidatorTest extends TestCase
 
         $domesticAddressValidator = new DomesticAddressValidator(new AlphabeticStringValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
 
-        $domesticAddressValidator->validate($ship_to_address);
+        $valid = $domesticAddressValidator->validate($ship_to_address);
+
+        $this->assertTrue($valid);
 
         $errors = $domesticAddressValidator->getErrors();
 
@@ -50,14 +51,15 @@ class DomesticAddressValidatorTest extends TestCase
 
         $domesticAddressValidator = new DomesticAddressValidator(new AlphabeticStringValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
 
-        try {
-            $domesticAddressValidator->validate($ship_to_address);
-        } catch (ValidateDomesticAddressException $e)
-        {
-            $errors = $e->getErrors();
-            $this->assertArrayHasKey("name", $errors);
-            $this->assertEquals($errors["name"][0], "name key not set");
-        }
+        $valid = $domesticAddressValidator->validate($ship_to_address);
+
+        $this->assertFalse($valid);
+
+        $errors = $domesticAddressValidator->getErrors();
+
+        $this->assertIsArray($errors);
+        $this->assertArrayHasKey("name", $errors);
+        $this->assertEquals($errors["name"][0], "name key not set");
     }
 
     public function test_surname_not_set()
@@ -74,14 +76,15 @@ class DomesticAddressValidatorTest extends TestCase
 
         $domesticAddressValidator = new DomesticAddressValidator(new AlphabeticStringValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
 
-        try {
-            $domesticAddressValidator->validate($ship_to_address);
-        } catch (ValidateDomesticAddressException $e)
-        {
-            $errors = $e->getErrors();
-            $this->assertArrayHasKey("surname", $errors);
-            $this->assertEquals($errors["surname"][0], "surname key not set");
-        }
+        $valid = $domesticAddressValidator->validate($ship_to_address);
+
+        $this->assertFalse($valid);
+
+        $errors = $domesticAddressValidator->getErrors();
+
+        $this->assertIsArray($errors);
+        $this->assertArrayHasKey("surname", $errors);
+        $this->assertEquals($errors["surname"][0], "surname key not set");
     }
 
     public function test_street_not_set()
@@ -98,14 +101,15 @@ class DomesticAddressValidatorTest extends TestCase
 
         $domesticAddressValidator = new DomesticAddressValidator(new AlphabeticStringValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
 
-        try {
-            $domesticAddressValidator->validate($ship_to_address);
-        } catch (ValidateDomesticAddressException $e)
-        {
-            $errors = $e->getErrors();
-            $this->assertArrayHasKey("street", $errors);
-            $this->assertEquals($errors["street"][0], "street key not set");
-        }
+        $valid = $domesticAddressValidator->validate($ship_to_address);
+
+        $this->assertFalse($valid);
+
+        $errors = $domesticAddressValidator->getErrors();
+
+        $this->assertIsArray($errors);
+        $this->assertArrayHasKey("street", $errors);
+        $this->assertEquals($errors["street"][0], "street key not set");
     }
 
     public function test_state_not_set()
@@ -122,14 +126,15 @@ class DomesticAddressValidatorTest extends TestCase
 
         $domesticAddressValidator = new DomesticAddressValidator(new AlphabeticStringValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
 
-        try {
-            $domesticAddressValidator->validate($ship_to_address);
-        } catch (ValidateDomesticAddressException $e)
-        {
-            $errors = $e->getErrors();
-            $this->assertArrayHasKey("state", $errors);
-            $this->assertEquals($errors["state"][0], "state key not set");
-        }
+        $valid = $domesticAddressValidator->validate($ship_to_address);
+
+        $this->assertFalse($valid);
+
+        $errors = $domesticAddressValidator->getErrors();
+
+        $this->assertIsArray($errors);
+        $this->assertArrayHasKey("state", $errors);
+        $this->assertEquals($errors["state"][0], "state key not set");
     }
 
     public function test_zip_not_set()
@@ -146,14 +151,15 @@ class DomesticAddressValidatorTest extends TestCase
 
         $domesticAddressValidator = new DomesticAddressValidator(new AlphabeticStringValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
 
-        try {
-            $domesticAddressValidator->validate($ship_to_address);
-        } catch (ValidateDomesticAddressException $e)
-        {
-            $errors = $e->getErrors();
-            $this->assertArrayHasKey("zip", $errors);
-            $this->assertEquals($errors["zip"][0], "zip code key not set");
-        }
+        $valid = $domesticAddressValidator->validate($ship_to_address);
+
+        $this->assertFalse($valid);
+
+        $errors = $domesticAddressValidator->getErrors();
+
+        $this->assertIsArray($errors);
+        $this->assertArrayHasKey("zip", $errors);
+        $this->assertEquals($errors["zip"][0], "zip code key not set");
     }
 
     public function test_country_not_set()
@@ -170,14 +176,15 @@ class DomesticAddressValidatorTest extends TestCase
 
         $domesticAddressValidator = new DomesticAddressValidator(new AlphabeticStringValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
 
-        try {
-            $domesticAddressValidator->validate($ship_to_address);
-        } catch (ValidateDomesticAddressException $e)
-        {
-            $errors = $e->getErrors();
-            $this->assertArrayHasKey("country", $errors);
-            $this->assertEquals($errors["country"][0], "country key not set");
-        }
+        $valid = $domesticAddressValidator->validate($ship_to_address);
+
+        $this->assertFalse($valid);
+
+        $errors = $domesticAddressValidator->getErrors();
+
+        $this->assertIsArray($errors);
+        $this->assertArrayHasKey("country", $errors);
+        $this->assertEquals($errors["country"][0], "country key not set");
     }
 
     public function test_phone_not_set()
@@ -194,13 +201,14 @@ class DomesticAddressValidatorTest extends TestCase
 
         $domesticAddressValidator = new DomesticAddressValidator(new AlphabeticStringValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
 
-        try {
-            $domesticAddressValidator->validate($ship_to_address);
-        } catch (ValidateDomesticAddressException $e)
-        {
-            $errors = $e->getErrors();
-            $this->assertArrayHasKey("phone", $errors);
-            $this->assertEquals($errors["phone"][0], "phone key not set");
-        }
+        $valid = $domesticAddressValidator->validate($ship_to_address);
+
+        $this->assertFalse($valid);
+
+        $errors = $domesticAddressValidator->getErrors();
+
+        $this->assertIsArray($errors);
+        $this->assertArrayHasKey("phone", $errors);
+        $this->assertEquals($errors["phone"][0], "phone key not set");
     }
 }

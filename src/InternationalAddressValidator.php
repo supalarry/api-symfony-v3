@@ -25,7 +25,7 @@ class InternationalAddressValidator
         $this->errorsLoader = $errors;
     }
 
-    public function validate(array $address)
+    public function validate(array $address): bool
     {
         if (!isset($address['name']))
             $this->errorsLoader->load('name', 'name key not set', $this->errors);
@@ -46,16 +46,16 @@ class InternationalAddressValidator
                 $this->errorsLoader->load("surname", "surname can only consist of letters", $this->errors);
             elseif ($key === "street" && !$this->streetValidator->validate($value))
                 $this->errorsLoader->load("street", "street can only consist of letters, digits, dash (-) and whitespaces", $this->errors);
-                $this->errorsLoader->load("zip", "invalid zip code", $this->errors);
             elseif ($key === "country" && !$this->countryValidator->validateAlphabetic($value))
                 $this->errorsLoader->load("country", "invalid country", $this->errors);
             elseif ($key === "phone" && !$this->phoneValidator->validate($value))
                 $this->errorsLoader->load("phone", "invalid phone number", $this->errors);
         }
 
-        // this could return 0 if there are errors
         if (!empty($this->errors))
-            throw new AddressException($this->errors);
+            return (false);
+
+        return (true);
     }
 
     public function getErrors(): array

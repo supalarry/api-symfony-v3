@@ -21,11 +21,8 @@ class ShipmentTypeTest extends TestCase
         ];
         $shipmentType = new ShipmentType();
 
-        $international = $shipmentType->isInternational($ship_to_address);
-        $this->assertFalse($international);
-
-        $domestic = $shipmentType->isDomestic($ship_to_address);
-        $this->assertTrue($domestic);
+        $type = $shipmentType->getType($ship_to_address);
+        $this->assertEquals($type, "domestic");
     }
 
     public function test_is_international()
@@ -41,11 +38,8 @@ class ShipmentTypeTest extends TestCase
         ];
         $shipmentType = new ShipmentType();
 
-        $international = $shipmentType->isInternational($ship_to_address);
-        $this->assertTrue($international);
-
-        $domestic = $shipmentType->isDomestic($ship_to_address);
-        $this->assertFalse($domestic);
+        $type = $shipmentType->getType($ship_to_address);
+        $this->assertEquals($type, "international");
     }
 
     public function test_country_not_set()
@@ -60,9 +54,13 @@ class ShipmentTypeTest extends TestCase
             "phone" => "+371 28 222 222"
         ];
 
-        $this->expectException(ShipmentTypeException::class);
-
         $shipmentType = new ShipmentType();
-        $shipmentType->isDomestic($ship_to_address);
+        $type = $shipmentType->getType($ship_to_address);
+        $this->assertEquals($type, null);
+
+        $errors = $shipmentType->getErrors();
+        $this->assertIsArray($errors);
+        $this->assertArrayHasKey("country", $errors);
+        $this->assertEquals("country key not set", $errors["country"]);
     }
 }

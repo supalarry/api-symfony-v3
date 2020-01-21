@@ -4,15 +4,16 @@
 namespace App;
 use Symfony\Component\HttpFoundation\Request;
 use App\Exception\JsonToArrayException;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class JsonToArray
 {
     private $request;
     private $errors;
 
-    public function __construct(Request $request)
+    public function __construct(RequestStack $requestStack)
     {
-        $this->request = $request;
+        $this->request = $requestStack->getCurrentRequest();
         $this->errors = [];
     }
 

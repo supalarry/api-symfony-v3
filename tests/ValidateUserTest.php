@@ -20,9 +20,9 @@ class ValidateUserTest extends TestCase
 
         $errors = [];
 
-        $validator = new ValidateUser($json_body, new AlphabeticStringValidator(), new ErrorsLoader());
+        $validator = new ValidateUser(new AlphabeticStringValidator(), new ErrorsLoader());
 
-        $validator->validateKeys();
+        $validator->validateKeys($json_body);
 
         $errors = $validator->getErrors();
 
@@ -38,10 +38,10 @@ class ValidateUserTest extends TestCase
 
         $errors = [];
 
-        $validator = new ValidateUser($json_body, new AlphabeticStringValidator(), new ErrorsLoader());
+        $validator = new ValidateUser(new AlphabeticStringValidator(), new ErrorsLoader());
 
         try {
-            $validator->validateKeys();
+            $validator->validateKeys($json_body);
         } catch (ValidateUserException $e){
             $errors = $validator->getErrors();
             $this->assertArrayHasKey(Users::USER_NAME, $errors);
@@ -58,10 +58,10 @@ class ValidateUserTest extends TestCase
 
         $errors = [];
 
-        $validator = new ValidateUser($json_body, new AlphabeticStringValidator(), new ErrorsLoader());
+        $validator = new ValidateUser(new AlphabeticStringValidator(), new ErrorsLoader());
 
         try {
-            $validator->validateKeys();
+            $validator->validateKeys($json_body);
         } catch (ValidateUserException $e){
             $errors = $validator->getErrors();
             $this->assertArrayHasKey(Users::USER_NAME, $errors);
@@ -78,10 +78,10 @@ class ValidateUserTest extends TestCase
 
         $errors = [];
 
-        $validator = new ValidateUser($json_body, new AlphabeticStringValidator(), new ErrorsLoader());
+        $validator = new ValidateUser(new AlphabeticStringValidator(), new ErrorsLoader());
 
         try {
-            $validator->validateKeys();
+            $validator->validateKeys($json_body);
         } catch (ValidateUserException $e){
             $errors = $validator->getErrors();
             $this->assertArrayHasKey(Users::USER_SURNAME, $errors);
@@ -98,10 +98,10 @@ class ValidateUserTest extends TestCase
 
         $errors = [];
 
-        $validator = new ValidateUser($json_body, new AlphabeticStringValidator(), new ErrorsLoader());
+        $validator = new ValidateUser(new AlphabeticStringValidator(), new ErrorsLoader());
 
         try {
-            $validator->validateKeys();
+            $validator->validateKeys($json_body);
         } catch (ValidateUserException $e){
             $errors = $validator->getErrors();
             $this->assertArrayHasKey(Users::USER_SURNAME, $errors);
@@ -118,10 +118,10 @@ class ValidateUserTest extends TestCase
 
         $errors = [];
 
-        $validator = new ValidateUser($json_body, new AlphabeticStringValidator(), new ErrorsLoader());
+        $validator = new ValidateUser(new AlphabeticStringValidator(), new ErrorsLoader());
 
         try {
-            $validator->validateKeys();
+            $validator->validateKeys($json_body);
         } catch (ValidateUserException $e){
             $errors = $validator->getErrors();
             $this->assertArrayHasKey(Users::USER_NAME, $errors);
@@ -138,10 +138,10 @@ class ValidateUserTest extends TestCase
 
         $errors = [];
 
-        $validator = new ValidateUser($json_body, new AlphabeticStringValidator(), new ErrorsLoader());
+        $validator = new ValidateUser(new AlphabeticStringValidator(), new ErrorsLoader());
 
         try {
-            $validator->validateKeys();
+            $validator->validateKeys($json_body);
         } catch (ValidateUserException $e){
             $errors = $validator->getErrors();
             $this->assertArrayHasKey(Users::USER_SURNAME, $errors);
@@ -157,10 +157,10 @@ class ValidateUserTest extends TestCase
 
         $errors = [];
 
-        $validator = new ValidateUser($json_body, new AlphabeticStringValidator(), new ErrorsLoader());
+        $validator = new ValidateUser(new AlphabeticStringValidator(), new ErrorsLoader());
 
         try {
-            $validator->validateKeys();
+            $validator->validateKeys($json_body);
         } catch (ValidateUserException $e){
             $errors = $validator->getErrors();
             $this->assertArrayHasKey(Users::USER_NAME, $errors);

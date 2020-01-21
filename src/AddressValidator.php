@@ -11,26 +11,34 @@ class AddressValidator
     private $shipmentType;
     private $domesticShipmentValidator;
     private $internationalShipmentValidator;
+    private $errors;
 
     public function __construct(ShipmentType $shipmentType, DomesticAddressValidator $domesticAddressValidator, InternationalAddressValidator $internationalAddressValidator)
     {
         $this->shipmentType = $shipmentType;
         $this->domesticShipmentValidator = $domesticAddressValidator;
         $this->internationalShipmentValidator = $internationalAddressValidator;
+        $this->errors = [];
     }
 
-    public function validate(array $ship_to_address)
+    public function validate(array $ship_to_address): bool
     {
-        // if shipmenttype returns domestic, call domestic and check its return
-        // if shipmenttype returns international, call international and check if international validates
-        // if one of thouse returns 0 $valid = $this->domestic..Validator->validate, get their errors and throw an exception at this level
-        try {
-            if ($this->shipmentType->isDomestic($ship_to_address))
-                $this->domesticShipmentValidator->validate($ship_to_address);
-            else
-                $this->internationalShipmentValidator->validate($ship_to_address);
-        } catch (AddressException $e){
-            throw $e;
-        }
+        $shipmentType = $this->shipmentType->getType($ship_to_address);
+        if ($shipmentType === null)
+            $this->errors = $this->shipmentType->getErrors();
+
+        if ($shipmentType === "international" && !$this->internationalShipmentValidator->validate($ship_to_address))
+            $this->errors = $this->internationalShipmentValidator->getErrors();
+        elseif ($shipmentType === "domestic" && !$this->domesticShipmentValidator->validate($ship_to_address))
+            $this->errors = $this->domesticShipmentValidator->getErrors();
+
+        if (!empty($this->errors))
+            return (false);
+        return (true);
+    }
+
+    public function getErrors()
+    {
+        return $this->errors;
     }
 }

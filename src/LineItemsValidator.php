@@ -20,7 +20,7 @@ class LineItemsValidator
         $this->errorsLoader = $errorsLoader;
     }
 
-    public function validate(int $id_user, array $line_items)
+    public function validate(int $id_user, array $line_items): bool
     {
         $emptyOrder = true;
         $itemNumber = 1;
@@ -43,7 +43,8 @@ class LineItemsValidator
         if ($emptyOrder)
             $this->errorsLoader->load("line_items", "order must contain at least 1 product with a valid id and quantity", $this->errors);
         if (!empty($this->errors))
-            throw new LineItemsValidatorException($this->errors);
+            return (false);
+        return (true);
     }
 
     public function getErrors(): array

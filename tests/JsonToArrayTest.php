@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use PHPUnit\Framework\TestCase;
 use App\JsonToArray;
 use App\Exception\JsonToArrayException;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class JsonToArrayTest extends TestCase
 {
@@ -15,6 +16,8 @@ class JsonToArrayTest extends TestCase
             \"name\":\"john\",
             \"surname\":\"doe\"
         }";
+
+        $requestStack = new RequestStack();
         $request = new Request(
             [],
             [],
@@ -23,8 +26,9 @@ class JsonToArrayTest extends TestCase
             [],
             [],
             $json_body);
+        $requestStack->push($request);
 
-        $json_to_array = new JsonToArray($request);
+        $json_to_array = new JsonToArray($requestStack);
 
         $request_decoded = $json_to_array->retrieve();
 
@@ -42,6 +46,7 @@ class JsonToArrayTest extends TestCase
             \"surname\":\"doe\",
         }";
 
+        $requestStack = new RequestStack();
         $request = new Request(
             [],
             [],
@@ -50,8 +55,9 @@ class JsonToArrayTest extends TestCase
             [],
             [],
             $json_body);
+        $requestStack->push($request);
 
-        $json_to_array = new JsonToArray($request);
+        $json_to_array = new JsonToArray($requestStack);
 
         $this->expectException(JsonToArrayException::class);
 
@@ -63,6 +69,7 @@ class JsonToArrayTest extends TestCase
     {
         $json_body = "{}";
 
+        $requestStack = new RequestStack();
         $request = new Request(
             [],
             [],
@@ -71,8 +78,9 @@ class JsonToArrayTest extends TestCase
             [],
             [],
             $json_body);
+        $requestStack->push($request);
 
-        $json_to_array = new JsonToArray($request);
+        $json_to_array = new JsonToArray($requestStack);
 
         $request_decoded = $json_to_array->retrieve();
 
@@ -83,6 +91,7 @@ class JsonToArrayTest extends TestCase
     {
         $json_body = "";
 
+        $requestStack = new RequestStack();
         $request = new Request(
             [],
             [],
@@ -91,8 +100,9 @@ class JsonToArrayTest extends TestCase
             [],
             [],
             $json_body);
+        $requestStack->push($request);
 
-        $json_to_array = new JsonToArray($request);
+        $json_to_array = new JsonToArray($requestStack);
 
         $this->expectException(JsonToArrayException::class);
 

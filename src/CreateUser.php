@@ -3,7 +3,6 @@
 
 namespace App;
 
-use App\Interfaces\IHandle;
 use App\Interfaces\IReturn;
 use App\Interfaces\IUsersRepository;
 use Doctrine\ORM\ORMException;
@@ -11,29 +10,25 @@ use App\Exception\JsonToArrayException;
 use App\Exception\ValidateUserException;
 use App\Exception\CreateUserServiceException;
 use App\Entity\Users;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 class CreateUser
 {
-    private $request;
+    private $converter;
     private $repository;
+    private $userValidator;
 
-    public function __construct(RequestStack $requestStack, IUsersRepository $repository)
+    public function __construct(JsonToArray $converter, IUsersRepository $repository, ValidateUser $userValidator)
     {
-        $this->request = $requestStack->getCurrentRequest();
+        $this->converter = $converter;
         $this->repository = $repository;
+        $this->userValidator = $userValidator;
     }
 
     public function handle(): IReturn
     {
         try {
-            /* get json data */
-            $converter = new JsonToArray($this->request);
-            $dataArray = $converter->retrieve();
-            /* validate data */
-            $validateUser = new ValidateUser($dataArray, new AlphabeticStringValidator(), new ErrorsLoader());
-            $validateUser->validateKeys();
-            /* create user */
+            $dataArray = $this->converter->retrieve();
+            $this->userValidator->validateKeys($dataArray);
             $newUser = $this->repository->create([
                 Users::USER_NAME => $dataArray[Users::USER_NAME],
                 Users::USER_SURNAME => $dataArray[Users::USER_SURNAME]
@@ -45,7 +40,7 @@ class CreateUser
         } catch (ORMException $e) {
             throw new CreateUserServiceException(array($e));
         }
-        /* return created user object for JSON response body */
+
         return new ReturnUser(
             $newUser->getId(),
             $newUser->getName(),
