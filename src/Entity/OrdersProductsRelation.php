@@ -36,6 +36,14 @@ class OrdersProductsRelation
         return $this->id;
     }
 
+    /* for testing purposes, so that OrdersProductsRelationRepository can simulate creation of a relation */
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     public function getOrderId(): ?int
     {
         return $this->orderId;

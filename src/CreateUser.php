@@ -24,15 +24,12 @@ class CreateUser
         $this->userValidator = $userValidator;
     }
 
-    public function handle(): IReturn
+    public function handle()
     {
         try {
             $dataArray = $this->converter->retrieve();
             $this->userValidator->validateKeys($dataArray);
-            $newUser = $this->repository->create([
-                Users::USER_NAME => $dataArray[Users::USER_NAME],
-                Users::USER_SURNAME => $dataArray[Users::USER_SURNAME]
-            ]);
+            $newUser = $this->repository->create($dataArray);
         } catch (JsonToArrayException $e) {
             throw new CreateUserServiceException($e->getErrors());
         } catch (ValidateUserException $e) {
@@ -41,11 +38,6 @@ class CreateUser
             throw new CreateUserServiceException(array($e));
         }
 
-        return new ReturnUser(
-            $newUser->getId(),
-            $newUser->getName(),
-            $newUser->getSurname(),
-            $newUser->getBalance()
-        );
+        return $newUser;
     }
 }

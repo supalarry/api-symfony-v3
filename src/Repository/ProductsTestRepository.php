@@ -12,7 +12,7 @@ use App\UserIdValidator;
 
 class ProductsTestRepository implements IProductsRepository
 {
-    private $db;
+    public $db;
     private $id;
     private $userIdValidator;
 
@@ -21,9 +21,7 @@ class ProductsTestRepository implements IProductsRepository
         $this->db = [];
         $this->id = 1;
         $this->userIdValidator = $userIdValidator;
-        /* Upon creation of test database, insert sample product for testing */
-        $this->create([
-            Products::PRODUCT_OWNER_ID => 1,
+        $this->create(1, [
             Products::PRODUCT_TYPE => "t-shirt",
             Products::PRODUCT_TITLE => "much shirt, such style!",
             Products::PRODUCT_SKU => "100-abc-999",
@@ -31,11 +29,11 @@ class ProductsTestRepository implements IProductsRepository
         ]);
     }
 
-    public function create(array $characteristics): IEntity
+    public function create(int $id_owner, array $characteristics): IEntity
     {
         $newProduct = new Products();
         $newProduct->setId($this->id);
-        $newProduct->setOwnerId($characteristics[Products::PRODUCT_OWNER_ID]);
+        $newProduct->setOwnerId($id_owner);
         $newProduct->setType($characteristics[Products::PRODUCT_TYPE]);
         $newProduct->setTitle($characteristics[Products::PRODUCT_TITLE]);
         $newProduct->setSku($characteristics[Products::PRODUCT_SKU]);

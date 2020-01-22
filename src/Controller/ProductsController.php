@@ -31,12 +31,12 @@ class ProductsController extends AbstractController
     /**
      * @Route("/users/{id_user}/products/{id}", name="getProduct", methods={"GET"})
      * @param IProductsRepository $repository
-     * @param string $id_user
-     * @param string $id
+     * @param int $id_user
+     * @param int $id
      * @return JsonResponse|Response
      */
 
-    public function getProductById(IProductsRepository $repository, string $id_user, string $id): Response
+    public function getProductById(IProductsRepository $repository, int $id_user, int $id): Response
     {
         $product = $repository->getById($id_user, $id);
         if ($product)
@@ -47,11 +47,11 @@ class ProductsController extends AbstractController
     /**
      * @Route("/users/{id_user}/products", name="getProducts", methods={"GET"})
      * @param IProductsRepository $repository
-     * @param string $id_user
+     * @param int $id_user
      * @return JsonResponse|Response
      */
 
-    public function getProducts(IProductsRepository $repository, string $id_user): Response
+    public function getProducts(IProductsRepository $repository, int $id_user): Response
     {
         $products = $repository->getAll($id_user);
         if ($products)

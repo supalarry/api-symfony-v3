@@ -23,13 +23,17 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
-    # users and products repositories for deployment
+    # repositories for deployment
     # App\Interfaces\IUsersRepository: '@UsersRepository'
     # App\Interfaces\IProductsRepository: '@ProductsRepository'
+    # App\Interfaces\IOrdersRepository: '@OrdersRepository'
+    # App\Interfaces\IOrdersProductsRelationRepository: '@OrdersProductsRelationRepository'
 
-    # users and products repositories for testing
+    # repositories for testing
     App\Interfaces\IUsersRepository: '@UsersTestRepository'
     App\Interfaces\IProductsRepository: '@ProductsTestRepository'
+    App\Interfaces\IOrdersRepository: '@OrdersTestRepository'
+    App\Interfaces\IOrdersProductsRelationRepository: '@OrdersProductsRelationTestRepository'
 
     # -------- repositories --------
     UsersRepository:
@@ -38,11 +42,23 @@ services:
     ProductsRepository:
         class: App\Repository\ProductsRepository
 
+    OrdersRepository:
+        class: App\Repository\OrdersRepository
+
+    OrdersProductsRelationRepository:
+       class: App\Repository\OrdersProductsRelationRepository
+
     UsersTestRepository:
         class: App\Repository\UsersTestRepository
 
     ProductsTestRepository:
         class: App\Repository\ProductsTestRepository
+
+    OrdersTestRepository:
+        class: App\Repository\OrdersTestRepository
+
+    OrdersProductsRelationTestRepository:
+        class: App\Repository\OrdersProductsRelationTestRepository
     # ------------------------------
 
     CreateUserService:
@@ -50,6 +66,9 @@ services:
 
     CreateProductService:
         class: App\CreateProduct
+
+    CreateOrderService:
+        class: App\CreateOrder
 
     UserIdValidatorService:
         class: App\UserIdValidator

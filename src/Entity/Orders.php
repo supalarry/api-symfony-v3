@@ -2,13 +2,33 @@
 
 namespace App\Entity;
 
+use App\Interfaces\IEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OrdersRepository")
  */
-class Orders
+class Orders implements IEntity
 {
+    const ORDER_SHIPPING_DATA = "ship_to_address";
+    const ORDER_LINE_ITEMS = "line_items";
+    const ORDER_INFO = "order_info";
+
+    const ORDER_ID = "id";
+    const ORDER_OWNER_NAME = "name";
+    const ORDER_OWNER_SURNAME = "surname";
+    const ORDER_STREET = "street";
+    const ORDER_STATE = "state";
+    const ORDER_ZIP = "zip";
+    const ORDER_COUNTRY = "country";
+    const ORDER_PHONE = "phone";
+    const ORDER_PRODUCTION_COST = "production_cost";
+    const ORDER_SHIPPING_COST = "shipping_cost";
+    const ORDER_TOTAL_COST = "total_cost";
+
+    const PRODUCT_ID = "id";
+    const PRODUCT_QUANTITY = "quantity";
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -69,6 +89,14 @@ class Orders
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /* for testing purposes, so that OrdersTestRepository can simulate creation of an order */
+    public function setId(int $id): ?self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getName(): ?string
@@ -186,7 +214,7 @@ class Orders
 
     public function setTotalCost(?int $totalCost): self
     {
-        $this->shippingCost = $totalCost;
+        $this->totalCost = $totalCost;
 
         return $this;
     }

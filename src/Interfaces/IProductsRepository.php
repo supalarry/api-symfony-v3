@@ -5,5 +5,5 @@ use App\Interfaces\IEntity;
 
 interface IProductsRepository
 {
-    public function create(array $characteristics): IEntity;
+    public function create(int $id_owner, array $characteristics): IEntity;
 }

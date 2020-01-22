@@ -29,10 +29,10 @@ class ProductsRepository extends ServiceEntityRepository implements IProductsRep
         $this->userIdValidator = $userIdValidator;
     }
 
-    public function create(array $characteristics): IEntity
+    public function create(int $id_owner, array $characteristics): IEntity
     {
         $newProduct = new Products();
-        $newProduct->setOwnerId($characteristics[Products::PRODUCT_OWNER_ID]);
+        $newProduct->setOwnerId($id_owner);
         $newProduct->setType($characteristics[Products::PRODUCT_TYPE]);
         $newProduct->setTitle($characteristics[Products::PRODUCT_TITLE]);
         $newProduct->setSku($characteristics[Products::PRODUCT_SKU]);
