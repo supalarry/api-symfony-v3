@@ -48,7 +48,7 @@ class CreateOrder
             $costs = $this->calculator->calculate($id_user, $dataArray);
             $this->manager->userPay($id_user, $costs[Orders::ORDER_TOTAL_COST]);
             $newOrder = $this->repository->create($dataArray, $costs, $id_user);
-            $this->relationRepository->create($newOrder->getId(), $dataArray[Orders::ORDER_LINE_ITEMS]);
+            $this->relationRepository->create($newOrder->getId(), $dataArray[Orders::ORDER_LINE_ITEMS], $id_user);
         } catch (JsonToArrayException $e) {
             throw new CreateOrderServiceException($e->getErrors());
         } catch (OrderValidatorException $e){

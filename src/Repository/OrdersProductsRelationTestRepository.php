@@ -24,14 +24,15 @@ class OrdersProductsRelationTestRepository implements IOrdersProductsRelationRep
         $this->id = 1;
         $this->userIdValidator = $userIdValidator;
         $this->productsRepository = $productsRepository;
-        $this->create(1, [[Orders::PRODUCT_ID => 1, Orders::PRODUCT_QUANTITY => 10], [Orders::PRODUCT_ID => 1, Orders::PRODUCT_QUANTITY => 1]]);
+        $this->create(1, [[Orders::PRODUCT_ID => 1, Orders::PRODUCT_QUANTITY => 10], [Orders::PRODUCT_ID => 1, Orders::PRODUCT_QUANTITY => 1]], 1);
     }
 
-    public function create(int $order_id, array $line_items)
+    public function create(int $order_id, array $line_items, int $id_user)
     {
         foreach ($line_items as $item)
         {
             $relation = new OrdersProductsRelation();
+            $relation->setOwnerId($id_user);
             $relation->setId($this->id);
             $relation->setOrderId($order_id);
             $relation->setProductId($item[Orders::PRODUCT_ID]);
@@ -48,7 +49,7 @@ class OrdersProductsRelationTestRepository implements IOrdersProductsRelationRep
             $relation_products = [];
             foreach ($this->db as $product)
             {
-                if ($product->getOrderId() === $id)
+                if ($product->getOrderId() === $id && $product->getOwnerId() === $id_user)
                     $relation_products[] = $product;
             }
             if (empty($relation_products))

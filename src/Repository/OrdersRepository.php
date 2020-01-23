@@ -68,7 +68,7 @@ class OrdersRepository extends ServiceEntityRepository implements IOrdersReposit
 
     public function getById(int $id_user, int $id)
     {
-        if ($this->userIdValidator->validate($id_user))
+        if ($this->userIdValidator->validate($id_user) && $this->relationRepository->getOrderProducts($id_user, $id))
         {
             $order = [];
             $orderEntity = $this->getEntityById($id);
@@ -90,6 +90,7 @@ class OrdersRepository extends ServiceEntityRepository implements IOrdersReposit
 
             $order[Orders::ORDER_INFO] = array();
             $order[Orders::ORDER_INFO][Orders::ORDER_ID] = $orderEntity->getId();
+            $order[Orders::ORDER_INFO][Orders::ORDER_OWNER_ID] = $orderEntity->getOwnerId();
             $order[Orders::ORDER_INFO][Orders::ORDER_PRODUCTION_COST] = $orderEntity->getProductionCost();
             $order[Orders::ORDER_INFO][Orders::ORDER_SHIPPING_COST] = $orderEntity->getShippingCost();
             $order[Orders::ORDER_INFO][Orders::ORDER_TOTAL_COST] = $orderEntity->getTotalCost();

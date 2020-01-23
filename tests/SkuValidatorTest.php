@@ -14,7 +14,7 @@ class SkuValidatorTest extends TestCase
     {
         $userIdValidator = new UserIdValidator(new UsersTestRepository());
         $skuValidator = new SkuValidator(new ProductsTestRepository($userIdValidator));
-        $valid = $skuValidator->validate("100-abc-1000");
+        $valid = $skuValidator->validate("100-abc-1000", 1);
         $this->assertEquals($valid, true);
     }
 
@@ -22,7 +22,7 @@ class SkuValidatorTest extends TestCase
     {
         $userIdValidator = new UserIdValidator(new UsersTestRepository());
         $skuValidator = new SkuValidator(new ProductsTestRepository($userIdValidator));
-        $valid = $skuValidator->validate("100-abc-999");
+        $valid = $skuValidator->validate("100-abc-999", 1);
         $this->assertEquals($valid, false);
     }
 }

@@ -32,11 +32,12 @@ class OrdersProductsRelationRepository extends ServiceEntityRepository implement
         $this->userIdValidator = $userIdValidator;
     }
 
-    public function create(int $order_id, array $line_items)
+    public function create(int $order_id, array $line_items, int $id_user)
     {
         foreach ($line_items as $item)
         {
             $relation = new OrdersProductsRelation();
+            $relation->setOwnerId($id_user);
             $relation->setOrderId($order_id);
             $relation->setProductId($item[Orders::PRODUCT_ID]);
             $relation->setQuantity($item[Orders::PRODUCT_QUANTITY]);
@@ -50,7 +51,8 @@ class OrdersProductsRelationRepository extends ServiceEntityRepository implement
         if ($this->userIdValidator->validate($id_user))
         {
             return $this->findBy([
-                OrdersProductsRelation::ORDER_ID => $id
+                OrdersProductsRelation::ORDER_ID => $id,
+                OrdersProductsRelation::OWNER_ID => $id_user
             ]);
         }
         return (null);

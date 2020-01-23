@@ -32,7 +32,7 @@ class ValidateProductTest extends TestCase
 
         $validator = new ValidateProduct(new ProductTypeValidator(), new TitleValidator(), new SkuValidator($repository), new ErrorsLoader());
 
-        $validator->validateKeys($json_body);
+        $validator->validateKeys($json_body, 1);
 
         $errors = $validator->getErrors();
 
@@ -56,7 +56,7 @@ class ValidateProductTest extends TestCase
         $validator = new ValidateProduct(new ProductTypeValidator(), new TitleValidator(), new SkuValidator($repository), new ErrorsLoader());
 
         try {
-            $validator->validateKeys($json_body);
+            $validator->validateKeys($json_body, 1);
         } catch (ValidateProductException $e){
             $errors = $validator->getErrors();
             $this->assertArrayHasKey(PRODUCTS::PRODUCT_TYPE, $errors);
@@ -81,7 +81,7 @@ class ValidateProductTest extends TestCase
         $validator = new ValidateProduct(new ProductTypeValidator(), new TitleValidator(), new SkuValidator($repository), new ErrorsLoader());
 
         try {
-            $validator->validateKeys($json_body);
+            $validator->validateKeys($json_body, 1);
         } catch (ValidateProductException $e){
             $errors = $validator->getErrors();
             $this->assertArrayHasKey(PRODUCTS::PRODUCT_TITLE, $errors);
@@ -106,7 +106,7 @@ class ValidateProductTest extends TestCase
         $validator = new ValidateProduct(new ProductTypeValidator(), new TitleValidator(), new SkuValidator($repository), new ErrorsLoader());
 
         try {
-            $validator->validateKeys($json_body);
+            $validator->validateKeys($json_body, 1);
         } catch (ValidateProductException $e){
             $errors = $validator->getErrors();
             $this->assertArrayHasKey(PRODUCTS::PRODUCT_SKU, $errors);
@@ -131,7 +131,7 @@ class ValidateProductTest extends TestCase
         $validator = new ValidateProduct(new ProductTypeValidator(), new TitleValidator(), new SkuValidator($repository), new ErrorsLoader());
 
         try {
-            $validator->validateKeys($json_body);
+            $validator->validateKeys($json_body, 1);
         } catch (ValidateProductException $e){
             $errors = $validator->getErrors();
             $this->assertArrayHasKey(PRODUCTS::PRODUCT_COST, $errors);
@@ -156,7 +156,7 @@ class ValidateProductTest extends TestCase
         $validator = new ValidateProduct(new ProductTypeValidator(), new TitleValidator(), new SkuValidator($repository), new ErrorsLoader());
 
         try {
-            $validator->validateKeys($json_body);
+            $validator->validateKeys($json_body, 1);
         } catch (ValidateProductException $e){
             $productTypeValidator = new ProductTypeValidator();
             $errors = $validator->getErrors();
@@ -182,7 +182,7 @@ class ValidateProductTest extends TestCase
         $validator = new ValidateProduct(new ProductTypeValidator(), new TitleValidator(), new SkuValidator($repository), new ErrorsLoader());
 
         try {
-            $validator->validateKeys($json_body);
+            $validator->validateKeys($json_body, 1);
         } catch (ValidateProductException $e){
             $errors = $validator->getErrors();
             $this->assertArrayHasKey(PRODUCTS::PRODUCT_TITLE, $errors);
@@ -207,7 +207,7 @@ class ValidateProductTest extends TestCase
         $validator = new ValidateProduct(new ProductTypeValidator(), new TitleValidator(), new SkuValidator($repository), new ErrorsLoader());
 
         try {
-            $validator->validateKeys($json_body);
+            $validator->validateKeys($json_body, 1);
         } catch (ValidateProductException $e){
             $errors = $validator->getErrors();
             $this->assertArrayHasKey(PRODUCTS::PRODUCT_SKU, $errors);
@@ -232,7 +232,7 @@ class ValidateProductTest extends TestCase
         $validator = new ValidateProduct(new ProductTypeValidator(), new TitleValidator(), new SkuValidator($repository), new ErrorsLoader());
 
         try {
-            $validator->validateKeys($json_body);
+            $validator->validateKeys($json_body, 1);
         } catch (ValidateProductException $e){
             $errors = $validator->getErrors();
             $this->assertArrayHasKey(PRODUCTS::PRODUCT_COST, $errors);
@@ -254,7 +254,7 @@ class ValidateProductTest extends TestCase
         $validator = new ValidateProduct(new ProductTypeValidator(), new TitleValidator(), new SkuValidator($repository), new ErrorsLoader());
 
         try {
-            $validator->validateKeys($json_body);
+            $validator->validateKeys($json_body, 1);
         } catch (ValidateProductException $e){
             $errors = $validator->getErrors();
             $this->assertArrayHasKey(PRODUCTS::PRODUCT_TYPE, $errors);
@@ -285,7 +285,7 @@ class ValidateProductTest extends TestCase
         $validator = new ValidateProduct(new ProductTypeValidator(), new TitleValidator(), new SkuValidator($repository), new ErrorsLoader());
 
         try {
-            $validator->validateKeys($json_body);
+            $validator->validateKeys($json_body, 1);
         } catch (ValidateProductException $e){
             $errors = $validator->getErrors();
             $productTypeValidator = new ProductTypeValidator();

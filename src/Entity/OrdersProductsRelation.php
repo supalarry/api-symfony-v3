@@ -11,6 +11,7 @@ class OrdersProductsRelation
 {
     const ORDER_ID = "orderId";
     const PRODUCT_ID = "productId";
+    const OWNER_ID = "ownerId";
 
     /**
      * @ORM\Id()
@@ -18,6 +19,11 @@ class OrdersProductsRelation
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $ownerId;
 
     /**
      * @ORM\Column(type="integer")
@@ -43,6 +49,18 @@ class OrdersProductsRelation
     public function setId(int $id): self
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    public function getOwnerId(): ?int
+    {
+        return $this->ownerId;
+    }
+
+    public function setOwnerId(int $ownerId): self
+    {
+        $this->ownerId = $ownerId;
 
         return $this;
     }

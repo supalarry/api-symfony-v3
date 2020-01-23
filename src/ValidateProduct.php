@@ -24,7 +24,7 @@ class ValidateProduct
         $this->errorsLoader = $errorsLoader;
     }
 
-    public function validateKeys(array $data): void
+    public function validateKeys(array $data, int $id_user): void
     {
         if (!isset($data[Products::PRODUCT_TYPE]))
             $this->errorsLoader->load(Products::PRODUCT_TYPE, 'type key not set', $this->errors);
@@ -41,7 +41,7 @@ class ValidateProduct
                 $this->errorsLoader->load(Products::PRODUCT_TYPE, 'Invalid type. Allowed types: ' . $this->productTypeValidator->getAllowed(), $this->errors);
             elseif ($key === Products::PRODUCT_TITLE && $this->titleValidator->validate($value) != 1)
                 $this->errorsLoader->load(Products::PRODUCT_TITLE, 'Invalid title. It can only consist of letters, digits and dash(-)', $this->errors);
-            elseif ($key === Products::PRODUCT_SKU && $this->skuValidator->validate($value) != 1)
+            elseif ($key === Products::PRODUCT_SKU && $this->skuValidator->validate($value, $id_user) != 1)
                 $this->errorsLoader->load(Products::PRODUCT_SKU, 'Invalid SKU. It must be unique, and it appears another product already has it', $this->errors);
             elseif ($key === Products::PRODUCT_COST && !is_int($value))
                 $this->errorsLoader->load(Products::PRODUCT_COST, 'Invalid cost. It must be an integer describing price with smallest money unit', $this->errors);

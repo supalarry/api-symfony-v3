@@ -35,7 +35,7 @@ class CreateProduct
 
         try {
             $dataArray = $this->converter->retrieve();
-            $this->productValidator->validateKeys($dataArray);
+            $this->productValidator->validateKeys($dataArray, $id_user);
             $newProduct = $this->repository->create($id_user, $dataArray);
         } catch (JsonToArrayException $e) {
             throw new CreateProductServiceException($e->getErrors());
