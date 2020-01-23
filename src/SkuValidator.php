@@ -4,6 +4,7 @@
 namespace App;
 
 
+use App\Entity\Products;
 use App\Interfaces\IProductsRepository;
 
 class SkuValidator
@@ -17,7 +18,7 @@ class SkuValidator
 
     public function validate(string $sku): bool
     {
-        if ($this->repository->findOneBy(["sku" => $sku]))
+        if ($this->repository->findOneBy([Products::PRODUCT_SKU => $sku]))
             return (false);
         return (true);
     }

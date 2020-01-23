@@ -24,16 +24,16 @@ services:
         tags: ['controller.service_arguments']
 
     # repositories for deployment
-    # App\Interfaces\IUsersRepository: '@UsersRepository'
-    # App\Interfaces\IProductsRepository: '@ProductsRepository'
-    # App\Interfaces\IOrdersRepository: '@OrdersRepository'
-    # App\Interfaces\IOrdersProductsRelationRepository: '@OrdersProductsRelationRepository'
+    App\Interfaces\IUsersRepository: '@UsersRepository'
+    App\Interfaces\IProductsRepository: '@ProductsRepository'
+    App\Interfaces\IOrdersRepository: '@OrdersRepository'
+    App\Interfaces\IOrdersProductsRelationRepository: '@OrdersProductsRelationRepository'
 
     # repositories for testing
-    App\Interfaces\IUsersRepository: '@UsersTestRepository'
-    App\Interfaces\IProductsRepository: '@ProductsTestRepository'
-    App\Interfaces\IOrdersRepository: '@OrdersTestRepository'
-    App\Interfaces\IOrdersProductsRelationRepository: '@OrdersProductsRelationTestRepository'
+    # App\Interfaces\IUsersRepository: '@UsersTestRepository'
+    # App\Interfaces\IProductsRepository: '@ProductsTestRepository'
+    # App\Interfaces\IOrdersRepository: '@OrdersTestRepository'
+    # App\Interfaces\IOrdersProductsRelationRepository: '@OrdersProductsRelationTestRepository'
 
     # -------- repositories --------
     UsersRepository:

@@ -3,6 +3,7 @@
 
 namespace App;
 
+use App\Entity\Orders;
 use App\Exception\OrderValidatorException;
 
 class OrderValidator
@@ -20,15 +21,15 @@ class OrderValidator
 
     public function validate(int $id_user, array $request_body)
     {
-        if (!array_key_exists("ship_to_address", $request_body))
-            $this->errors["ship_to_address"] = 'shipping address not set';
-        if (!array_key_exists("line_items", $request_body))
-            $this->errors["line_items"] = 'order does not contain any products';
+        if (!array_key_exists(Orders::ORDER_SHIPPING_DATA, $request_body))
+            $this->errors[Orders::ORDER_SHIPPING_DATA] = 'shipping address not set';
+        if (!array_key_exists(Orders::ORDER_LINE_ITEMS, $request_body))
+            $this->errors[Orders::ORDER_LINE_ITEMS] = 'order does not contain any products';
 
-        if (array_key_exists("ship_to_address", $request_body) && !$this->addressValidator->validate($request_body['ship_to_address']))
-            $this->errors["ship_to_address"] = $this->addressValidator->getErrors();
-        if (array_key_exists("line_items", $request_body) && !$this->lineItemsValidator->validate($id_user, $request_body['line_items']))
-            $this->errors["line_items"] = $this->lineItemsValidator->getErrors();
+        if (array_key_exists(Orders::ORDER_SHIPPING_DATA, $request_body) && !$this->addressValidator->validate($request_body[Orders::ORDER_SHIPPING_DATA]))
+            $this->errors[Orders::ORDER_SHIPPING_DATA] = $this->addressValidator->getErrors();
+        if (array_key_exists(Orders::ORDER_LINE_ITEMS, $request_body) && !$this->lineItemsValidator->validate($id_user, $request_body[Orders::ORDER_LINE_ITEMS]))
+            $this->errors[Orders::ORDER_LINE_ITEMS] = $this->lineItemsValidator->getErrors();
 
         if (!empty($this->errors))
             throw new OrderValidatorException($this->errors);

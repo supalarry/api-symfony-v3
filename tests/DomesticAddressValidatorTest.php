@@ -5,6 +5,7 @@ namespace App\Tests;
 use App\AlphabeticStringValidator;
 use App\CountryValidator;
 use App\DomesticAddressValidator;
+use App\Entity\Orders;
 use App\ErrorsLoader;
 use App\PhoneValidator;
 use App\StateValidator;
@@ -58,8 +59,8 @@ class DomesticAddressValidatorTest extends TestCase
         $errors = $domesticAddressValidator->getErrors();
 
         $this->assertIsArray($errors);
-        $this->assertArrayHasKey("name", $errors);
-        $this->assertEquals($errors["name"][0], "name key not set");
+        $this->assertArrayHasKey(Orders::ORDER_OWNER_NAME, $errors);
+        $this->assertEquals($errors[Orders::ORDER_OWNER_NAME][0], "name key not set");
     }
 
     public function test_surname_not_set()
@@ -83,8 +84,8 @@ class DomesticAddressValidatorTest extends TestCase
         $errors = $domesticAddressValidator->getErrors();
 
         $this->assertIsArray($errors);
-        $this->assertArrayHasKey("surname", $errors);
-        $this->assertEquals($errors["surname"][0], "surname key not set");
+        $this->assertArrayHasKey(Orders::ORDER_OWNER_SURNAME, $errors);
+        $this->assertEquals($errors[Orders::ORDER_OWNER_SURNAME][0], "surname key not set");
     }
 
     public function test_street_not_set()
@@ -108,8 +109,8 @@ class DomesticAddressValidatorTest extends TestCase
         $errors = $domesticAddressValidator->getErrors();
 
         $this->assertIsArray($errors);
-        $this->assertArrayHasKey("street", $errors);
-        $this->assertEquals($errors["street"][0], "street key not set");
+        $this->assertArrayHasKey(Orders::ORDER_STREET, $errors);
+        $this->assertEquals($errors[Orders::ORDER_STREET][0], "street key not set");
     }
 
     public function test_state_not_set()
@@ -133,8 +134,8 @@ class DomesticAddressValidatorTest extends TestCase
         $errors = $domesticAddressValidator->getErrors();
 
         $this->assertIsArray($errors);
-        $this->assertArrayHasKey("state", $errors);
-        $this->assertEquals($errors["state"][0], "state key not set");
+        $this->assertArrayHasKey(Orders::ORDER_STATE, $errors);
+        $this->assertEquals($errors[Orders::ORDER_STATE][0], "state key not set");
     }
 
     public function test_zip_not_set()
@@ -158,8 +159,8 @@ class DomesticAddressValidatorTest extends TestCase
         $errors = $domesticAddressValidator->getErrors();
 
         $this->assertIsArray($errors);
-        $this->assertArrayHasKey("zip", $errors);
-        $this->assertEquals($errors["zip"][0], "zip code key not set");
+        $this->assertArrayHasKey(Orders::ORDER_ZIP, $errors);
+        $this->assertEquals($errors[Orders::ORDER_ZIP][0], "zip code key not set");
     }
 
     public function test_country_not_set()
@@ -183,8 +184,8 @@ class DomesticAddressValidatorTest extends TestCase
         $errors = $domesticAddressValidator->getErrors();
 
         $this->assertIsArray($errors);
-        $this->assertArrayHasKey("country", $errors);
-        $this->assertEquals($errors["country"][0], "country key not set");
+        $this->assertArrayHasKey(Orders::ORDER_COUNTRY, $errors);
+        $this->assertEquals($errors[Orders::ORDER_COUNTRY][0], "country key not set");
     }
 
     public function test_phone_not_set()
@@ -208,7 +209,7 @@ class DomesticAddressValidatorTest extends TestCase
         $errors = $domesticAddressValidator->getErrors();
 
         $this->assertIsArray($errors);
-        $this->assertArrayHasKey("phone", $errors);
-        $this->assertEquals($errors["phone"][0], "phone key not set");
+        $this->assertArrayHasKey(Orders::ORDER_PHONE, $errors);
+        $this->assertEquals($errors[Orders::ORDER_PHONE][0], "phone key not set");
     }
 }

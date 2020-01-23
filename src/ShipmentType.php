@@ -3,6 +3,7 @@
 
 namespace App;
 
+use App\Entity\Orders;
 use App\Exception\AddressException;
 
 class ShipmentType
@@ -14,18 +15,18 @@ class ShipmentType
 
     public function getType(array $ship_to_address)
     {
-        if (!array_key_exists("country", $ship_to_address))
+        if (!array_key_exists(Orders::ORDER_COUNTRY, $ship_to_address))
         {
-            $this->errors["country"] = "country key not set";
+            $this->errors[Orders::ORDER_COUNTRY] = "country key not set";
             return (null);
         }
 
-        if ($ship_to_address["country"] === self::DOMESTIC_CODE
-            || $ship_to_address["country"] === self::DOMESTIC_CODE3
-            || $ship_to_address["country"] === self::DOMESTIC_NAME)
-            return ("domestic");
+        if ($ship_to_address[Orders::ORDER_COUNTRY] === self::DOMESTIC_CODE
+            || $ship_to_address[Orders::ORDER_COUNTRY] === self::DOMESTIC_CODE3
+            || $ship_to_address[Orders::ORDER_COUNTRY] === self::DOMESTIC_NAME)
+            return (Orders::DOMESTIC_ORDER);
 
-        return ("international");
+        return (Orders::INTERNATIONAL_ORDER);
     }
 
     public function getErrors()

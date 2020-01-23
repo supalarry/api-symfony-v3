@@ -16,6 +16,7 @@ class Products implements IEntity
     const PRODUCT_TITLE = "title";
     const PRODUCT_SKU = "sku";
     const PRODUCT_COST = "cost";
+    const PRODUCT_TOTAL_COST = "totalCost";
 
     /**
      * @ORM\Id()

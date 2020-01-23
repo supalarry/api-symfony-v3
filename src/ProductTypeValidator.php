@@ -6,13 +6,16 @@ namespace App;
 
 class ProductTypeValidator
 {
+    const MUG = "mug";
+    const TSHIRT = "t-shirt";
+
     private $allowedProducts;
 
     public function __construct()
     {
         $this->allowedProducts = [
-            "mug",
-            "t-shirt"
+            self::MUG,
+            self::TSHIRT
         ];
     }
 

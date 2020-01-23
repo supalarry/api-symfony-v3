@@ -25,7 +25,7 @@ class OrdersTestRepository implements IOrdersRepository
         $this->relationRepository = $relationRepository;
 
         $characteristics = [
-            "ship_to_address" => [
+            "shipToAddress" => [
                 "name" => "John",
                 "surname" => "Doe",
                 "street" => "Palm street 25-7",
@@ -34,24 +34,25 @@ class OrdersTestRepository implements IOrdersRepository
                 "country" => "US",
                 "phone" => "+1 123 123 123"
             ],
-            "line_items" => [
+            "lineItems" => [
                 ["id" => 1, "quantity" => 10],
                 ["id" => 1, "quantity" => 1]
             ]
         ];
         $costs = [
-            "production_cost" => 11000,
-            "shipping_cost" => 650,
-            "total_cost" => 11650
+            "productionCost" => 11000,
+            "shippingCost" => 650,
+            "totalCost" => 11650
         ];
 
-        $this->create($characteristics, $costs);
+        $this->create($characteristics, $costs, 1);
     }
 
-    public function create(array $characteristics, array $costs)
+    public function create(array $characteristics, array $costs, int $id_user)
     {
         $newOrder = new Orders();
         $newOrder->setId($this->id);
+        $newOrder->setOwnerId($id_user);
         $newOrder->setName($characteristics[Orders::ORDER_SHIPPING_DATA][Orders::ORDER_OWNER_NAME]);
         $newOrder->setSurname($characteristics[Orders::ORDER_SHIPPING_DATA][Orders::ORDER_OWNER_SURNAME]);
         $newOrder->setStreet($characteristics[Orders::ORDER_SHIPPING_DATA][Orders::ORDER_STREET]);
@@ -95,24 +96,24 @@ class OrdersTestRepository implements IOrdersRepository
             if (!$orderEntity)
                 return (null);
 
-            $order["ship_to_address"] = array();
-            $order["ship_to_address"]["name"] = $orderEntity->getName();
-            $order["ship_to_address"]["surname"] = $orderEntity->getSurname();
-            $order["ship_to_address"]["street"] = $orderEntity->getStreet();
+            $order[Orders::ORDER_SHIPPING_DATA] = array();
+            $order[Orders::ORDER_SHIPPING_DATA][Orders::ORDER_OWNER_NAME] = $orderEntity->getName();
+            $order[Orders::ORDER_SHIPPING_DATA][Orders::ORDER_OWNER_SURNAME] = $orderEntity->getSurname();
+            $order[Orders::ORDER_SHIPPING_DATA][Orders::ORDER_STREET] = $orderEntity->getStreet();
             if ($orderEntity->getState())
-                $order["ship_to_address"]["state"] = $orderEntity->getState();
+                $order[Orders::ORDER_SHIPPING_DATA][Orders::ORDER_STATE] = $orderEntity->getState();
             if ($orderEntity->getZip())
-                $order["ship_to_address"]["zip"] = $orderEntity->getZip();
-            $order["ship_to_address"]["country"] = $orderEntity->getCountry();
-            $order["ship_to_address"]["phone"] = $orderEntity->getPhone();
+                $order[Orders::ORDER_SHIPPING_DATA][Orders::ORDER_ZIP] = $orderEntity->getZip();
+            $order[Orders::ORDER_SHIPPING_DATA][Orders::ORDER_COUNTRY] = $orderEntity->getCountry();
+            $order[Orders::ORDER_SHIPPING_DATA][Orders::ORDER_PHONE] = $orderEntity->getPhone();
 
             $order[Orders::ORDER_LINE_ITEMS] = $this->relationRepository->line_items($id_user, $id);
 
-            $order["order_info"] = array();
-            $order["order_info"]["id"] = $orderEntity->getId();
-            $order["order_info"]["production_cost"] = $orderEntity->getProductionCost();
-            $order["order_info"]["shipping_cost"] = $orderEntity->getShippingCost();
-            $order["order_info"]["total_cost"] = $orderEntity->getTotalCost();
+            $order[Orders::ORDER_INFO] = array();
+            $order[Orders::ORDER_INFO][Orders::ORDER_ID] = $orderEntity->getId();
+            $order[Orders::ORDER_INFO][Orders::ORDER_PRODUCTION_COST] = $orderEntity->getProductionCost();
+            $order[Orders::ORDER_INFO][Orders::ORDER_SHIPPING_COST] = $orderEntity->getShippingCost();
+            $order[Orders::ORDER_INFO][Orders::ORDER_TOTAL_COST] = $orderEntity->getTotalCost();
             return ($order);
         }
         return (null);
@@ -120,12 +121,21 @@ class OrdersTestRepository implements IOrdersRepository
 
     public function getAll(int $id_user)
     {
-        $ordersEntities = $this->relationRepository->getUsersOrders($id_user);
-        $orders = [];
-        foreach ($ordersEntities as $order)
+        if ($this->userIdValidator->validate($id_user))
         {
-            $orders[] = $this->getById($id_user, $order->getId());
+            $ordersEntities = [];
+            foreach ($this->db as $order)
+            {
+                if ($order->getOwnerId() === $id_user)
+                    $ordersEntities[] = $order;
+            }
+            $orders = [];
+            foreach ($ordersEntities as $order)
+            {
+                $orders[] = $this->getById($id_user, $order->getId());
+            }
+            return $orders;
         }
-        return $orders;
+        return (null);
     }
 }

@@ -5,8 +5,10 @@ namespace App;
 
 
 use App\Entity\Products;
+use App\Entity\Users;
 use App\Exception\CreateProductServiceException;
 use App\Exception\JsonToArrayException;
+use App\Exception\UserIdValidatorException;
 use App\Exception\ValidateProductException;
 use App\Interfaces\IProductsRepository;
 use Doctrine\ORM\ORMException;
@@ -29,7 +31,7 @@ class CreateProduct
     public function handle(int $id_user)
     {
         if (!$this->userIdValidator->validate($id_user))
-            throw new CreateProductServiceException(["id" => "invalid user"]);
+            throw new UserIdValidatorException([Users::USER_ID => "invalid user"]);
 
         try {
             $dataArray = $this->converter->retrieve();

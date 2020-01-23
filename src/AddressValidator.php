@@ -4,6 +4,7 @@
 namespace App;
 
 
+use App\Entity\Orders;
 use App\Exception\AddressException;
 
 class AddressValidator
@@ -27,9 +28,9 @@ class AddressValidator
         if ($shipmentType === null)
             $this->errors = $this->shipmentType->getErrors();
 
-        if ($shipmentType === "international" && !$this->internationalShipmentValidator->validate($ship_to_address))
+        if ($shipmentType === Orders::INTERNATIONAL_ORDER && !$this->internationalShipmentValidator->validate($ship_to_address))
             $this->errors = $this->internationalShipmentValidator->getErrors();
-        elseif ($shipmentType === "domestic" && !$this->domesticShipmentValidator->validate($ship_to_address))
+        elseif ($shipmentType === Orders::DOMESTIC_ORDER && !$this->domesticShipmentValidator->validate($ship_to_address))
             $this->errors = $this->domesticShipmentValidator->getErrors();
 
         if (!empty($this->errors))

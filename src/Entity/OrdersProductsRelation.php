@@ -9,6 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class OrdersProductsRelation
 {
+    const ORDER_ID = "orderId";
+    const PRODUCT_ID = "productId";
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\CreateOrder;
 use App\Exception\CreateOrderServiceException;
+use App\Exception\UserIdValidatorException;
 use App\Interfaces\IOrdersProductsRelationRepository;
 use App\Interfaces\IOrdersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,13 +18,15 @@ class OrdersController extends AbstractController
      * @Route("/users/{id_user}/orders", name="createOrder", methods={"POST"})
      * @param CreateOrder $createOrderService
      * @param int $id_user
-     * @return JsonResponse
+     * @return JsonResponse|Response
      */
     public function createOrder(CreateOrder $createOrderService, int $id_user)
     {
         try {
             $createdOrder = $createOrderService->handle($id_user);
             return $this->json($createdOrder, Response::HTTP_CREATED);
+        } catch (UserIdValidatorException $e){
+            return new Response(null,Response::HTTP_NOT_FOUND);
         } catch (CreateOrderServiceException $e){
             return $this->json($e->getErrors(), Response::HTTP_BAD_REQUEST);
         }
@@ -39,7 +42,7 @@ class OrdersController extends AbstractController
     public function getOrderById(IOrdersRepository $ordersRepository, int $id_user, int $id)
     {
         $order = $ordersRepository->getById($id_user, $id);
-        if ($order)
+        if ($order !== null)
             return $this->json($order, Response::HTTP_OK);
         return new Response(null,Response::HTTP_NOT_FOUND);
     }
@@ -53,7 +56,7 @@ class OrdersController extends AbstractController
     public function getOrders(IOrdersRepository $ordersRepository, int $id_user)
     {
         $orders = $ordersRepository->getAll($id_user);
-        if ($orders)
+        if ($orders !== null)
             return $this->json($orders, Response::HTTP_OK);
         return new Response(null,Response::HTTP_NOT_FOUND);
     }

@@ -10,11 +10,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Orders implements IEntity
 {
-    const ORDER_SHIPPING_DATA = "ship_to_address";
-    const ORDER_LINE_ITEMS = "line_items";
-    const ORDER_INFO = "order_info";
+    const ORDER_SHIPPING_DATA = "shipToAddress";
+    const ORDER_LINE_ITEMS = "lineItems";
+    const ORDER_INFO = "orderInfo";
 
     const ORDER_ID = "id";
+    const ORDER_OWNER_ID = "ownerId";
     const ORDER_OWNER_NAME = "name";
     const ORDER_OWNER_SURNAME = "surname";
     const ORDER_STREET = "street";
@@ -22,12 +23,15 @@ class Orders implements IEntity
     const ORDER_ZIP = "zip";
     const ORDER_COUNTRY = "country";
     const ORDER_PHONE = "phone";
-    const ORDER_PRODUCTION_COST = "production_cost";
-    const ORDER_SHIPPING_COST = "shipping_cost";
-    const ORDER_TOTAL_COST = "total_cost";
+    const ORDER_PRODUCTION_COST = "productionCost";
+    const ORDER_SHIPPING_COST = "shippingCost";
+    const ORDER_TOTAL_COST = "totalCost";
 
     const PRODUCT_ID = "id";
     const PRODUCT_QUANTITY = "quantity";
+
+    const INTERNATIONAL_ORDER = "international";
+    const DOMESTIC_ORDER = "domestic";
 
     /**
      * @ORM\Id()
@@ -35,6 +39,11 @@ class Orders implements IEntity
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $ownerId;
 
     /**
      * @ORM\Column(type="string", length=30)
@@ -95,6 +104,18 @@ class Orders implements IEntity
     public function setId(int $id): ?self
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    public function getOwnerId(): ?int
+    {
+        return $this->ownerId;
+    }
+
+    public function setOwnerId(?int $ownerId): ?int
+    {
+        return $this->ownerId = $ownerId;
 
         return $this;
     }

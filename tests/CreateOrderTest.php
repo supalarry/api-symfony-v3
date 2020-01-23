@@ -21,7 +21,7 @@ class CreateOrderTest extends WebTestCase
             array('CONTENT_TYPE' => 'application/json'),
             '
             {
-                "ship_to_address" : {
+                "shipToAddress" : {
                     "name" : "John",
                     "surname" : "Doe",
                     "street" : "Palm street 25-7",
@@ -30,7 +30,7 @@ class CreateOrderTest extends WebTestCase
                     "country" : "US",
                     "phone" : "+1 123 123 123"
                 },
-                "line_items" : [
+                "lineItems" : [
                     {"id" : 1, "quantity" : 2}
                 ]
             }'
@@ -96,7 +96,7 @@ class CreateOrderTest extends WebTestCase
             array('CONTENT_TYPE' => 'application/json'),
             '
             {
-                "ship_to_address" : {
+                "shipToAddress" : {
                     "name" : "John",
                     "surname" : "Doe",
                     "street" : "Palm street 25-7",
@@ -105,7 +105,7 @@ class CreateOrderTest extends WebTestCase
                     "country" : "Latvia",
                     "phone" : "+1 123 123 123"
                 },
-                "line_items" : [
+                "lineItems" : [
                     {"id" : 1, "quantity" : 2}
                 ]
             }'

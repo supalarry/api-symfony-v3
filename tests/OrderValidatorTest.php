@@ -6,6 +6,7 @@ use App\AddressValidator;
 use App\AlphabeticStringValidator;
 use App\CountryValidator;
 use App\DomesticAddressValidator;
+use App\Entity\Orders;
 use App\ErrorsLoader;
 use App\Exception\OrderValidatorException;
 use App\InternationalAddressValidator;
@@ -43,7 +44,7 @@ class OrderValidatorTest extends TestCase
         $id_user = 1;
 
         $order = [
-            "ship_to_address" => [
+            "shipToAddress" => [
                 "name" => "John",
                 "surname" => "Doe",
                 "street" => "Palm street 25-7",
@@ -52,7 +53,7 @@ class OrderValidatorTest extends TestCase
                 "country" => "US",
                 "phone" => "+1 123 123 123"
             ],
-            "line_items" => [
+            "lineItems" => [
                 ["id" => 1, "quantity" => 10],
                 ["id" => 1, "quantity" => 1]
             ]
@@ -78,7 +79,7 @@ class OrderValidatorTest extends TestCase
                 "country" => "US",
                 "phone" => "+1 123 123 123"
             ],
-            "line_items" => [
+            "lineItems" => [
                 ["id" => 1, "quantity" => 10],
                 ["id" => 1, "quantity" => 1]
             ]
@@ -90,8 +91,8 @@ class OrderValidatorTest extends TestCase
         } catch (OrderValidatorException $e) {
             $errors = $e->getErrors();
             $this->assertIsArray($errors);
-            $this->assertArrayHasKey("ship_to_address", $errors);
-            $this->assertEquals($errors["ship_to_address"], "shipping address not set");
+            $this->assertArrayHasKey(Orders::ORDER_SHIPPING_DATA, $errors);
+            $this->assertEquals($errors[Orders::ORDER_SHIPPING_DATA], "shipping address not set");
         }
     }
 
@@ -100,7 +101,7 @@ class OrderValidatorTest extends TestCase
         $id_user = 1;
 
         $order = [
-            "ship_to_address" => [
+            "shipToAddress" => [
                 "name" => "John",
                 "surname" => "Doe",
                 "street" => "Palm street 25-7",
@@ -121,8 +122,8 @@ class OrderValidatorTest extends TestCase
         } catch (OrderValidatorException $e) {
             $errors = $e->getErrors();
             $this->assertIsArray($errors);
-            $this->assertArrayHasKey("line_items", $errors);
-            $this->assertEquals($errors["line_items"], "order does not contain any products");
+            $this->assertArrayHasKey(Orders::ORDER_LINE_ITEMS, $errors);
+            $this->assertEquals($errors[Orders::ORDER_LINE_ITEMS], "order does not contain any products");
         }
     }
 
@@ -131,7 +132,7 @@ class OrderValidatorTest extends TestCase
         $id_user = 1;
 
         $order = [
-            "ship_to_address" => [
+            "shipToAddress" => [
                 "name" => "John",
                 "surname" => "Doe",
                 "street" => "Palm street 25-7",
@@ -140,7 +141,7 @@ class OrderValidatorTest extends TestCase
                 "country" => "XXXXXXXXXXXXX",
                 "phone" => "+1 123 123 123"
             ],
-            "line_items" => [
+            "lineItems" => [
                 ["id" => 1, "quantity" => 10],
                 ["id" => 1, "quantity" => 1]
             ]
@@ -152,8 +153,8 @@ class OrderValidatorTest extends TestCase
         } catch (OrderValidatorException $e) {
             $errors = $e->getErrors();
             $this->assertIsArray($errors);
-            $this->assertArrayHasKey("ship_to_address", $errors);
-            $this->assertEquals($errors["ship_to_address"]["country"][0], "invalid country");
+            $this->assertArrayHasKey(Orders::ORDER_SHIPPING_DATA, $errors);
+            $this->assertEquals($errors[Orders::ORDER_SHIPPING_DATA][Orders::ORDER_COUNTRY][0], "invalid country");
         }
     }
 
@@ -162,7 +163,7 @@ class OrderValidatorTest extends TestCase
         $id_user = 1;
 
         $order = [
-            "ship_to_address" => [
+            "shipToAddress" => [
                 "name" => "John",
                 "surname" => "Doe",
                 "street" => "Palm street 25-7",
@@ -171,7 +172,7 @@ class OrderValidatorTest extends TestCase
                 "country" => "US",
                 "phone" => "+1 123 123 123"
             ],
-            "line_items" => [
+            "lineItems" => [
                 ["id" => 100, "quantity" => 10],
                 ["id" => 1, "quantity" => 1]
             ]
@@ -183,8 +184,8 @@ class OrderValidatorTest extends TestCase
         } catch (OrderValidatorException $e) {
             $errors = $e->getErrors();
             $this->assertIsArray($errors);
-            $this->assertArrayHasKey("line_items", $errors);
-            $this->assertEquals($errors["line_items"]["id"][0], "invalid product id for user with id of 1 for line item number 1");
+            $this->assertArrayHasKey(Orders::ORDER_LINE_ITEMS, $errors);
+            $this->assertEquals($errors[Orders::ORDER_LINE_ITEMS][Orders::PRODUCT_ID][0], "invalid product id for user with id of 1 for line item number 1");
         }
     }
 }

@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Orders;
 use App\Entity\OrdersProductsRelation;
+use App\Entity\Products;
 use App\Interfaces\IOrdersProductsRelationRepository;
 use App\Interfaces\IProductsRepository;
 use App\UserIdValidator;
@@ -36,8 +38,8 @@ class OrdersProductsRelationRepository extends ServiceEntityRepository implement
         {
             $relation = new OrdersProductsRelation();
             $relation->setOrderId($order_id);
-            $relation->setProductId($item["id"]);
-            $relation->setQuantity($item["quantity"]);
+            $relation->setProductId($item[Orders::PRODUCT_ID]);
+            $relation->setQuantity($item[Orders::PRODUCT_QUANTITY]);
             $this->em->persist($relation);
             $this->em->flush();
         }
@@ -48,7 +50,7 @@ class OrdersProductsRelationRepository extends ServiceEntityRepository implement
         if ($this->userIdValidator->validate($id_user))
         {
             return $this->findBy([
-                "order_id" => $id
+                OrdersProductsRelation::ORDER_ID => $id
             ]);
         }
         return (null);
@@ -61,28 +63,17 @@ class OrdersProductsRelationRepository extends ServiceEntityRepository implement
         foreach ($relation_products as $relation_product)
         {
             $item = [];
-            $item["id"] = $relation_product->getProductId();
-            $item["quantity"] = $relation_product->getQuantity();
-            $product = $this->productsRepository->getById($id_user, $item["id"]);
-            $item["owner_id"] = $product->getOwnerId();
-            $item["type"] = $product->getType();
-            $item["title"] = $product->getTitle();
-            $item["sku"] = $product->getSku();
-            $item["cost"] = $product->getCost();
-            $item["totalCost"] = $item["cost"] * $item["quantity"];
+            $item[Orders::PRODUCT_ID] = $relation_product->getProductId();
+            $item[Orders::PRODUCT_QUANTITY] = $relation_product->getQuantity();
+            $product = $this->productsRepository->getById($id_user, $item[Orders::PRODUCT_ID]);
+            $item[Products::PRODUCT_OWNER_ID] = $product->getOwnerId();
+            $item[Products::PRODUCT_TYPE] = $product->getType();
+            $item[Products::PRODUCT_TITLE] = $product->getTitle();
+            $item[Products::PRODUCT_SKU] = $product->getSku();
+            $item[Products::PRODUCT_COST] = $product->getCost();
+            $item[Products::PRODUCT_TOTAL_COST] = $item[Products::PRODUCT_COST] * $item[Orders::PRODUCT_QUANTITY];
             $line_items[] = $item;
         }
         return ($line_items);
-    }
-
-    public function getUsersOrders($id_user)
-    {
-        if ($this->userIdValidator->validate($id_user))
-        {
-            return $this->productsRepository->findBy([
-                "owner_id" => $id_user
-            ]);
-        }
-        return (null);
     }
 }

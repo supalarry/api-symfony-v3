@@ -4,6 +4,7 @@
 namespace App;
 
 
+use App\Entity\Orders;
 use App\Interfaces\IProductsRepository;
 
 class DomesticCostCalculator
@@ -27,12 +28,12 @@ class DomesticCostCalculator
 
         foreach ($line_items as $line_item)
         {
-            $id = $line_item["id"];
-            $quantity = $line_item["quantity"];
+            $id = $line_item[Orders::PRODUCT_ID];
+            $quantity = $line_item[Orders::PRODUCT_QUANTITY];
 
             $product = $this->repository->getById($id_user, $id);
 
-            if ($product->getType() === "mug")
+            if ($product->getType() === ProductTypeValidator::MUG)
             {
                 $production_cost += $product->getCost();
                 $shipping_cost += self::FIRST_MUG_SHIPPING;
@@ -40,7 +41,7 @@ class DomesticCostCalculator
                 $production_cost += $product->getCost() * $quantity;
                 $shipping_cost += self::CONSECUTIVE_MUG_SHIPPING * $quantity;
             }
-            elseif ($product->getType() === "t-shirt")
+            elseif ($product->getType() === ProductTypeValidator::TSHIRT)
             {
                 $production_cost += $product->getCost();
                 $shipping_cost += self::FIRST_T_SHIRT_SHIPPING;
@@ -51,9 +52,9 @@ class DomesticCostCalculator
         }
 
         return [
-            "production_cost" => $production_cost,
-            "shipping_cost" => $shipping_cost,
-            "total_cost" => $production_cost + $shipping_cost
+            Orders::ORDER_PRODUCTION_COST => $production_cost,
+            Orders::ORDER_SHIPPING_COST => $shipping_cost,
+            Orders::ORDER_TOTAL_COST => $production_cost + $shipping_cost
         ];
     }
 }
