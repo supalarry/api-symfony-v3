@@ -2,9 +2,12 @@
 
 namespace App\Repository;
 
+use App\CostCalculator;
+use App\DomesticCostCalculator;
 use App\Entity\Orders;
 use App\Interfaces\IEntity;
 use App\Interfaces\IOrdersProductsRelationRepository;
+use App\ShipmentType;
 use App\UserIdValidator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -22,13 +25,15 @@ class OrdersRepository extends ServiceEntityRepository implements IOrdersReposit
     private $em;
     private $userIdValidator;
     private $relationRepository;
+    private $shipmentType;
 
-    public function __construct(ManagerRegistry $registry, EntityManagerInterface $em, UserIdValidator $userIdValidator, IOrdersProductsRelationRepository $relationRepository)
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $em, UserIdValidator $userIdValidator, IOrdersProductsRelationRepository $relationRepository, ShipmentType $shipmentType)
     {
         parent::__construct($registry, Orders::class);
         $this->em = $em;
         $this->userIdValidator = $userIdValidator;
         $this->relationRepository = $relationRepository;
+        $this->shipmentType = $shipmentType;
     }
 
     public function create(array $characteristics, array $costs, int $id_user): IEntity
@@ -53,6 +58,16 @@ class OrdersRepository extends ServiceEntityRepository implements IOrdersReposit
         $newOrder->setPhone($characteristics[Orders::ORDER_SHIPPING_DATA][Orders::ORDER_PHONE]);
         $newOrder->setProductionCost($costs[Orders::ORDER_PRODUCTION_COST]);
         $newOrder->setShippingCost($costs[Orders::ORDER_SHIPPING_COST]);
+
+
+        if ($this->shipmentType->getType($characteristics[Orders::ORDER_SHIPPING_DATA]) === Orders::DOMESTIC_ORDER)
+        {
+            if (CostCalculator::express_shipping($characteristics))
+                $newOrder->setExpressShipping(true);
+            else
+                $newOrder->setExpressShipping(false);
+        }
+
         $newOrder->setTotalCost($costs[Orders::ORDER_TOTAL_COST]);
         $this->em->persist($newOrder);
         $this->em->flush();
@@ -89,10 +104,18 @@ class OrdersRepository extends ServiceEntityRepository implements IOrdersReposit
             $order[Orders::ORDER_LINE_ITEMS] = $this->relationRepository->line_items($id_user, $id);
 
             $order[Orders::ORDER_INFO] = array();
+
+            $expressShipping = $orderEntity->getExpressShipping();
+            if ($expressShipping != null && $expressShipping === 1)
+                $order[Orders::ORDER_INFO][Orders::EXPRESS_SHIPPING] = true;
+            elseif ($expressShipping != null && $expressShipping === 0)
+                $order[Orders::ORDER_INFO][Orders::EXPRESS_SHIPPING] = false;
+
             $order[Orders::ORDER_INFO][Orders::ORDER_ID] = $orderEntity->getId();
             $order[Orders::ORDER_INFO][Orders::ORDER_OWNER_ID] = $orderEntity->getOwnerId();
             $order[Orders::ORDER_INFO][Orders::ORDER_PRODUCTION_COST] = $orderEntity->getProductionCost();
             $order[Orders::ORDER_INFO][Orders::ORDER_SHIPPING_COST] = $orderEntity->getShippingCost();
+
             $order[Orders::ORDER_INFO][Orders::ORDER_TOTAL_COST] = $orderEntity->getTotalCost();
             return ($order);
         }

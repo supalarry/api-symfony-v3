@@ -23,8 +23,21 @@ class CostCalculator
     {
         $shipmentType = $this->shipmentType->getType($request_body[Orders::ORDER_SHIPPING_DATA]);
         if ($shipmentType === Orders::DOMESTIC_ORDER)
+        {
+            if ($this->express_shipping($request_body))
+                return ($this->domesticCostCalculator->calculate_express($id_user, $request_body[Orders::ORDER_LINE_ITEMS]));
             return ($this->domesticCostCalculator->calculate($id_user, $request_body[Orders::ORDER_LINE_ITEMS]));
+        }
         elseif ($shipmentType === Orders::INTERNATIONAL_ORDER)
             return ($this->internationalCostCalculator->calculate($id_user, $request_body[Orders::ORDER_LINE_ITEMS]));
+    }
+
+    public static function express_shipping(array $request_body):bool
+    {
+        if (array_key_exists(Orders::ORDER_INFO, $request_body)
+            && array_key_exists(Orders::EXPRESS_SHIPPING, $request_body[Orders::ORDER_INFO])
+            && $request_body[Orders::ORDER_INFO][Orders::EXPRESS_SHIPPING] === true)
+                return (true);
+        return (false);
     }
 }

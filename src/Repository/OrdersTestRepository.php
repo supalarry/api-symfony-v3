@@ -4,10 +4,12 @@
 namespace App\Repository;
 
 
+use App\CostCalculator;
 use App\Entity\Orders;
 use App\Entity\Products;
 use App\Interfaces\IOrdersProductsRelationRepository;
 use App\Interfaces\IOrdersRepository;
+use App\ShipmentType;
 use App\UserIdValidator;
 
 class OrdersTestRepository implements IOrdersRepository
@@ -16,13 +18,15 @@ class OrdersTestRepository implements IOrdersRepository
     private $id;
     private $userIdValidator;
     private $relationRepository;
+    private $shipmentType;
 
-    public function __construct(UserIdValidator $userIdValidator, IOrdersProductsRelationRepository $relationRepository)
+    public function __construct(UserIdValidator $userIdValidator, IOrdersProductsRelationRepository $relationRepository, ShipmentType $shipmentType)
     {
         $this->db = [];
         $this->id = 1;
         $this->userIdValidator = $userIdValidator;
         $this->relationRepository = $relationRepository;
+        $this->shipmentType = $shipmentType;
 
         $characteristics = [
             "shipToAddress" => [
@@ -71,6 +75,15 @@ class OrdersTestRepository implements IOrdersRepository
         $newOrder->setPhone($characteristics[Orders::ORDER_SHIPPING_DATA][Orders::ORDER_PHONE]);
         $newOrder->setProductionCost($costs[Orders::ORDER_PRODUCTION_COST]);
         $newOrder->setShippingCost($costs[Orders::ORDER_SHIPPING_COST]);
+
+        if ($this->shipmentType->getType($characteristics[Orders::ORDER_SHIPPING_DATA]) === Orders::INTERNATIONAL_ORDER)
+        {
+            if (CostCalculator::express_shipping($characteristics))
+                $newOrder->setExpressShipping(true);
+            else
+                $newOrder->setExpressShipping(false);
+        }
+
         $newOrder->setTotalCost($costs[Orders::ORDER_TOTAL_COST]);
         $this->db[$this->id] = $newOrder;
         $this->id++;

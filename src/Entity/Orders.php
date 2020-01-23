@@ -32,6 +32,7 @@ class Orders implements IEntity
 
     const INTERNATIONAL_ORDER = "international";
     const DOMESTIC_ORDER = "domestic";
+    const EXPRESS_SHIPPING = "expressShipping";
 
     /**
      * @ORM\Id()
@@ -89,6 +90,11 @@ class Orders implements IEntity
      * @ORM\Column(type="integer")
      */
     private $shippingCost;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $expressShipping;
 
     /**
      * @ORM\Column(type="integer")
@@ -224,6 +230,18 @@ class Orders implements IEntity
     public function setShippingCost(?int $shippingCost): self
     {
         $this->shippingCost = $shippingCost;
+
+        return $this;
+    }
+
+    public function getExpressShipping(): ?int
+    {
+        return $this->expressShipping;
+    }
+
+    public function setExpressShipping(?bool $expressShipping): self
+    {
+        $this->expressShipping = $expressShipping;
 
         return $this;
     }

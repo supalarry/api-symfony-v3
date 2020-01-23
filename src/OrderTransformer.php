@@ -11,7 +11,8 @@ class OrderTransformer
 {
     public function transform(Orders $order, array $dataArray)
     {
-        $dataArray[Orders::ORDER_INFO] = array();
+        if (!array_key_exists(Orders::ORDER_INFO,$dataArray))
+            $dataArray[Orders::ORDER_INFO] = array();
         $dataArray[Orders::ORDER_INFO][Orders::ORDER_ID] = $order->getId();
         $dataArray[Orders::ORDER_INFO][Orders::ORDER_PRODUCTION_COST] = $order->getProductionCost();
         $dataArray[Orders::ORDER_INFO][Orders::ORDER_SHIPPING_COST] = $order->getShippingCost();
