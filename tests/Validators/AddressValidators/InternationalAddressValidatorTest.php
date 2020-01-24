@@ -3,7 +3,7 @@
 namespace App\Tests;
 
 use App\ErrorsLoader;
-use App\Validators\AddressValidators\InternationalAddressValidator;
+use App\Validators\AddressValidators\AddressValidatorInternational;
 use App\Validators\AddressValidators\Modules\CountryValidator;
 use App\Validators\AddressValidators\Modules\PhoneValidator;
 use App\Validators\AddressValidators\Modules\StreetValidator;
@@ -22,7 +22,7 @@ class InternationalAddressValidatorTest extends TestCase
             "phone" => "+1 123 123 123"
         ];
 
-        $internationalAddressValidator = new InternationalAddressValidator(new AlphabeticStringValidator(), new StreetValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
+        $internationalAddressValidator = new AddressValidatorInternational(new AlphabeticStringValidator(), new StreetValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
 
         $valid = $internationalAddressValidator->validate($ship_to_address);
 
@@ -43,7 +43,7 @@ class InternationalAddressValidatorTest extends TestCase
             "phone" => "+1 123 123 123"
         ];
 
-        $internationalAddressValidator = new InternationalAddressValidator(new AlphabeticStringValidator(), new StreetValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
+        $internationalAddressValidator = new AddressValidatorInternational(new AlphabeticStringValidator(), new StreetValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
 
         $valid = $internationalAddressValidator->validate($ship_to_address);
 
@@ -66,7 +66,7 @@ class InternationalAddressValidatorTest extends TestCase
             "phone" => "+1 123 123 123"
         ];
 
-        $internationalAddressValidator = new InternationalAddressValidator(new AlphabeticStringValidator(), new StreetValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
+        $internationalAddressValidator = new AddressValidatorInternational(new AlphabeticStringValidator(), new StreetValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
 
         $valid = $internationalAddressValidator->validate($ship_to_address);
 
@@ -89,7 +89,7 @@ class InternationalAddressValidatorTest extends TestCase
             "phone" => "+1 123 123 123"
         ];
 
-        $internationalAddressValidator = new InternationalAddressValidator(new AlphabeticStringValidator(), new StreetValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
+        $internationalAddressValidator = new AddressValidatorInternational(new AlphabeticStringValidator(), new StreetValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
 
         $valid = $internationalAddressValidator->validate($ship_to_address);
 
@@ -112,7 +112,7 @@ class InternationalAddressValidatorTest extends TestCase
             "phone" => "+1 123 123 123"
         ];
 
-        $internationalAddressValidator = new InternationalAddressValidator(new AlphabeticStringValidator(), new StreetValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
+        $internationalAddressValidator = new AddressValidatorInternational(new AlphabeticStringValidator(), new StreetValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
 
         $valid = $internationalAddressValidator->validate($ship_to_address);
 
@@ -135,7 +135,7 @@ class InternationalAddressValidatorTest extends TestCase
             "xxxxx" => "+1 123 123 123"
         ];
 
-        $internationalAddressValidator = new InternationalAddressValidator(new AlphabeticStringValidator(), new StreetValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
+        $internationalAddressValidator = new AddressValidatorInternational(new AlphabeticStringValidator(), new StreetValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
 
         $valid = $internationalAddressValidator->validate($ship_to_address);
 

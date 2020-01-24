@@ -12,7 +12,7 @@ use App\Validators\AddressValidators\Modules\StateValidator;
 use App\Validators\AddressValidators\Modules\StreetValidator;
 use App\Validators\AddressValidators\Modules\ZipCodeValidator;
 
-class DomesticAddressValidator
+class AddressValidatorDomestic
 {
     private $alphabeticStringValidator;
     private $streetValidator;

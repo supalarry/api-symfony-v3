@@ -12,7 +12,7 @@ class AddressValidator
     private $internationalShipmentValidator;
     private $errors;
 
-    public function __construct(ShipmentType $shipmentType, DomesticAddressValidator $domesticAddressValidator, InternationalAddressValidator $internationalAddressValidator)
+    public function __construct(ShipmentType $shipmentType, AddressValidatorDomestic $domesticAddressValidator, AddressValidatorInternational $internationalAddressValidator)
     {
         $this->shipmentType = $shipmentType;
         $this->domesticShipmentValidator = $domesticAddressValidator;

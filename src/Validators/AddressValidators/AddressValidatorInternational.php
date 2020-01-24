@@ -10,7 +10,7 @@ use App\Validators\AddressValidators\Modules\CountryValidator;
 use App\Validators\AddressValidators\Modules\PhoneValidator;
 use App\Validators\AddressValidators\Modules\StreetValidator;
 
-class InternationalAddressValidator
+class AddressValidatorInternational
 {
     private $alphabeticStringValidator;
     private $streetValidator;

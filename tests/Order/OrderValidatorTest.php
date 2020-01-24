@@ -5,12 +5,12 @@ namespace App\Tests;
 use App\Validators\AddressValidators\AddressValidator;
 use App\Validators\AlphabeticStringValidator;
 use App\Validators\AddressValidators\Modules\CountryValidator;
-use App\Validators\AddressValidators\DomesticAddressValidator;
+use App\Validators\AddressValidators\AddressValidatorDomestic;
 use App\Entity\Order;
 use App\Entity\Product;
 use App\ErrorsLoader;
 use App\Exception\OrderValidatorException;
-use App\Validators\AddressValidators\InternationalAddressValidator;
+use App\Validators\AddressValidators\AddressValidatorInternational;
 use App\Order\OrderValidator;
 use App\Validators\AddressValidators\Modules\PhoneValidator;
 use App\Repository\ProductTestRepo;
@@ -31,8 +31,8 @@ class OrderValidatorTest extends TestCase
     {
         parent::__construct();
         /* creating necessary objects to create order validator*/
-        $domesticAddressValidator = new DomesticAddressValidator(new AlphabeticStringValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
-        $internationalAddressValidator = new InternationalAddressValidator(new AlphabeticStringValidator(), new StreetValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
+        $domesticAddressValidator = new AddressValidatorDomestic(new AlphabeticStringValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
+        $internationalAddressValidator = new AddressValidatorInternational(new AlphabeticStringValidator(), new StreetValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
         $this->addressValidator = new AddressValidator(new ShipmentType(), $domesticAddressValidator, $internationalAddressValidator);
 
         $userValidator = new UidValidator(new UserTestRepo());
