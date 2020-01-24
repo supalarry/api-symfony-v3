@@ -6,29 +6,28 @@ use App\Interfaces\IEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\OrdersRepository")
+ * @ORM\Entity(repositoryClass="OrdersRepo")
+ * @ORM\Table(name="`order`")
  */
-class Orders implements IEntity
+
+class Order implements IEntity
 {
-    const ORDER_SHIPPING_DATA = "shipToAddress";
-    const ORDER_LINE_ITEMS = "lineItems";
-    const ORDER_INFO = "orderInfo";
+    const SHIPPING_DATA = "shipToAddress";
+    const LINE_ITEMS = "lineItems";
+    const INFO = "info";
 
-    const ORDER_ID = "id";
-    const ORDER_OWNER_ID = "ownerId";
-    const ORDER_OWNER_NAME = "name";
-    const ORDER_OWNER_SURNAME = "surname";
-    const ORDER_STREET = "street";
-    const ORDER_STATE = "state";
-    const ORDER_ZIP = "zip";
-    const ORDER_COUNTRY = "country";
-    const ORDER_PHONE = "phone";
-    const ORDER_PRODUCTION_COST = "productionCost";
-    const ORDER_SHIPPING_COST = "shippingCost";
-    const ORDER_TOTAL_COST = "totalCost";
-
-    const PRODUCT_ID = "id";
-    const PRODUCT_QUANTITY = "quantity";
+    const ID = "id";
+    const OWNER_ID = "ownerId";
+    const OWNER_NAME = "name";
+    const OWNER_SURNAME = "surname";
+    const STREET = "street";
+    const STATE = "state";
+    const ZIP = "zip";
+    const COUNTRY = "country";
+    const PHONE = "phone";
+    const PRODUCTION_COST = "productionCost";
+    const SHIPPING_COST = "shippingCost";
+    const TOTAL_COST = "totalCost";
 
     const INTERNATIONAL_ORDER = "international";
     const DOMESTIC_ORDER = "domestic";
@@ -106,7 +105,7 @@ class Orders implements IEntity
         return $this->id;
     }
 
-    /* for testing purposes, so that OrdersTestRepository can simulate creation of an order */
+    /* for testing purposes, so that OrderTestRepo can simulate creation of an order */
     public function setId(int $id): ?self
     {
         $this->id = $id;

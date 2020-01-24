@@ -6,14 +6,14 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Interfaces\IEntity;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\UsersRepository")
+ * @ORM\Entity(repositoryClass="UserRepo")
  */
-class Users implements IEntity
+class User implements IEntity
 {
-    const USER_ID = "id";
-    const USER_NAME = "name";
-    const USER_SURNAME = "surname";
-    const USER_BALANCE = "balance";
+    const ID = "id";
+    const NAME = "name";
+    const SURNAME = "surname";
+    const BALANCE = "balance";
 
     /**
      * @ORM\Id()
@@ -42,7 +42,7 @@ class Users implements IEntity
         return $this->id;
     }
 
-    /* for testing purposes, so that UsersTestRepository can simulate creation of an user */
+    /* for testing purposes, so that UserTestRepo can simulate creation of an user */
     public function setId(int $id): self
     {
         $this->id = $id;

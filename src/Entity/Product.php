@@ -6,17 +6,19 @@ use App\Interfaces\IEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ProductsRepository")
+ * @ORM\Entity(repositoryClass="ProductRepo")
  */
-class Products implements IEntity
+
+class Product implements IEntity
 {
-    const PRODUCT_ID = "id";
-    const PRODUCT_OWNER_ID = "ownerId";
-    const PRODUCT_TYPE = "type";
-    const PRODUCT_TITLE = "title";
-    const PRODUCT_SKU = "sku";
-    const PRODUCT_COST = "cost";
-    const PRODUCT_TOTAL_COST = "totalCost";
+    const ID = "id";
+    const QUANTITY = "quantity";
+    const OWNER_ID = "ownerId";
+    const TYPE = "type";
+    const TITLE = "title";
+    const SKU = "sku";
+    const COST = "cost";
+    const TOTAL_COST = "totalCost";
 
     /**
      * @ORM\Id()
@@ -55,7 +57,7 @@ class Products implements IEntity
         return $this->id;
     }
 
-    /* for testing purposes, so that UsersTestRepository can simulate creation of an user */
+    /* for testing purposes, so that ProductTestRepo can simulate creation of a product */
     public function setId(int $id): self
     {
         $this->id = $id;

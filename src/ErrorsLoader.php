@@ -3,7 +3,6 @@
 
 namespace App;
 
-
 class ErrorsLoader
 {
     public function load(string $key, string $error, array &$errors)

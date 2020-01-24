@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\OrdersProductsRelationRepository")
+ * @ORM\Entity(repositoryClass="RelationRepo")
  */
-class OrdersProductsRelation
+class Relation
 {
     const ORDER_ID = "orderId";
     const PRODUCT_ID = "productId";
@@ -45,7 +45,7 @@ class OrdersProductsRelation
         return $this->id;
     }
 
-    /* for testing purposes, so that OrdersProductsRelationRepository can simulate creation of a relation */
+    /* for testing purposes, so that RelationTestRepo can simulate creation of a relation */
     public function setId(int $id): self
     {
         $this->id = $id;

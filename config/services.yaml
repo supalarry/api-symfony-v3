@@ -23,43 +23,44 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
-    # repositories for deployment
-    App\Interfaces\IUsersRepository: '@UsersRepository'
-    App\Interfaces\IProductsRepository: '@ProductsRepository'
-    App\Interfaces\IOrdersRepository: '@OrdersRepository'
-    App\Interfaces\IOrdersProductsRelationRepository: '@OrdersProductsRelationRepository'
+    # mapping interface to production repositories
+    # App\Interfaces\IUserRepo: '@UserRepo'
+    # App\Interfaces\IProductRepo: '@ProductRepo'
+    # App\Interfaces\IOrderRepo: '@OrderRepo'
+    # App\Interfaces\IRelationRepo: '@RelationRepo'
 
-    # repositories for testing
-    # App\Interfaces\IUsersRepository: '@UsersTestRepository'
-    # App\Interfaces\IProductsRepository: '@ProductsTestRepository'
-    # App\Interfaces\IOrdersRepository: '@OrdersTestRepository'
-    # App\Interfaces\IOrdersProductsRelationRepository: '@OrdersProductsRelationTestRepository'
+    # mapping interface to testing repositories
+    App\Interfaces\IUserRepo: '@UserTestRepo'
+    App\Interfaces\IProductRepo: '@ProductTestRepo'
+    App\Interfaces\IOrderRepo: '@OrderTestRepo'
+    App\Interfaces\IRelationRepo: '@RelationRepo'
 
-    # -------- repositories --------
-    UsersRepository:
-        class: App\Repository\UsersRepository
+    # -------- repositories pointed to by interface --------
+    UserRepo:
+        class: App\Repository\UserRepo
 
-    ProductsRepository:
-        class: App\Repository\ProductsRepository
+    ProductRepo:
+        class: App\Repository\ProductRepo
 
-    OrdersRepository:
-        class: App\Repository\OrdersRepository
+    OrderRepo:
+        class: App\Repository\OrderRepo
 
-    OrdersProductsRelationRepository:
-       class: App\Repository\OrdersProductsRelationRepository
+    RelationRepo:
+       class: App\Repository\RelationRepo
 
-    UsersTestRepository:
-        class: App\Repository\UsersTestRepository
+    UserTestRepo:
+        class: App\Repository\UserTestRepo
 
-    ProductsTestRepository:
-        class: App\Repository\ProductsTestRepository
+    ProductTestRepo:
+        class: App\Repository\ProductTestRepo
 
-    OrdersTestRepository:
-        class: App\Repository\OrdersTestRepository
+    OrderTestRepo:
+        class: App\Repository\OrderTestRepo
 
-    OrdersProductsRelationTestRepository:
-        class: App\Repository\OrdersProductsRelationTestRepository
-    # ------------------------------
+    RelationTestRepo:
+        class: App\Repository\RelationTestRepo
+
+    # -------- services --------
 
     CreateUserService:
         class: App\CreateUser
