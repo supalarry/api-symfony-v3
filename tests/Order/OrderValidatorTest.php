@@ -58,7 +58,7 @@ class OrderValidatorTest extends TestCase
             ]
         ];
 
-        $orderValidator = new OrderValidator($this->addressValidator, new ProductTestRepo(new UidValidator(new UserTestRepo())));
+        $orderValidator = new OrderValidator($this->addressValidator, new ProductTestRepo(new UidValidator(new UserTestRepo())), new ErrorsLoader());
         $orderValidator->validate(1, $order);
         $errors = $orderValidator->getErrors();
         $this->assertEmpty($errors);
@@ -84,7 +84,7 @@ class OrderValidatorTest extends TestCase
             ]
         ];
 
-        $orderValidator = new OrderValidator($this->addressValidator, new ProductTestRepo(new UidValidator(new UserTestRepo())));
+        $orderValidator = new OrderValidator($this->addressValidator, new ProductTestRepo(new UidValidator(new UserTestRepo())), new ErrorsLoader());
         try {
             $orderValidator->validate(1, $order);
         } catch (OrderValidatorException $e) {
@@ -115,7 +115,7 @@ class OrderValidatorTest extends TestCase
             ]
         ];
 
-        $orderValidator = new OrderValidator($this->addressValidator, new ProductTestRepo(new UidValidator(new UserTestRepo())));
+        $orderValidator = new OrderValidator($this->addressValidator, new ProductTestRepo(new UidValidator(new UserTestRepo())), new ErrorsLoader());
         try {
             $orderValidator->validate(1, $order);
         } catch (OrderValidatorException $e) {
@@ -146,7 +146,7 @@ class OrderValidatorTest extends TestCase
             ]
         ];
 
-        $orderValidator = new OrderValidator($this->addressValidator, new ProductTestRepo(new UidValidator(new UserTestRepo())));
+        $orderValidator = new OrderValidator($this->addressValidator, new ProductTestRepo(new UidValidator(new UserTestRepo())), new ErrorsLoader());
         try {
             $orderValidator->validate(1, $order);
         } catch (OrderValidatorException $e) {
@@ -177,14 +177,14 @@ class OrderValidatorTest extends TestCase
             ]
         ];
 
-        $orderValidator = new OrderValidator($this->addressValidator, new ProductTestRepo(new UidValidator(new UserTestRepo())));
+        $orderValidator = new OrderValidator($this->addressValidator, new ProductTestRepo(new UidValidator(new UserTestRepo())), new ErrorsLoader());
         try {
             $orderValidator->validate(1, $order);
         } catch (OrderValidatorException $e) {
             $errors = $e->getErrors();
             $this->assertIsArray($errors);
             $this->assertArrayHasKey(Order::LINE_ITEMS, $errors);
-            $this->assertEquals($errors[Order::LINE_ITEMS][Product::ID], "invalid product id for user with id of 1 for line item number 1");
+            $this->assertEquals($errors[Order::LINE_ITEMS][Product::ID][0], "invalid product id for user with id of 1 for line item number 1");
         }
     }
 }
