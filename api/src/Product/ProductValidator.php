@@ -48,7 +48,7 @@ class ProductValidator
                 $this->errorsLoader->load(Product::TITLE, Product::INVALID_TITLE, $this->errors);
             elseif ($key === Product::SKU && !$this->skuValidator->validate($value, $id_user))
                 $this->errorsLoader->load(Product::SKU, Product::INVALID_SKU, $this->errors);
-            elseif ($key === Product::COST && !is_int($value))
+            elseif ($key === Product::COST && (!is_int($value) || $value < 1))
                 $this->errorsLoader->load(Product::COST, Product::INVALID_COST, $this->errors);
         }
 
