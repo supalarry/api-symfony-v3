@@ -87,7 +87,7 @@ phpunit
 
 ## Usage
 
-- Endpoints can be accessed via port 8098 http://localhost:8098/{endpoint}
+- Endpoints can be accessed via port 8098 : http://localhost:8098/{endpoint}
 
 - All JSON keys can be a combination of upper and lowercase letters. If required key is "name", then API accepts "Name", "nAmE" etc.
 
@@ -96,6 +96,8 @@ phpunit
 	"name" : "John",
 	"surname" : "Doe"
 }
+```
+```
 {
 	"nAmE" : "John",
 	"surname" : "Doe"
@@ -112,7 +114,7 @@ Both examples are valid.
 
 ## Endpoints
 
-### Create a new user
+### 1.1 Create a new user
 ### endpoint -> /users
 ### method -> POST
 ### url -> http://localhost:8098/users
@@ -141,12 +143,12 @@ response body:
 
 Each user is assigned 100$ or 10000 cents as a starting balance to make orders later on.
 
-### View a user
+### 1.2 View a user
 ### endpoint -> /users/{id}
 ### method -> GET
 ### url -> http://localhost:8098/users/{id}
 
-response body with {id} of 1:
+response body is an user object:
 
 ```
 {
@@ -157,14 +159,13 @@ response body with {id} of 1:
 }
 ```
 
-### View all user
+### 1.3 View all user
 ### endpoint -> /users
 ### method -> GET
 ### url -> http://localhost:8098/users
 
-response body consists of an array of user objects
+response body is an array holding user objects:
 
-response body:
 
 ```
 [
@@ -183,7 +184,7 @@ response body:
 ]
 ```
 
-### Create a new product
+### 2.1 Create a new product
 ### endpoint -> /users/{id}/products
 ### method -> POST
 ### url -> http://localhost:8098/users/{id}/products
@@ -220,12 +221,12 @@ response body for owner with id of 1:
 }
 ```
 
-### View a product
+### 2.2 View a product
 ### endpoint -> /users/{id}/products/{id}
 ### method -> GET
 ### url -> http://localhost:8098/users/{id}/products/{id}
 
-response body for owner with id of 1:
+response body is a product object:
 
 ```
 {
@@ -238,14 +239,12 @@ response body for owner with id of 1:
 }
 ```
 
-### View all products
+### 2.3 View all products
 ### endpoint -> /users/{id}/products
 ### method -> GET
 ### url -> http://localhost:8098/users/{id}/products
 
-response body consists of an array of user's product objects
-
-response body:
+response body is an array holding product objects:
 
 ```
 [
@@ -268,7 +267,7 @@ response body:
 ]
 ```
 
-### Create a new order
+### 3.1 Create a new order
 ### endpoint -> /users/{id}/orders
 ### method -> POST
 ### url -> http://localhost:8098/users/{id}/orders
@@ -364,6 +363,143 @@ response body includes request data, but also expands on each line item and adds
 }
 ```
 
+### 3.2 View an order
+### endpoint -> /users/{id}/orders/{id}
+### method -> GET
+### url -> http://localhost:8098/users/{id}/orders/{id}
+
+response body is an order object:
+
+```
+{
+    "shipToAddress": {
+        "name": "John",
+        "surname": "Doe",
+        "street": "Palm Street 255",
+        "country": "US",
+        "phone": "917-568-2970"
+    },
+    "lineItems": [
+        {
+            "id": 1,
+            "quantity": 1,
+            "ownerId": 1,
+            "type": "t-shirt",
+            "title": "just do it",
+            "sku": "100-abc-999",
+            "cost": 1000,
+            "totalCost": 1000
+        },
+        {
+            "id": 2,
+            "quantity": 1,
+            "ownerId": 1,
+            "type": "t-shirt",
+            "title": "mo mamba",
+            "sku": "100-abc-100",
+            "cost": 1000,
+            "totalCost": 1000
+        }
+    ],
+    "info": {
+        "id": 3,
+        "ownerId": 1,
+        "productionCost": 2000,
+        "shippingCost": 2000,
+        "expressShipping": true,
+        "totalCost": 4000
+    }
+}
+```
+
+
+### 3.3 View orders
+### endpoint -> /users/{id}/orders
+### method -> GET
+### url -> http://localhost:8098/users/{id}/orders
+
+response body is an array holding user objects:
+
+```
+[
+    {
+        "shipToAddress": {
+            "name": "John",
+            "surname": "Doe",
+            "street": "Palm Street 255",
+            "country": "US",
+            "phone": "917-568-2970"
+        },
+        "lineItems": [
+            {
+                "id": 1,
+                "quantity": 1,
+                "ownerId": 1,
+                "type": "t-shirt",
+                "title": "just do it",
+                "sku": "100-abc-999",
+                "cost": 1000,
+                "totalCost": 1000
+            },
+            {
+                "id": 2,
+                "quantity": 1,
+                "ownerId": 1,
+                "type": "t-shirt",
+                "title": "mo mamba",
+                "sku": "100-abc-100",
+                "cost": 1000,
+                "totalCost": 1000
+            }
+        ],
+        "info": {
+            "id": 1,
+            "ownerId": 1,
+            "productionCost": 2000,
+            "shippingCost": 200,
+            "totalCost": 2200
+        }
+    },
+    {
+        "shipToAddress": {
+            "name": "John",
+            "surname": "Doe",
+            "street": "Palm Street 255",
+            "country": "US",
+            "phone": "917-568-2970"
+        },
+        "lineItems": [
+            {
+                "id": 1,
+                "quantity": 1,
+                "ownerId": 1,
+                "type": "t-shirt",
+                "title": "just do it",
+                "sku": "100-abc-999",
+                "cost": 1000,
+                "totalCost": 1000
+            },
+            {
+                "id": 2,
+                "quantity": 1,
+                "ownerId": 1,
+                "type": "t-shirt",
+                "title": "mo mamba",
+                "sku": "100-abc-100",
+                "cost": 1000,
+                "totalCost": 1000
+            }
+        ],
+        "info": {
+            "id": 2,
+            "ownerId": 1,
+            "productionCost": 2000,
+            "shippingCost": 200,
+            "totalCost": 2200
+        }
+    }
+]
+```
 
 ## Logging into phpmyadmin
 
