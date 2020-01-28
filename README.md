@@ -289,31 +289,41 @@ Each user is assigned 100$ or 10000 cents as a starting balance to make orders l
 }
 ```
 
-Order request body consists of two mandatory parts - "shipToAddress" (shipping address) and "lineItems" (products within the order). "info" section is optional.
-
-- shipToAddress
+- "shipToAddress"
 
 Orders can be either international or domestic (US).
 
 Domestic order's "shipToAddress" must include all keys as in the example above, but for international orders "state" and "zip" keys are optional.
 
+> "name" : accepts upper and lowercase letters, spaces, dot (.) , comma (,) , apastrophe (') and dash (-).
 
+> "surname" : accepts upper and lowercase letters, spaces, dot (.) , comma (,) , apastrophe (') and dash (-).
 
-- lineItems
+> "street" : accepts upper and lowercase letters, spaces, dash (-) and digits.
 
-Each object within lineItems array represents a product within order.
+> "state" : accepts all US states as shortform "NY" or long form "New York". Both can be written as a combination of upper and lowercase letters. "ny" and "new york" are both valid.
 
-id is the id of a product that user has created.
+> "zip" : accepts the five digit and nine digit formats e.g. 12345 or 12345-6789 works, but not 1234 or 12345-67899.
 
-quantity is how many units of the product are requested.
+> "country" : accepts two letter code "LV", three letter code "LVA" and name "Latvia". Made up countries are not accepted.
 
-- info
+> "phone" : accepts a string or digits only. It is stored as a string later on.
 
-info part is only applicable to US orders and is optional. If expressShipping is set to true, then express shipping is enabled for the order. In that case, shipping costs for each product is 10$ (1000 cents).
+- "lineItems"
 
-If the user has sufficient funds, order is created. Once it is created, funds from user are substracted.
+Each object within lineItems array represents a product within the order.
 
-response body includes request data, but also expands on each line item and adds information about order under info section.
+> "id" : id of the product user has created.
+
+> "quantity" : how many units of the product are requested.
+
+- "info"
+
+This part is only applicable to US orders and is optional. If `expressShipping` is set to `true`, then express shipping is enabled for the order. In that case, shipping costs for each product is 10$ (1000 cents).
+
+- If the user has sufficient funds, order is created. Once it is created, funds from user are deducted.
+
+- Response body includes additional data about each ordered item and about order and it's costs :
 
 ```
 {
@@ -321,6 +331,8 @@ response body includes request data, but also expands on each line item and adds
         "name": "John",
         "surname": "Doe",
         "street": "Palm Street 255",
+	"state" : "NY",
+	"zip" : "12315",
         "country": "US",
         "phone": "917-568-2970"
     },
@@ -358,13 +370,10 @@ response body includes request data, but also expands on each line item and adds
 ```
 
 ### 3.2 View an order
-endpoint : /users/{id}/orders/{id}
-
-method : GET
-
-url : http://localhost:8098/users/{id}/orders/{id}
-
-response body is an order object:
+- endpoint : /users/{id}/orders/{id}
+- method : GET
+- url : http://localhost:8098/users/{id}/orders/{id}
+- response body :
 
 ```
 {
@@ -410,13 +419,10 @@ response body is an order object:
 
 
 ### 3.3 View orders
-endpoint : /users/{id}/orders
-
-method : GET
-
-url : http://localhost:8098/users/{id}/orders
-
-response body is an array holding user objects:
+- endpoint : /users/{id}/orders
+- method : GET
+- url : http://localhost:8098/users/{id}/orders
+- response body :
 
 ```
 [
@@ -501,7 +507,7 @@ response body is an array holding user objects:
 
 ## Logging into phpmyadmin
 
-Log into phpmyadmin **http://localhost:8088** using:
+Log into phpmyadmin http://localhost:8088 using:
 
 ```
 username: root
