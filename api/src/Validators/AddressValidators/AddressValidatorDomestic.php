@@ -14,7 +14,7 @@ use App\Validators\AddressValidators\Modules\ZipCodeValidator;
 
 class AddressValidatorDomestic
 {
-    private $alphabeticStringValidator;
+    private $nameSurnameValidator;
     private $streetValidator;
     private $stateValidator;
     private $zipCodeValidator;
@@ -23,9 +23,9 @@ class AddressValidatorDomestic
     private $errors;
     private $errorsLoader;
 
-    public function __construct(NameSurnameValidator $alphabetic, StreetValidator $street, StateValidator $state, ZipCodeValidator $zip, CountryValidator $country, PhoneValidator $phone, ErrorsLoader $errors)
+    public function __construct(NameSurnameValidator $validator, StreetValidator $street, StateValidator $state, ZipCodeValidator $zip, CountryValidator $country, PhoneValidator $phone, ErrorsLoader $errors)
     {
-        $this->alphabeticStringValidator = $alphabetic;
+        $this->nameSurnameValidator = $validator;
         $this->streetValidator = $street;
         $this->stateValidator = $state;
         $this->zipCodeValidator = $zip;
@@ -54,9 +54,9 @@ class AddressValidatorDomestic
 
         foreach ($address as $key => $value)
         {
-            if ($key === Order::OWNER_NAME && !$this->alphabeticStringValidator->validate($value))
+            if ($key === Order::OWNER_NAME && !$this->nameSurnameValidator->validate($value))
                 $this->errorsLoader->load(Order::OWNER_NAME, Order::INVALID_NAME, $this->errors);
-            elseif ($key === Order::OWNER_SURNAME && !$this->alphabeticStringValidator->validate($value))
+            elseif ($key === Order::OWNER_SURNAME && !$this->nameSurnameValidator->validate($value))
                 $this->errorsLoader->load(Order::OWNER_SURNAME, Order::INVALID_SURNAME, $this->errors);
             elseif ($key === Order::STREET && !$this->streetValidator->validate($value))
                 $this->errorsLoader->load(Order::STREET, Order::INVALID_STREET, $this->errors);

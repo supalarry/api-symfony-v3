@@ -14,16 +14,16 @@ class AddressValidatorInternational
 {
 
 
-    private $alphabeticStringValidator;
+    private $nameSurnameValidator;
     private $streetValidator;
     private $countryValidator;
     private $phoneValidator;
     private $errors;
     private $errorsLoader;
 
-    public function __construct(NameSurnameValidator $alphabetic, StreetValidator $street, CountryValidator $country, PhoneValidator $phone, ErrorsLoader $errors)
+    public function __construct(NameSurnameValidator $nameSurnameValidator, StreetValidator $street, CountryValidator $country, PhoneValidator $phone, ErrorsLoader $errors)
     {
-        $this->alphabeticStringValidator = $alphabetic;
+        $this->nameSurnameValidator = $nameSurnameValidator;
         $this->streetValidator = $street;
         $this->countryValidator = $country;
         $this->phoneValidator = $phone;
@@ -46,9 +46,9 @@ class AddressValidatorInternational
 
         foreach ($address as $key => $value)
         {
-            if ($key === Order::OWNER_NAME && !$this->alphabeticStringValidator->validate($value))
+            if ($key === Order::OWNER_NAME && !$this->nameSurnameValidator->validate($value))
                 $this->errorsLoader->load(Order::OWNER_NAME, Order::INVALID_NAME, $this->errors);
-            elseif ($key === Order::OWNER_SURNAME && !$this->alphabeticStringValidator->validate($value))
+            elseif ($key === Order::OWNER_SURNAME && !$this->nameSurnameValidator->validate($value))
                 $this->errorsLoader->load(Order::OWNER_SURNAME, Order::INVALID_SURNAME, $this->errors);
             elseif ($key === Order::STREET && !$this->streetValidator->validate($value))
                 $this->errorsLoader->load(Order::STREET, Order::INVALID_STREET, $this->errors);
