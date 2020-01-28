@@ -1,10 +1,14 @@
 # Printify REST API
 
-This API is written in PHP using Symfony framework.
-Project runs on nginx server, php scripts are ran by php-fpm and data is stored in mysql. Phpmyadmin is accessable too.
-Project is deployed using docker.
+API for creating users, products and orders for an e-commerce store.
+Products and orders are linked to the user who created them.
 
-This is an API which allows to add users and products and orders connected to users.
+- Written in PHP using Symfony framework
+- Runs on nginx server
+- Scripts executed by php-fpm
+- Data stored using mysql
+- Phpmyadmin enabled
+- Deployed using Docker
 
 ## Installation
 
@@ -31,23 +35,24 @@ Run the app using docker
 ```
 docker-compose up
 ```
+
 ## Database setup
 
-This project uses mysql together with doctrine.
+This project uses mysql together with doctrine within the symfony framework.
 
 After executing **docker-compose up** mysql is setup from **docker/backup/mysql/api.sql** file.
 
 All work occurs in **printify_api** database.
 
-In it four tables - user, product, order and relation - are automatically created empty.
+Four tables - user, product, order, relation - are automatically created empty.
 
-**user** - stores created users
+**user** : stores created users
 
-**product** - stores products submitted by the user
+**product** : stores products submitted by the user
 
-**order** - stores order submitted by the user
+**order** : stores order submitted by the user
 
-**relation** - links an order with it's products
+**relation** : links an order with it's products
 
 Connection to **mysql** docker container is defined in **api/env** file's DATABASE_URL field
 
@@ -61,9 +66,11 @@ For your convenience, you can create an alias in your shell
 ```
 alias phpunit='vendor/bin/phpunit'
 ```
-so that you can simply write phpunit from the api folder and tests will be executed.
+Now, you can simply write phpunit within the api folder and tests will be executed.
 
-Testing is done within in-memory storage. Production repositories are being simulated by test repositories stored in api/src/Repository/Test to improve testing time while testing. Production repositories are stored in api/src/Repository/Prod.
+Testing is done within in-memory.
+Production repositories are being simulated by test repositories stored in **api/src/Repository/Test** to improve testing time while testing.
+Production repositories are stored in **api/src/Repository/Prod**.
 
 This is set up in api/config/services_test.yml file where interfaces point to test repositories. api/config/services.yml interfaces point to production repositories.
 
@@ -79,6 +86,8 @@ All keys for POST body can be in any case. If required key is **name**, then API
 Request body also can include redundant keys. If name and surname keys are asked, and user also adds eye-color key, the API works just fine. It grabs what is necessary and ignores the rest.
 
 If invalid endpoints or non existing users, products or orders are requested, API returns an empty body with 404 status code.
+
+Accessing '/' displays HTML welcome page.
 
 ## Endpoints
 
