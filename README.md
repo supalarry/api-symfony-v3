@@ -2,8 +2,9 @@
 
 This API is written in PHP using Symfony framework.
 Project runs on nginx server, php scripts are ran by php-fpm and data is stored in mysql. Phpmyadmin is accessable too.
+Project is deployed using docker.
 
-This is an API which allows to add users and products and orders connected to them.
+This is an API which allows to add users and products and orders connected to users.
 
 ## Installation
 
@@ -13,13 +14,20 @@ Clone this repository
 git@github.com:lauris-printify/homework-v3.git
 ```
 
-In root directory run
+Switch to project folder
+
+```
+cd homework-v3
+```
+
+Install dependencies and launch docker
 
 ```
 composer install -d api
+```
+```
 docker-compose up
 ```
-
 ## Database setup
 
 This project uses mysql together with doctrine.
