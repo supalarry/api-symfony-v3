@@ -6,7 +6,7 @@ use App\Entity\User;
 use App\ErrorsLoader;
 use App\Exception\UserValidatorException;
 use App\User\UserValidator;
-use App\Validators\AlphabeticStringValidator;
+use App\Validators\UserValidators\NameSurnameValidator;
 use PHPUnit\Framework\TestCase;
 
 class ValidateUserTest extends TestCase
@@ -20,7 +20,7 @@ class ValidateUserTest extends TestCase
 
         $errors = [];
 
-        $validator = new UserValidator(new AlphabeticStringValidator(), new ErrorsLoader());
+        $validator = new UserValidator(new NameSurnameValidator(), new ErrorsLoader());
 
         $validator->validate($json_body);
 
@@ -38,7 +38,7 @@ class ValidateUserTest extends TestCase
 
         $errors = [];
 
-        $validator = new UserValidator(new AlphabeticStringValidator(), new ErrorsLoader());
+        $validator = new UserValidator(new NameSurnameValidator(), new ErrorsLoader());
 
         try {
             $validator->validate($json_body);
@@ -58,7 +58,7 @@ class ValidateUserTest extends TestCase
 
         $errors = [];
 
-        $validator = new UserValidator(new AlphabeticStringValidator(), new ErrorsLoader());
+        $validator = new UserValidator(new NameSurnameValidator(), new ErrorsLoader());
 
         try {
             $validator->validate($json_body);
@@ -78,7 +78,7 @@ class ValidateUserTest extends TestCase
 
         $errors = [];
 
-        $validator = new UserValidator(new AlphabeticStringValidator(), new ErrorsLoader());
+        $validator = new UserValidator(new NameSurnameValidator(), new ErrorsLoader());
 
         try {
             $validator->validate($json_body);
@@ -98,7 +98,7 @@ class ValidateUserTest extends TestCase
 
         $errors = [];
 
-        $validator = new UserValidator(new AlphabeticStringValidator(), new ErrorsLoader());
+        $validator = new UserValidator(new NameSurnameValidator(), new ErrorsLoader());
 
         try {
             $validator->validate($json_body);
@@ -118,7 +118,7 @@ class ValidateUserTest extends TestCase
 
         $errors = [];
 
-        $validator = new UserValidator(new AlphabeticStringValidator(), new ErrorsLoader());
+        $validator = new UserValidator(new NameSurnameValidator(), new ErrorsLoader());
 
         try {
             $validator->validate($json_body);
@@ -138,7 +138,7 @@ class ValidateUserTest extends TestCase
 
         $errors = [];
 
-        $validator = new UserValidator(new AlphabeticStringValidator(), new ErrorsLoader());
+        $validator = new UserValidator(new NameSurnameValidator(), new ErrorsLoader());
 
         try {
             $validator->validate($json_body);
@@ -157,7 +157,7 @@ class ValidateUserTest extends TestCase
 
         $errors = [];
 
-        $validator = new UserValidator(new AlphabeticStringValidator(), new ErrorsLoader());
+        $validator = new UserValidator(new NameSurnameValidator(), new ErrorsLoader());
 
         try {
             $validator->validate($json_body);

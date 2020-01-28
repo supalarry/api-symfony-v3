@@ -23,24 +23,25 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
-    # mapping interface to production repositories
-    App\Interfaces\IUserRepo: '@UserRepo'
-    App\Interfaces\IProductRepo: '@ProductRepo'
-    App\Interfaces\IOrderRepo: '@OrderRepo'
+    # mapping interface to testing repositories
+    App\Interfaces\IUserRepo: '@UserTestRepo'
+    App\Interfaces\IProductRepo: '@ProductTestRepo'
+    App\Interfaces\IOrderRepo: '@OrderTestRepo'
     App\Interfaces\IRelationRepo: '@RelationRepo'
 
     # -------- repositories pointed to by interface --------
-    UserRepo:
-        class: App\Repository\Prod\UserRepo
 
-    ProductRepo:
-        class: App\Repository\Prod\ProductRepo
+    UserTestRepo:
+        class: App\Repository\Test\UserTestRepo
 
-    OrderRepo:
-        class: App\Repository\Prod\OrderRepo
+    ProductTestRepo:
+        class: App\Repository\Test\ProductTestRepo
 
-    RelationRepo:
-       class: App\Repository\Prod\RelationRepo
+    OrderTestRepo:
+        class: App\Repository\Test\OrderTestRepo
+
+    RelationTestRepo:
+        class: App\Repository\Test\RelationTestRepo
 
     # -------- services --------
 

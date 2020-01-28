@@ -5,7 +5,7 @@ namespace App\Validators\AddressValidators;
 
 use App\Entity\Order;
 use App\ErrorsLoader;
-use App\Validators\AlphabeticStringValidator;
+use App\Validators\UserValidators\NameSurnameValidator;
 use App\Validators\AddressValidators\Modules\CountryValidator;
 use App\Validators\AddressValidators\Modules\PhoneValidator;
 use App\Validators\AddressValidators\Modules\StateValidator;
@@ -23,7 +23,7 @@ class AddressValidatorDomestic
     private $errors;
     private $errorsLoader;
 
-    public function __construct(AlphabeticStringValidator $alphabetic, StreetValidator $street, StateValidator $state, ZipCodeValidator $zip, CountryValidator $country, PhoneValidator $phone, ErrorsLoader $errors)
+    public function __construct(NameSurnameValidator $alphabetic, StreetValidator $street, StateValidator $state, ZipCodeValidator $zip, CountryValidator $country, PhoneValidator $phone, ErrorsLoader $errors)
     {
         $this->alphabeticStringValidator = $alphabetic;
         $this->streetValidator = $street;

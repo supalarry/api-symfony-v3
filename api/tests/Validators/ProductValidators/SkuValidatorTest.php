@@ -2,8 +2,8 @@
 
 namespace App\Tests;
 
-use App\Repository\ProductTestRepo;
-use App\Repository\UserTestRepo;
+use App\Repository\Test\ProductTestRepo;
+use App\Repository\Test\UserTestRepo;
 use App\Validators\ProductValidators\SkuValidator;
 use App\Validators\UserValidators\UidValidator;
 use PHPUnit\Framework\TestCase;

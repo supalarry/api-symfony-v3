@@ -5,8 +5,8 @@ namespace App\Tests;
 use App\CostCalculator\DomesticCostCalculator;
 use App\Entity\Order;
 use App\Entity\Product;
-use App\Repository\ProductTestRepo;
-use App\Repository\UserTestRepo;
+use App\Repository\Test\ProductTestRepo;
+use App\Repository\Test\UserTestRepo;
 use App\Validators\UserValidators\UidValidator;
 use PHPUnit\Framework\TestCase;
 

@@ -10,7 +10,7 @@ use App\Validators\AddressValidators\Modules\PhoneValidator;
 use App\Validators\AddressValidators\Modules\StateValidator;
 use App\Validators\AddressValidators\Modules\StreetValidator;
 use App\Validators\AddressValidators\Modules\ZipCodeValidator;
-use App\Validators\AlphabeticStringValidator;
+use App\Validators\UserValidators\NameSurnameValidator;
 use PHPUnit\Framework\TestCase;
 
 class DomesticAddressValidatorTest extends TestCase
@@ -27,7 +27,7 @@ class DomesticAddressValidatorTest extends TestCase
             "phone" => "+1 123 123 123"
         ];
 
-        $domesticAddressValidator = new AddressValidatorDomestic(new AlphabeticStringValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
+        $domesticAddressValidator = new AddressValidatorDomestic(new NameSurnameValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
 
         $valid = $domesticAddressValidator->validate($ship_to_address);
 
@@ -50,7 +50,7 @@ class DomesticAddressValidatorTest extends TestCase
             "phone" => "+1 123 123 123"
         ];
 
-        $domesticAddressValidator = new AddressValidatorDomestic(new AlphabeticStringValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
+        $domesticAddressValidator = new AddressValidatorDomestic(new NameSurnameValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
 
         $valid = $domesticAddressValidator->validate($ship_to_address);
 
@@ -75,7 +75,7 @@ class DomesticAddressValidatorTest extends TestCase
             "phone" => "+1 123 123 123"
         ];
 
-        $domesticAddressValidator = new AddressValidatorDomestic(new AlphabeticStringValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
+        $domesticAddressValidator = new AddressValidatorDomestic(new NameSurnameValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
 
         $valid = $domesticAddressValidator->validate($ship_to_address);
 
@@ -100,7 +100,7 @@ class DomesticAddressValidatorTest extends TestCase
             "phone" => "+1 123 123 123"
         ];
 
-        $domesticAddressValidator = new AddressValidatorDomestic(new AlphabeticStringValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
+        $domesticAddressValidator = new AddressValidatorDomestic(new NameSurnameValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
 
         $valid = $domesticAddressValidator->validate($ship_to_address);
 
@@ -125,7 +125,7 @@ class DomesticAddressValidatorTest extends TestCase
             "phone" => "+1 123 123 123"
         ];
 
-        $domesticAddressValidator = new AddressValidatorDomestic(new AlphabeticStringValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
+        $domesticAddressValidator = new AddressValidatorDomestic(new NameSurnameValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
 
         $valid = $domesticAddressValidator->validate($ship_to_address);
 
@@ -150,7 +150,7 @@ class DomesticAddressValidatorTest extends TestCase
             "phone" => "+1 123 123 123"
         ];
 
-        $domesticAddressValidator = new AddressValidatorDomestic(new AlphabeticStringValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
+        $domesticAddressValidator = new AddressValidatorDomestic(new NameSurnameValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
 
         $valid = $domesticAddressValidator->validate($ship_to_address);
 
@@ -175,7 +175,7 @@ class DomesticAddressValidatorTest extends TestCase
             "phone" => "+1 123 123 123"
         ];
 
-        $domesticAddressValidator = new AddressValidatorDomestic(new AlphabeticStringValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
+        $domesticAddressValidator = new AddressValidatorDomestic(new NameSurnameValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
 
         $valid = $domesticAddressValidator->validate($ship_to_address);
 
@@ -200,7 +200,7 @@ class DomesticAddressValidatorTest extends TestCase
             "xxxxx" => "+1 123 123 123"
         ];
 
-        $domesticAddressValidator = new AddressValidatorDomestic(new AlphabeticStringValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
+        $domesticAddressValidator = new AddressValidatorDomestic(new NameSurnameValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
 
         $valid = $domesticAddressValidator->validate($ship_to_address);
 

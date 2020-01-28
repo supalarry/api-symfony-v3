@@ -3,7 +3,7 @@
 namespace App\Tests;
 
 use App\Validators\AddressValidators\AddressValidator;
-use App\Validators\AlphabeticStringValidator;
+use App\Validators\UserValidators\NameSurnameValidator;
 use App\Validators\AddressValidators\Modules\CountryValidator;
 use App\Validators\AddressValidators\AddressValidatorDomestic;
 use App\Entity\Order;
@@ -13,8 +13,8 @@ use App\Exception\OrderValidatorException;
 use App\Validators\AddressValidators\AddressValidatorInternational;
 use App\Order\OrderValidator;
 use App\Validators\AddressValidators\Modules\PhoneValidator;
-use App\Repository\ProductTestRepo;
-use App\Repository\UserTestRepo;
+use App\Repository\Test\ProductTestRepo;
+use App\Repository\Test\UserTestRepo;
 use App\Validators\AddressValidators\ShipmentType;
 use App\Validators\AddressValidators\Modules\StateValidator;
 use App\Validators\AddressValidators\Modules\StreetValidator;
@@ -31,8 +31,8 @@ class OrderValidatorTest extends TestCase
     {
         parent::__construct();
         /* creating necessary objects to create order validator*/
-        $domesticAddressValidator = new AddressValidatorDomestic(new AlphabeticStringValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
-        $internationalAddressValidator = new AddressValidatorInternational(new AlphabeticStringValidator(), new StreetValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
+        $domesticAddressValidator = new AddressValidatorDomestic(new NameSurnameValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
+        $internationalAddressValidator = new AddressValidatorInternational(new NameSurnameValidator(), new StreetValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
         $this->addressValidator = new AddressValidator(new ShipmentType(), $domesticAddressValidator, $internationalAddressValidator);
 
         $userValidator = new UidValidator(new UserTestRepo());

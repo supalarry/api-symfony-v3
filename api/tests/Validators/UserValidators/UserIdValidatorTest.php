@@ -2,7 +2,7 @@
 
 namespace App\Tests;
 
-use App\Repository\UserTestRepo;
+use App\Repository\Test\UserTestRepo;
 use App\Validators\UserValidators\UidValidator;
 use PHPUnit\Framework\TestCase;
 

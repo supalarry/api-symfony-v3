@@ -5,7 +5,7 @@ namespace App\User;
 use App\Entity\User;
 use App\ErrorsLoader;
 use App\Exception\UserValidatorException;
-use App\Validators\AlphabeticStringValidator;
+use App\Validators\UserValidators\NameSurnameValidator;
 
 class UserValidator
 {
@@ -13,7 +13,7 @@ class UserValidator
     private $alphabeticStringValidator;
     private $errorsLoader;
 
-    public function __construct(AlphabeticStringValidator $alphabeticStringValidator, ErrorsLoader $errorsLoader)
+    public function __construct(NameSurnameValidator $alphabeticStringValidator, ErrorsLoader $errorsLoader)
     {
         $this->errors = [];
         $this->alphabeticStringValidator = $alphabeticStringValidator;

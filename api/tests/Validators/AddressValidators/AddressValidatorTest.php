@@ -12,7 +12,7 @@ use App\Validators\AddressValidators\Modules\StateValidator;
 use App\Validators\AddressValidators\Modules\StreetValidator;
 use App\Validators\AddressValidators\Modules\ZipCodeValidator;
 use App\Validators\AddressValidators\ShipmentType;
-use App\Validators\AlphabeticStringValidator;
+use App\Validators\UserValidators\NameSurnameValidator;
 use PHPUnit\Framework\TestCase;
 
 class AddressValidatorTest extends TestCase
@@ -29,8 +29,8 @@ class AddressValidatorTest extends TestCase
             "phone" => "+1 123 123 123"
         ];
 
-        $domesticAddressValidator = new AddressValidatorDomestic(new AlphabeticStringValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
-        $internationalAddressValidator = new AddressValidatorInternational(new AlphabeticStringValidator(), new StreetValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
+        $domesticAddressValidator = new AddressValidatorDomestic(new NameSurnameValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
+        $internationalAddressValidator = new AddressValidatorInternational(new NameSurnameValidator(), new StreetValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
 
         $addressValidator = new AddressValidator(new ShipmentType(), $domesticAddressValidator, $internationalAddressValidator);
 
@@ -49,8 +49,8 @@ class AddressValidatorTest extends TestCase
             "phone" => "+1 123 123 123"
         ];
 
-        $domesticAddressValidator = new AddressValidatorDomestic(new AlphabeticStringValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
-        $internationalAddressValidator = new AddressValidatorInternational(new AlphabeticStringValidator(), new StreetValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
+        $domesticAddressValidator = new AddressValidatorDomestic(new NameSurnameValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
+        $internationalAddressValidator = new AddressValidatorInternational(new NameSurnameValidator(), new StreetValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
 
         $addressValidator = new AddressValidator(new ShipmentType(), $domesticAddressValidator, $internationalAddressValidator);
 
@@ -69,8 +69,8 @@ class AddressValidatorTest extends TestCase
             "phone" => "+1 123 123 123"
         ];
 
-        $domesticAddressValidator = new AddressValidatorDomestic(new AlphabeticStringValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
-        $internationalAddressValidator = new AddressValidatorInternational(new AlphabeticStringValidator(), new StreetValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
+        $domesticAddressValidator = new AddressValidatorDomestic(new NameSurnameValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
+        $internationalAddressValidator = new AddressValidatorInternational(new NameSurnameValidator(), new StreetValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
 
         $addressValidator = new AddressValidator(new ShipmentType(), $domesticAddressValidator, $internationalAddressValidator);
 
@@ -95,8 +95,8 @@ class AddressValidatorTest extends TestCase
             "phone" => "+1 123 123 123"
         ];
 
-        $domesticAddressValidator = new AddressValidatorDomestic(new AlphabeticStringValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
-        $internationalAddressValidator = new AddressValidatorInternational(new AlphabeticStringValidator(), new StreetValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
+        $domesticAddressValidator = new AddressValidatorDomestic(new NameSurnameValidator(), new StreetValidator(), new StateValidator(), new ZipCodeValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
+        $internationalAddressValidator = new AddressValidatorInternational(new NameSurnameValidator(), new StreetValidator(), new CountryValidator(), new PhoneValidator(), new ErrorsLoader());
 
         $addressValidator = new AddressValidator(new ShipmentType(), $domesticAddressValidator, $internationalAddressValidator);
 

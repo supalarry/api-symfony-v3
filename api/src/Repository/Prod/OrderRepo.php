@@ -1,70 +1,54 @@
 <?php
 
-
-namespace App\Repository;
+namespace App\Repository\Prod;
 
 use App\CostCalculator\CostCalculator;
 use App\Entity\Order;
+use App\Interfaces\IEntity;
 use App\Interfaces\IRelationRepo;
-use App\Interfaces\IOrderRepo;
 use App\Validators\AddressValidators\ShipmentType;
 use App\Validators\UserValidators\UidValidator;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Persistence\ManagerRegistry;
+use App\Interfaces\IOrderRepo;
+use Doctrine\ORM\EntityManagerInterface;
 
-class OrderTestRepo implements IOrderRepo
+/**
+ * @method Order|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Order|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Order[]    findAll()
+ * @method Order[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ */
+class OrderRepo extends ServiceEntityRepository implements IOrderRepo
 {
-    private $db;
-    private $id;
+    private $em;
     private $userIdValidator;
     private $relationRepository;
     private $shipmentType;
 
-    public function __construct(UidValidator $userIdValidator, IRelationRepo $relationRepository, ShipmentType $shipmentType)
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $em, UidValidator $userIdValidator, IRelationRepo $relationRepository, ShipmentType $shipmentType)
     {
-        $this->db = [];
-        $this->id = 1;
+        parent::__construct($registry, Order::class);
+        $this->em = $em;
         $this->userIdValidator = $userIdValidator;
         $this->relationRepository = $relationRepository;
         $this->shipmentType = $shipmentType;
-
-        $requestBody = [
-            "shipToAddress" => [
-                "name" => "John",
-                "surname" => "Doe",
-                "street" => "Palm street 25-7",
-                "state" => "California",
-                "zip" => "60744",
-                "country" => "US",
-                "phone" => "+1 123 123 123"
-            ],
-            "lineItems" => [
-                ["id" => 1, "quantity" => 10],
-                ["id" => 1, "quantity" => 1]
-            ]
-        ];
-        $costs = [
-            "productionCost" => 11000,
-            "shippingCost" => 650,
-            "totalCost" => 11650
-        ];
-
-        $this->create($requestBody, $costs, 1);
     }
 
-    public function create(array $requestBody, array $costs, int $id_user)
+    public function create(array $requestBody, array $costs, int $id_user): IEntity
     {
         $order = new Order();
-        $order->setId($this->id);
         $order->setOwnerId($id_user);
         $order->setName($requestBody[Order::SHIPPING_DATA][Order::OWNER_NAME]);
         $order->setSurname($requestBody[Order::SHIPPING_DATA][Order::OWNER_SURNAME]);
         $order->setStreet($requestBody[Order::SHIPPING_DATA][Order::STREET]);
 
-        if (array_key_exists(Order::STATE, $requestBody[Order::SHIPPING_DATA]))
+        if (array_key_exists(Order::STATE, $requestBody))
             $order->setState($requestBody[Order::SHIPPING_DATA][Order::STATE]);
         else
             $order->setState(null);
 
-        if (array_key_exists(Order::ZIP, $requestBody[Order::SHIPPING_DATA]))
+        if (array_key_exists(Order::ZIP, $requestBody))
             $order->setZip($requestBody[Order::SHIPPING_DATA][Order::ZIP]);
         else
             $order->setZip(null);
@@ -74,7 +58,8 @@ class OrderTestRepo implements IOrderRepo
         $order->setProductionCost($costs[Order::PRODUCTION_COST]);
         $order->setShippingCost($costs[Order::SHIPPING_COST]);
 
-        if ($this->shipmentType->getType($requestBody[Order::SHIPPING_DATA]) === Order::INTERNATIONAL_ORDER)
+
+        if ($this->shipmentType->getType($requestBody[Order::SHIPPING_DATA]) === Order::DOMESTIC_ORDER)
         {
             if (CostCalculator::express_shipping($requestBody))
                 $order->setExpressShipping(true);
@@ -83,24 +68,21 @@ class OrderTestRepo implements IOrderRepo
         }
 
         $order->setTotalCost($costs[Order::TOTAL_COST]);
-        $this->db[$this->id] = $order;
-        $this->id++;
+        $this->em->persist($order);
+        $this->em->flush();
         return $order;
     }
 
     private function getEntityById(int $id)
     {
-        foreach ($this->db as $order)
-        {
-            if ($order->getId() === $id)
-                return ($order);
-        }
-        return (null);
+        return $this->findOneBy([
+            Order::ID => $id,
+        ]);
     }
 
     public function getById(int $id_user, int $id)
     {
-        if ($this->userIdValidator->validate($id_user))
+        if ($this->userIdValidator->validate($id_user) && $this->relationRepository->getOrderProducts($id_user, $id))
         {
             $order = [];
             $orderEntity = $this->getEntityById($id);
@@ -121,9 +103,18 @@ class OrderTestRepo implements IOrderRepo
             $order[Order::LINE_ITEMS] = $this->relationRepository->line_items($id_user, $id);
 
             $order[Order::INFO] = array();
+
             $order[Order::INFO][Order::ID] = $orderEntity->getId();
+            $order[Order::INFO][Order::OWNER_ID] = $orderEntity->getOwnerId();
             $order[Order::INFO][Order::PRODUCTION_COST] = $orderEntity->getProductionCost();
             $order[Order::INFO][Order::SHIPPING_COST] = $orderEntity->getShippingCost();
+
+            $expressShipping = $orderEntity->getExpressShipping();
+            if ($expressShipping != null && $expressShipping === 1)
+                $order[Order::INFO][Order::EXPRESS_SHIPPING] = true;
+            elseif ($expressShipping != null && $expressShipping === 0)
+                $order[Order::INFO][Order::EXPRESS_SHIPPING] = false;
+
             $order[Order::INFO][Order::TOTAL_COST] = $orderEntity->getTotalCost();
             return ($order);
         }
@@ -134,12 +125,9 @@ class OrderTestRepo implements IOrderRepo
     {
         if ($this->userIdValidator->validate($id_user))
         {
-            $ordersEntities = [];
-            foreach ($this->db as $order)
-            {
-                if ($order->getOwnerId() === $id_user)
-                    $ordersEntities[] = $order;
-            }
+            $ordersEntities = $this->findBy([
+                Order::OWNER_ID => $id_user
+            ]);
             $orders = [];
             foreach ($ordersEntities as $order)
             {

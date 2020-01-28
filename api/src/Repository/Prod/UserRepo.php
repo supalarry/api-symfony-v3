@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository\Prod;
 
 use App\Entity\User;
 use App\Interfaces\IUserRepo;

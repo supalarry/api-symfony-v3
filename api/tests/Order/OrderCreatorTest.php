@@ -35,6 +35,7 @@ class OrderCreatorTest extends WebTestCase
                 ]
             }'
         );
+
         $this->assertEquals(Response::HTTP_CREATED, $client->getResponse()->getStatusCode());
 
         $responseBody = json_decode($client->getResponse()->getContent(), TRUE);

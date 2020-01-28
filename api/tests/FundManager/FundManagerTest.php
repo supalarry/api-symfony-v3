@@ -4,7 +4,7 @@ namespace App\Tests;
 
 use App\Exception\FundManagerException;
 use App\FundManager\FundManager;
-use App\Repository\UserTestRepo;
+use App\Repository\Test\UserTestRepo;
 use PHPUnit\Framework\TestCase;
 
 class FundManagerTest extends TestCase

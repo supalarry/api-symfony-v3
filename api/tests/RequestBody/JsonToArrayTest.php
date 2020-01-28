@@ -35,8 +35,8 @@ class JsonToArrayTest extends TestCase
 
         $this->assertArrayHasKey('name', $request_decoded);
         $this->assertArrayHasKey('surname', $request_decoded);
-        $this->assertEquals($request_decoded['name'], 'john');
-        $this->assertEquals($request_decoded['surname'], 'doe');
+        $this->assertEquals($request_decoded['name'], 'John');
+        $this->assertEquals($request_decoded['surname'], 'Doe');
     }
 
     public function test_invalid_json()
