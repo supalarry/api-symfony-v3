@@ -20,11 +20,14 @@ Switch to project folder
 cd homework-v3
 ```
 
-Install dependencies and launch docker
+Install dependencies
 
 ```
 composer install -d api
 ```
+
+Run the app using docker
+
 ```
 docker-compose up
 ```
