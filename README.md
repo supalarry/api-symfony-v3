@@ -60,11 +60,11 @@ Connection to **mysql** docker container is defined in **api/env** file's DATABA
 
 Tests are written with phpunit and are located in **api/tests**.
 
-- Testing is done within in-memory to reduce test time.
+> Testing is done within in-memory to reduce test time.
 
-- api/config/services_test.yml : declares which repositories are used for testing. Production repositories are being simulated by test repositories stored in api/src/Repository/Test.
+> api/config/services_test.yml : declares which repositories are used for testing. Production repositories are being simulated by test repositories stored in api/src/Repository/Test.
 
-- api/config/services.yml : declares which repositories are used for production. Production repositories are stored in api/src/Repository/Prod.
+> api/config/services.yml : declares which repositories are used for production. Production repositories are stored in api/src/Repository/Prod.
 
 
 With docker running, switch to api folder
