@@ -10,13 +10,13 @@ use App\Validators\UserValidators\NameSurnameValidator;
 class UserValidator
 {
     private $errors;
-    private $alphabeticStringValidator;
+    private $nameSurnameValidator;
     private $errorsLoader;
 
-    public function __construct(NameSurnameValidator $alphabeticStringValidator, ErrorsLoader $errorsLoader)
+    public function __construct(NameSurnameValidator $nameSurnameValidator, ErrorsLoader $errorsLoader)
     {
         $this->errors = [];
-        $this->alphabeticStringValidator = $alphabeticStringValidator;
+        $this->nameSurnameValidator = $nameSurnameValidator;
         $this->errorsLoader = $errorsLoader;
     }
 
@@ -29,9 +29,9 @@ class UserValidator
 
         foreach ($data as $key => $value)
         {
-            if ($key === User::NAME && !$this->alphabeticStringValidator->validate($value))
+            if ($key === User::NAME && !$this->nameSurnameValidator->validate($value))
                 $this->errorsLoader->load(User::NAME, User::INVALID_NAME, $this->errors);
-            elseif ($key === User::SURNAME && !$this->alphabeticStringValidator->validate($value))
+            elseif ($key === User::SURNAME && !$this->nameSurnameValidator->validate($value))
                 $this->errorsLoader->load(User::SURNAME, User::INVALID_SURNAME, $this->errors);
         }
 
