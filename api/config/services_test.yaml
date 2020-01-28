@@ -27,7 +27,7 @@ services:
     App\Interfaces\IUserRepo: '@UserTestRepo'
     App\Interfaces\IProductRepo: '@ProductTestRepo'
     App\Interfaces\IOrderRepo: '@OrderTestRepo'
-    App\Interfaces\IRelationRepo: '@RelationRepo'
+    App\Interfaces\IRelationRepo: '@RelationTestRepo'
 
     # -------- repositories pointed to by interface --------
 

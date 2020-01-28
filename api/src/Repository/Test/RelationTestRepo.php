@@ -3,7 +3,6 @@
 
 namespace App\Repository\Test;
 
-use App\Entity\Order;
 use App\Entity\Relation;
 use App\Entity\Product;
 use App\Interfaces\IRelationRepo;
@@ -23,7 +22,7 @@ class RelationTestRepo implements IRelationRepo
         $this->id = 1;
         $this->userIdValidator = $userIdValidator;
         $this->productsRepository = $productsRepository;
-        $this->create(1, [[Order::PRODUCT_ID => 1, Order::PRODUCT_QUANTITY => 10], [Order::PRODUCT_ID => 1, Order::PRODUCT_QUANTITY => 1]], 1);
+        $this->create(1, [[Product::ID => 1, Product::QUANTITY => 10], [Product::ID => 1, Product::QUANTITY => 1]], 1);
     }
 
     public function create(int $order_id, array $line_items, int $id_user)
@@ -34,8 +33,8 @@ class RelationTestRepo implements IRelationRepo
             $relation->setOwnerId($id_user);
             $relation->setId($this->id);
             $relation->setOrderId($order_id);
-            $relation->setProductId($item[Order::PRODUCT_ID]);
-            $relation->setQuantity($item[Order::PRODUCT_QUANTITY]);
+            $relation->setProductId($item[Product::ID]);
+            $relation->setQuantity($item[Product::QUANTITY]);
             $this->db[$this->id] = $relation;
             $this->id++;
         }
@@ -65,15 +64,15 @@ class RelationTestRepo implements IRelationRepo
         foreach ($relation_products as $relation_product)
         {
             $item = [];
-            $item[Order::PRODUCT_ID] = $relation_product->getProductId();
-            $item[Order::PRODUCT_QUANTITY] = $relation_product->getQuantity();
-            $product = $this->productsRepository->getById($id_user, $item[Order::PRODUCT_ID]);
+            $item[Product::ID] = $relation_product->getProductId();
+            $item[Product::QUANTITY] = $relation_product->getQuantity();
+            $product = $this->productsRepository->getById($id_user, $item[Product::ID]);
             $item[Product::OWNER_ID] = $product->getOwnerId();
             $item[Product::TYPE] = $product->getType();
             $item[Product::TITLE] = $product->getTitle();
             $item[Product::SKU] = $product->getSku();
             $item[Product::COST] = $product->getCost();
-            $item[Product::TOTAL_COST] = $item[Product::COST] * $item[Order::PRODUCT_QUANTITY];
+            $item[Product::TOTAL_COST] = $item[Product::COST] * $item[Product::QUANTITY];
             $line_items[] = $item;
         }
         return ($line_items);
