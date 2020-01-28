@@ -28,13 +28,13 @@ class RequestBodyStandardizer
         /* Capitalize first and lowercase rest of each word within name */
         if (array_key_exists(User::NAME, $requestBody))
         {
-            $requestBody[User::NAME] = ucwords($requestBody[User::NAME]);
+            $requestBody[User::NAME] = ucwords(strtolower($requestBody[User::NAME]));
         }
 
         /* Capitalize first and lowercase rest of each word within name */
         if (array_key_exists(User::SURNAME, $requestBody))
         {
-            $requestBody[User::SURNAME] = ucwords($requestBody[User::SURNAME]);
+            $requestBody[User::SURNAME] = ucwords(strtolower($requestBody[User::SURNAME]));
         }
 
         /* If products's type, title, sku or cost keys are written in another case or some letters are lower/upper case, correct it */
@@ -91,26 +91,26 @@ class RequestBodyStandardizer
             /* Capital first letters for all words of OWNER_NAME */
             if (array_key_exists(Order::OWNER_NAME, $requestBody[Order::SHIPPING_DATA]))
             {
-                $requestBody[Order::SHIPPING_DATA][Order::OWNER_NAME] = ucwords($requestBody[Order::SHIPPING_DATA][Order::OWNER_NAME]);
+                $requestBody[Order::SHIPPING_DATA][Order::OWNER_NAME] = ucwords(strtolower($requestBody[Order::SHIPPING_DATA][Order::OWNER_NAME]));
             }
 
             /* Capital first letters for all words of OWNER_SURNAME */
             if (array_key_exists(Order::OWNER_SURNAME, $requestBody[Order::SHIPPING_DATA]))
             {
-                $requestBody[Order::SHIPPING_DATA][Order::OWNER_SURNAME] = ucwords($requestBody[Order::SHIPPING_DATA][Order::OWNER_SURNAME]);
+                $requestBody[Order::SHIPPING_DATA][Order::OWNER_SURNAME] = ucwords(strtolower($requestBody[Order::SHIPPING_DATA][Order::OWNER_SURNAME]));
             }
 
             /* Capital first letters for all words of STREET */
             if (array_key_exists(Order::STREET, $requestBody[Order::SHIPPING_DATA]))
             {
-                $requestBody[Order::SHIPPING_DATA][Order::STREET] = ucwords($requestBody[Order::SHIPPING_DATA][Order::STREET]);
+                $requestBody[Order::SHIPPING_DATA][Order::STREET] = ucwords(strtolower($requestBody[Order::SHIPPING_DATA][Order::STREET]));
             }
 
             /* If state is written in short form, upper case it. Otherwise, capitalize each word of long form. */
             if (array_key_exists(Order::STATE, $requestBody[Order::SHIPPING_DATA]))
             {
                 if (strlen($requestBody[Order::SHIPPING_DATA][Order::STATE]) > 2)
-                    $requestBody[Order::SHIPPING_DATA][Order::STATE] = ucwords($requestBody[Order::SHIPPING_DATA][Order::STATE]);
+                    $requestBody[Order::SHIPPING_DATA][Order::STATE] = ucwords(strtolower($requestBody[Order::SHIPPING_DATA][Order::STATE]));
                 else
                     $requestBody[Order::SHIPPING_DATA][Order::STATE] = strtoupper($requestBody[Order::SHIPPING_DATA][Order::STATE]);
             }
@@ -119,7 +119,7 @@ class RequestBodyStandardizer
             if (array_key_exists(Order::COUNTRY, $requestBody[Order::SHIPPING_DATA]))
             {
                 if (strlen($requestBody[Order::SHIPPING_DATA][Order::COUNTRY]) > 3)
-                    $requestBody[Order::SHIPPING_DATA][Order::COUNTRY] = ucwords($requestBody[Order::SHIPPING_DATA][Order::COUNTRY]);
+                    $requestBody[Order::SHIPPING_DATA][Order::COUNTRY] = ucwords(strtolower($requestBody[Order::SHIPPING_DATA][Order::COUNTRY]));
                 else
                     $requestBody[Order::SHIPPING_DATA][Order::COUNTRY] = strtoupper($requestBody[Order::SHIPPING_DATA][Order::COUNTRY]);
             }
