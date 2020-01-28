@@ -27,7 +27,7 @@ class OrderValidator
         $this->errorsLoader = $errorsLoader;
     }
 
-    public function validate(int $id_user, array $request_body)
+    public function validate(int $id_user, array $request_body): void
     {
         if (!array_key_exists(Order::SHIPPING_DATA, $request_body))
             $this->errors[Order::SHIPPING_DATA] = Order::NO_SHIPPING_DATA;
@@ -68,12 +68,12 @@ class OrderValidator
         return (true);
     }
 
-    public function getErrors()
+    public function getErrors(): array
     {
         return $this->errors;
     }
 
-    public function getLineItemsErrors()
+    public function getLineItemsErrors(): array
     {
         return $this->lineItemsErrors;
     }

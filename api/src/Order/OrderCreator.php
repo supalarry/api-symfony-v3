@@ -38,7 +38,7 @@ class OrderCreator
         $this->manager = $manager;
     }
 
-    public function handle(int $id_user)
+    public function handle(int $id_user): array
     {
         if (!$this->uidValidator->validate($id_user))
             throw new UidValidatorException([User::ID => User::INVALID]);

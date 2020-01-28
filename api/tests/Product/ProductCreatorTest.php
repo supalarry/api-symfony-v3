@@ -224,7 +224,7 @@ class ProductCreatorTest extends WebTestCase
             '{"type":"t-shirt","title":"aware-wolf", "sku":"100-abc-999", "cost":1000}'
         );
 
-        $this->assertEquals(Response::HTTP_BAD_REQUEST, $client->getResponse()->getStatusCode());
+        $this->assertEquals(Response::HTTP_CONFLICT, $client->getResponse()->getStatusCode());
         $responseBody = json_decode($client->getResponse()->getContent(), TRUE);
         $this->assertArrayHasKey(Product::SKU, $responseBody);
         $this->assertEquals($responseBody[Product::SKU][0], "Invalid SKU. It must be unique, and it appears another product already has it");

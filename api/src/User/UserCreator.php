@@ -3,6 +3,7 @@
 
 namespace App\User;
 
+use App\Interfaces\IEntity;
 use App\Interfaces\IUserRepo;
 use App\RequestBody\JsonToArray;
 use App\Exception\JsonToArrayException;
@@ -22,7 +23,7 @@ class UserCreator
         $this->validator = $validator;
     }
 
-    public function handle()
+    public function handle(): IEntity
     {
         try {
             $requestBody = $this->converter->retrieve();

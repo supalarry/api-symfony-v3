@@ -35,7 +35,7 @@ class FundManager
         return (false);
     }
 
-    private function subtractBalance(int $id_user, int $amount)
+    private function subtractBalance(int $id_user, int $amount): void
     {
         $user = $this->repository->getById($id_user);
         $user->subtractBalance($amount);

@@ -4,6 +4,7 @@ namespace App\Tests;
 
 use App\Entity\Product;
 use App\ErrorsLoader;
+use App\Exception\DuplicateException;
 use App\Exception\ProductValidatorException;
 use App\Product\ProductValidator;
 use App\Repository\Test\ProductTestRepo;
@@ -208,7 +209,7 @@ class ValidateProductTest extends TestCase
 
         try {
             $validator->validate($json_body, 1);
-        } catch (ProductValidatorException $e){
+        } catch (DuplicateException $e){
             $errors = $validator->getErrors();
             $this->assertArrayHasKey(Product::SKU, $errors);
             $this->assertEquals($errors[Product::SKU][0], 'Invalid SKU. It must be unique, and it appears another product already has it');

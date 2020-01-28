@@ -36,7 +36,7 @@ class OrderController extends AbstractController
      * @param IOrderRepo $repo
      * @param int $id_user
      * @param int $id
-     * @return Response
+     * @return JsonResponse|Response
      */
     public function getOrderById(IOrderRepo $repo, int $id_user, int $id)
     {
@@ -50,7 +50,7 @@ class OrderController extends AbstractController
      * @Route("/users/{id_user}/orders", name="viewOrders", methods={"GET"})
      * @param IOrderRepo $repo
      * @param int $id_user
-     * @return Response
+     * @return JsonResponse|Response
      */
     public function getOrders(IOrderRepo $repo, int $id_user)
     {
