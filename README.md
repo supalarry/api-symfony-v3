@@ -115,10 +115,10 @@ Both examples are valid.
 ## Endpoints
 
 ### 1.1 Create a new user
--endpoint : /users
--method : POST
--url : http://localhost:8098/users
--request body:
+- endpoint : /users
+- method : POST
+- url : http://localhost:8098/users
+- request body:
 
 ```
 {
