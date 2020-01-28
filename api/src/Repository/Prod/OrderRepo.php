@@ -43,12 +43,12 @@ class OrderRepo extends ServiceEntityRepository implements IOrderRepo
         $order->setSurname($requestBody[Order::SHIPPING_DATA][Order::OWNER_SURNAME]);
         $order->setStreet($requestBody[Order::SHIPPING_DATA][Order::STREET]);
 
-        if (array_key_exists(Order::STATE, $requestBody))
+        if (array_key_exists(Order::STATE, $requestBody[Order::SHIPPING_DATA]))
             $order->setState($requestBody[Order::SHIPPING_DATA][Order::STATE]);
         else
             $order->setState(null);
 
-        if (array_key_exists(Order::ZIP, $requestBody))
+        if (array_key_exists(Order::ZIP, $requestBody[Order::SHIPPING_DATA]))
             $order->setZip($requestBody[Order::SHIPPING_DATA][Order::ZIP]);
         else
             $order->setZip(null);
