@@ -110,7 +110,7 @@ Both examples are valid.
 
 - If invalid endpoint or non existing user, product or order are requested, API returns an empty body with 404 status code.
 
- - Accessing '/' displays HTML welcome page.
+ - Accessing `'/'` displays HTML welcome page.
 
 ## Endpoints
 
