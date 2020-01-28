@@ -35,6 +35,15 @@ Run the app using docker
 docker-compose up
 ```
 
+## Logging into phpmyadmin
+
+Log into phpmyadmin http://localhost:8088 using:
+
+```
+username: root
+password: rootroot
+```
+
 ## Database setup
 
 This project uses mysql together with doctrine within the symfony framework.
@@ -503,13 +512,4 @@ This part is only applicable to US orders and is optional. If `expressShipping` 
         }
     }
 ]
-```
-
-## Logging into phpmyadmin
-
-Log into phpmyadmin http://localhost:8088 using:
-
-```
-username: root
-password: rootroot
 ```
