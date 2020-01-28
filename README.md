@@ -289,7 +289,7 @@ Each user is assigned 100$ or 10000 cents as a starting balance to make orders l
 }
 ```
 
-- "shipToAddress"
+`shipToAddress`
 
 Orders can be either international or domestic (US).
 
@@ -309,7 +309,7 @@ Domestic order's "shipToAddress" must include all keys as in the example above, 
 
 > "phone" : accepts a string or digits only. It is stored as a string later on.
 
-- "lineItems"
+`lineItems`
 
 Each object within lineItems array represents a product within the order.
 
@@ -317,7 +317,7 @@ Each object within lineItems array represents a product within the order.
 
 > "quantity" : how many units of the product are requested.
 
-- "info"
+`info`
 
 This part is only applicable to US orders and is optional. If `expressShipping` is set to `true`, then express shipping is enabled for the order. In that case, shipping costs for each product is 10$ (1000 cents).
 
