@@ -1,7 +1,6 @@
 # Printify REST API
 
 API for creating users, products and orders for an e-commerce store.
-Products and orders are linked to the user who created them.
 
 - Written in PHP using Symfony framework
 - Runs on nginx server
@@ -88,6 +87,8 @@ Request body also can include redundant keys. If name and surname keys are asked
 If invalid endpoints or non existing users, products or orders are requested, API returns an empty body with 404 status code.
 
 Accessing '/' displays HTML welcome page.
+
+Products and orders are linked to the user who created them.
 
 ## Endpoints
 
