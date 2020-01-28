@@ -43,37 +43,48 @@ After executing **docker-compose up** mysql is setup from **docker/backup/mysql/
 
 All work occurs in **printify_api** database.
 
-Four tables - user, product, order, relation - are automatically created empty.
+Four tables are created:
 
-**user** : stores created users
+- user : stores created users
 
-**product** : stores products submitted by the user
+- product : stores products submitted by the user
 
-**order** : stores order submitted by the user
+- order : stores orders submitted by the user
 
-**relation** : links an order with it's products
+- relation : links an order with it's products
 
-Connection to **mysql** docker container is defined in **api/env** file's DATABASE_URL field
+Connection to **mysql** docker container is defined in **api/env** file's DATABASE_URL field.
 
 
 ## Testing
 
-Tests are written with phpunit and are located in api/tests.
+Tests are written with phpunit and are located in **api/tests**.
 
-For your convenience, you can create an alias in your shell
+> Testing is done within in-memory to reduce test time.
+
+> api/config/services_test.yml : declares which repositories are used for testing. Production repositories are being simulated by test repositories stored in api/src/Repository/Test.
+
+> api/config/services.yml : declares which repositories are used for production. Production repositories are stored in **api/src/Repository/Prod**.
+
+To run unit tests, make sure docker is running.
+
+Then, switch to api folder
+
+```
+cd api
+```
+
+Create an alias in your shell for more convenient use
 
 ```
 alias phpunit='vendor/bin/phpunit'
 ```
-Now, you can simply write phpunit within the api folder and tests will be executed.
 
-Testing is done within in-memory.
-Production repositories are being simulated by test repositories stored in **api/src/Repository/Test** to improve testing time while testing.
-Production repositories are stored in **api/src/Repository/Prod**.
+Run tests
 
-This is set up in api/config/services_test.yml file where interfaces point to test repositories. api/config/services.yml interfaces point to production repositories.
-
-To run tests, first have all the containers started with **docker-composer up** and then in a new terminal launch tests with the **phpunit** command.
+```
+phpunit
+```
 
 ## Usage
 
@@ -88,7 +99,6 @@ If invalid endpoints or non existing users, products or orders are requested, AP
 
 Accessing '/' displays HTML welcome page.
 
-Products and orders are linked to the user who created them.
 
 ## Endpoints
 
