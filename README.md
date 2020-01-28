@@ -39,7 +39,7 @@ docker-compose up
 
 This project uses mysql together with doctrine within the symfony framework.
 
-After executing **docker-compose up** mysql is setup from **docker/backup/mysql/api.sql** file.
+After executing `docker-compose up` mysql is setup from **docker/backup/mysql/api.sql** file.
 
 All work occurs in **printify_api** database.
 
@@ -218,13 +218,10 @@ Each user is assigned 100$ or 10000 cents as a starting balance to make orders l
 ```
 
 ### 2.2 View a product
-endpoint : /users/{id}/products/{id}
-
-method : GET
-
-url : http://localhost:8098/users/{id}/products/{id}
-
-response body is a product object:
+- endpoint : /users/{id}/products/{id}
+- method : GET
+- url : http://localhost:8098/users/{id}/products/{id}
+- response body :
 
 ```
 {
@@ -238,13 +235,10 @@ response body is a product object:
 ```
 
 ### 2.3 View all products
-endpoint : /users/{id}/products
-
-method : GET
-
-url : http://localhost:8098/users/{id}/products
-
-response body is an array holding product objects:
+- endpoint : /users/{id}/products
+- method : GET
+- url : http://localhost:8098/users/{id}/products
+- response body :
 
 ```
 [
@@ -268,13 +262,10 @@ response body is an array holding product objects:
 ```
 
 ### 3.1 Create a new order
-endpoint : /users/{id}/orders
-
-method : POST
-
-url : http://localhost:8098/users/{id}/orders
-
-request body if user with id of 1 exists:
+- endpoint : /users/{id}/orders
+- method : POST
+- url : http://localhost:8098/users/{id}/orders
+- request body :
 
 ```
 {
@@ -298,16 +289,17 @@ request body if user with id of 1 exists:
 }
 ```
 
-Order request body consists of two mandatory parts - shipToAddress (shipping address) and lineItems (products within the order).
+Order request body consists of two mandatory parts - "shipToAddress" (shipping address) and "lineItems" (products within the order). "info" section is optional.
 
-shipToAddress
+- shipToAddress
 
-Orders are grouped into international and domestic (US) orders.
+Orders can be either international or domestic (US).
 
-Domestic order's shipToAddress must include all keys just like in the example, but for international order "state" and "zip" keys are optional.
+Domestic order's "shipToAddress" must include all keys as in the example above, but for international orders "state" and "zip" keys are optional.
 
 
-lineItems
+
+- lineItems
 
 Each object within lineItems array represents a product within order.
 
@@ -315,7 +307,7 @@ id is the id of a product that user has created.
 
 quantity is how many units of the product are requested.
 
-info
+- info
 
 info part is only applicable to US orders and is optional. If expressShipping is set to true, then express shipping is enabled for the order. In that case, shipping costs for each product is 10$ (1000 cents).
 
