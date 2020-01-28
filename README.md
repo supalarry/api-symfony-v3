@@ -196,15 +196,15 @@ Each user is assigned 100$ or 10000 cents as a starting balance to make orders l
 }
 ```
 
-supported product types as of now are "t-shirt" and "mug", but they can be written in upper or lowercase. For example, "T-Shirt" is valid.
+> "type" : valid product types are "t-shirt" and "mug". They can be written in upper or lowercase e.g. "T-Shirt" is valid.
 
-title can consist of upper and lowercase letters, digits, dash (-) and space ( ).
+> "title" : can consist of upper and lowercase letters, digits, dash (-) and space ( ). It is stored as a string later on.
 
-sku (stock keeping unit) must be unique among products user has submitted.
+> "sku" : (stock keeping unit) must be unique among products user has submitted. It is stored as a string later on.
 
-cost must be an integer
+> "cost" : must be an integer representing cents
 
-response body for owner with id of 1:
+- response body :
 
 ```
 {
