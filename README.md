@@ -115,13 +115,10 @@ Both examples are valid.
 ## Endpoints
 
 ### 1.1 Create a new user
-endpoint : /users
-
-method : POST
-
-url : http://localhost:8098/users
-
-request body:
+-endpoint : /users
+-method : POST
+-url : http://localhost:8098/users
+-request body:
 
 ```
 {
@@ -132,8 +129,7 @@ request body:
 
 name and surname values accept upper and lowercase letters, spaces, dot (.) , comma (,) , apastrophe (') and dash (-).
 
-response body:
-
+- response body:
 ```
 {
     "id": 1,
