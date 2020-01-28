@@ -38,7 +38,8 @@ In it four tables - user, product, order and relation - are automatically create
 
 **relation** - links an order with it's products
 
-Connection to **mysql** docker container is defined in **api/config/services.yaml DATABASE_URL** field
+Connection to **mysql** docker container is defined in **api/env** file's DATABASE_URL field
+
 
 ## Testing
 
@@ -52,6 +53,8 @@ alias phpunit='./api/vendor/bin/phpunit'
 so that you can simply write phpunit from the root folder and tests will be executed.
 
 Testing is done within in-memory storage. Production repositories are being simulated by test repositories stored in api/src/Repository/Test to improve testing time while testing. Production repositories are stored in api/src/Repository/Prod.
+
+This is set up in api/config/services_test.yml file where interfaces point to test repositories. api/config/services.yml interfaces point to production repositories. 
 
 ## Usage
 
