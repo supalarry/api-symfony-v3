@@ -48,13 +48,15 @@ Tests are written with phpunit and are located in api/tests.
 For your convenience, you can create an alias in your shell
 
 ```
-alias phpunit='./api/vendor/bin/phpunit'
+alias phpunit='vendor/bin/phpunit'
 ```
-so that you can simply write phpunit from the root folder and tests will be executed.
+so that you can simply write phpunit from the api folder and tests will be executed.
 
 Testing is done within in-memory storage. Production repositories are being simulated by test repositories stored in api/src/Repository/Test to improve testing time while testing. Production repositories are stored in api/src/Repository/Prod.
 
-This is set up in api/config/services_test.yml file where interfaces point to test repositories. api/config/services.yml interfaces point to production repositories. 
+This is set up in api/config/services_test.yml file where interfaces point to test repositories. api/config/services.yml interfaces point to production repositories.
+
+To run tests, first have all the containers started with **docker-composer up** and then in a new terminal launch tests with the **phpunit** command.
 
 ## Usage
 
