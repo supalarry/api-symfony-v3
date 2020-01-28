@@ -54,7 +54,7 @@ class ProductValidator
 
         if (!empty($this->errors))
         {
-            if (array_key_exists(Product::SKU, $this->errors) && $this->errors[Product::SKU] === Product::INVALID_SKU && count($this->errors) == 1)
+            if (array_key_exists(Product::SKU, $this->errors) && in_array(Product::INVALID_SKU, $this->errors[Product::SKU]) && count($this->errors) == 1)
                 throw new DuplicateException($this->errors);
             throw new ProductValidatorException($this->errors);
         }
