@@ -40,6 +40,19 @@ In it four tables - user, product, order and relation - are automatically create
 
 Connection to **mysql** docker container is defined in **api/config/services.yaml DATABASE_URL** field
 
+## Testing
+
+Tests are written with phpunit and are located in api/tests.
+
+For your convenience, you can create an alias in your shell
+
+```
+alias phpunit='./api/vendor/bin/phpunit'
+```
+so that you can simply write phpunit from the root folder and tests will be executed.
+
+Testing is done within in-memory storage. Production repositories are being simulated by test repositories stored in api/src/Repository/Test to improve testing time while testing. Production repositories are stored in api/src/Repository/Prod.
+
 ## Usage
 
 Endpoints can be accessed at port 8098:
