@@ -116,7 +116,9 @@ Both examples are valid.
 
 ### 1.1 Create a new user
 endpoint : /users
+
 method : POST
+
 url : http://localhost:8098/users
 
 request body:
@@ -145,7 +147,9 @@ Each user is assigned 100$ or 10000 cents as a starting balance to make orders l
 
 ### 1.2 View a user
 endpoint : /users/{id}
+
 method : GET
+
 url : http://localhost:8098/users/{id}
 
 response body is an user object:
@@ -161,7 +165,9 @@ response body is an user object:
 
 ### 1.3 View all user
 endpoint : /users
+
 method : GET
+
 url : http://localhost:8098/users
 
 response body is an array holding user objects:
@@ -186,7 +192,9 @@ response body is an array holding user objects:
 
 ### 2.1 Create a new product
 endpoint : /users/{id}/products
+
 method : POST
+
 url : http://localhost:8098/users/{id}/products
 
 request body if user with id of 1 exists:
@@ -223,7 +231,9 @@ response body for owner with id of 1:
 
 ### 2.2 View a product
 endpoint : /users/{id}/products/{id}
+
 method : GET
+
 url : http://localhost:8098/users/{id}/products/{id}
 
 response body is a product object:
@@ -241,7 +251,9 @@ response body is a product object:
 
 ### 2.3 View all products
 endpoint : /users/{id}/products
+
 method : GET
+
 url : http://localhost:8098/users/{id}/products
 
 response body is an array holding product objects:
@@ -269,7 +281,9 @@ response body is an array holding product objects:
 
 ### 3.1 Create a new order
 endpoint : /users/{id}/orders
+
 method : POST
+
 url : http://localhost:8098/users/{id}/orders
 
 request body if user with id of 1 exists:
@@ -365,7 +379,9 @@ response body includes request data, but also expands on each line item and adds
 
 ### 3.2 View an order
 endpoint : /users/{id}/orders/{id}
+
 method : GET
+
 url : http://localhost:8098/users/{id}/orders/{id}
 
 response body is an order object:
@@ -415,7 +431,9 @@ response body is an order object:
 
 ### 3.3 View orders
 endpoint : /users/{id}/orders
+
 method : GET
+
 url : http://localhost:8098/users/{id}/orders
 
 response body is an array holding user objects:
