@@ -87,18 +87,28 @@ phpunit
 
 ## Usage
 
-- Endpoints can be accessed via port 8098
+- Endpoints can be accessed via port 8098 http://localhost:8098/{endpoint}
 
-http://localhost:8098/{endpoint}
+- All JSON keys can be a combination of upper and lowercase letters. If required key is "name", then API accepts "Name", "nAmE" etc.
 
-- All JSON keys can be a combination of upper and lowercase letters. If required key is **name**, then API accepts **Name**, **nAmE** etc.
+```
+{
+	"name" : "John",
+	"surname" : "Doe"
+}
+{
+	"nAmE" : "John",
+	"surname" : "Doe"
+}
+```
+
+Both examples are valid.
 
 - API ignores redundant keys. If name and surname keys are required, but user also adds birthdate key, the API only grabs keys it needs.
 
 - If invalid endpoints or non existing users, products or orders are requested, API returns an empty body with 404 status code.
 
  - Accessing '/' displays HTML welcome page.
-
 
 ## Endpoints
 
