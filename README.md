@@ -118,7 +118,7 @@ Both examples are valid.
 - endpoint : /users
 - method : POST
 - url : http://localhost:8098/users
-- request body:
+- request body :
 
 ```
 {
@@ -127,9 +127,11 @@ Both examples are valid.
 }
 ```
 
-name and surname values accept upper and lowercase letters, spaces, dot (.) , comma (,) , apastrophe (') and dash (-).
+> "name" : accepts upper and lowercase letters, spaces, dot (.) , comma (,) , apastrophe (') and dash (-).
 
-- response body:
+> "surname" : accepts upper and lowercase letters, spaces, dot (.) , comma (,) , apastrophe (') and dash (-).
+
+- response body :
 ```
 {
     "id": 1,
@@ -142,13 +144,10 @@ name and surname values accept upper and lowercase letters, spaces, dot (.) , co
 Each user is assigned 100$ or 10000 cents as a starting balance to make orders later on.
 
 ### 1.2 View a user
-endpoint : /users/{id}
-
-method : GET
-
-url : http://localhost:8098/users/{id}
-
-response body is an user object:
+- endpoint : /users/{id}
+- method : GET
+- url : http://localhost:8098/users/{id}
+- response body :
 
 ```
 {
@@ -160,14 +159,10 @@ response body is an user object:
 ```
 
 ### 1.3 View all user
-endpoint : /users
-
-method : GET
-
-url : http://localhost:8098/users
-
-response body is an array holding user objects:
-
+- endpoint : /users
+- method : GET
+- url : http://localhost:8098/users
+- response body :
 
 ```
 [
@@ -187,13 +182,10 @@ response body is an array holding user objects:
 ```
 
 ### 2.1 Create a new product
-endpoint : /users/{id}/products
-
-method : POST
-
-url : http://localhost:8098/users/{id}/products
-
-request body if user with id of 1 exists:
+- endpoint : /users/{id}/products
+- method : POST
+- url : http://localhost:8098/users/{id}/products
+- request body :
 
 ```
 {
