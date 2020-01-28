@@ -39,9 +39,9 @@ docker-compose up
 
 This project uses mysql together with doctrine within the symfony framework.
 
-After executing `docker-compose up` mysql is setup from **docker/backup/mysql/api.sql** file.
+After executing `docker-compose up` mysql is setup from `docker/backup/mysql/api.sql` file.
 
-All work occurs in **printify_api** database.
+All work occurs in `printify_api` database.
 
 Four tables are created:
 
@@ -53,12 +53,12 @@ Four tables are created:
 
 - relation : links an order with it's products
 
-Connection to **mysql** docker container is defined in **api/env** file's DATABASE_URL field.
+Connection to mysql docker container is defined in `api/env` file's DATABASE_URL field.
 
 
 ## Testing
 
-Tests are written with phpunit and are located in **api/tests**.
+Tests are written with phpunit and are located in `api/tests`.
 
 > Testing is done within memory to reduce test time.
 
