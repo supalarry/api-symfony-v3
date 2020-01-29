@@ -227,7 +227,7 @@ class ProductCreatorTest extends WebTestCase
         $this->assertEquals(Response::HTTP_CONFLICT, $client->getResponse()->getStatusCode());
         $responseBody = json_decode($client->getResponse()->getContent(), TRUE);
         $this->assertArrayHasKey(Product::SKU, $responseBody);
-        $this->assertEquals($responseBody[Product::SKU][0], "Invalid SKU. It must be unique, and it appears another product already has it");
+        $this->assertEquals($responseBody[Product::SKU][0], Product::INVALID_SKU);
     }
 
     public function test_missing_cost_key()

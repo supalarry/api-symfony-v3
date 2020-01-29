@@ -25,7 +25,7 @@ class Product
     const NO_COST = "cost key not set";
     const INVALID_TYPE = "Invalid type";
     const INVALID_TITLE = "Invalid title. It can only consist of letters, digits and dash(-)";
-    const INVALID_SKU = "Invalid SKU. It must be unique, and it appears another product already has it";
+    const INVALID_SKU = "Invalid SKU. It must be unique and cannot be empty";
     const INVALID_COST = "Invalid cost. It must be an integer describing price with smallest money unit";
 
     const NO_LINE_ITEM_ID = "id field not set for line item number ";
