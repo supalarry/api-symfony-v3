@@ -5,7 +5,6 @@ namespace App\Repository\Test;
 
 
 use App\Entity\Product;
-use App\Interfaces\IEntity;
 use App\Interfaces\IProductRepo;
 use App\Validators\UserValidators\UidValidator;
 
@@ -28,7 +27,7 @@ class ProductTestRepo implements IProductRepo
         ]);
     }
 
-    public function create(int $id_owner, array $requestBody): IEntity
+    public function create(int $id_owner, array $requestBody): Product
     {
         $product = new Product();
         $product->setId($this->id);

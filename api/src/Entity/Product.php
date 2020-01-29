@@ -2,14 +2,13 @@
 
 namespace App\Entity;
 
-use App\Interfaces\IEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="ProductRepo")
  */
 
-class Product implements IEntity
+class Product
 {
     const ID = "id";
     const QUANTITY = "quantity";

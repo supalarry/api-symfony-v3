@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Interfaces\IEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="`order`")
  */
 
-class Order implements IEntity
+class Order
 {
     const SHIPPING_DATA = "shipToAddress";
     const LINE_ITEMS = "lineItems";

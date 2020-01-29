@@ -3,13 +3,13 @@
 
 namespace App\Product;
 
+use App\Entity\Product;
 use App\Entity\User;
 use App\Exception\DuplicateException;
 use App\Exception\ProductCreatorException;
 use App\Exception\JsonToArrayException;
 use App\Exception\UidValidatorException;
 use App\Exception\ProductValidatorException;
-use App\Interfaces\IEntity;
 use App\Interfaces\IProductRepo;
 use App\RequestBody\JsonToArray;
 use App\Validators\UserValidators\UidValidator;
@@ -29,7 +29,7 @@ class ProductCreator
         $this->validator = $validator;
     }
 
-    public function handle(int $id_user): IEntity
+    public function handle(int $id_user): Product
     {
         if (!$this->uidValidator->validate($id_user))
             throw new UidValidatorException([User::ID => User::INVALID]);

@@ -3,12 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use App\Interfaces\IEntity;
 
 /**
  * @ORM\Entity(repositoryClass="UserRepo")
  */
-class User implements IEntity
+class User
 {
     const ID = "id";
     const NAME = "name";

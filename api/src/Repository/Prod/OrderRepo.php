@@ -4,7 +4,6 @@ namespace App\Repository\Prod;
 
 use App\CostCalculator\CostCalculator;
 use App\Entity\Order;
-use App\Interfaces\IEntity;
 use App\Interfaces\IRelationRepo;
 use App\Validators\AddressValidators\ShipmentType;
 use App\Validators\UserValidators\UidValidator;
@@ -35,7 +34,7 @@ class OrderRepo extends ServiceEntityRepository implements IOrderRepo
         $this->shipmentType = $shipmentType;
     }
 
-    public function create(array $requestBody, array $costs, int $id_user): IEntity
+    public function create(array $requestBody, array $costs, int $id_user)
     {
         $order = new Order();
         $order->setOwnerId($id_user);

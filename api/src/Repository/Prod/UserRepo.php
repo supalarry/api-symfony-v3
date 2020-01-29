@@ -7,7 +7,6 @@ use App\Interfaces\IUserRepo;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Interfaces\IEntity;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -25,7 +24,7 @@ class UserRepo extends ServiceEntityRepository implements IUserRepo
         $this->em = $em;
     }
 
-    public function create(array $requestBody): IEntity
+    public function create(array $requestBody): User
     {
         $user = new User();
         $user->setName($requestBody[User::NAME]);
