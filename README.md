@@ -136,9 +136,9 @@ Both examples are valid.
 }
 ```
 
-> "name" : accepts upper and lowercase letters, spaces, dot (.) , comma (,) , apastrophe (') and dash (-).
+> "name" : accepts upper and lowercase letters, spaces, dot (.) , comma (,) , apostrophe (') and dash (-).
 
-> "surname" : accepts upper and lowercase letters, spaces, dot (.) , comma (,) , apastrophe (') and dash (-).
+> "surname" : accepts upper and lowercase letters, spaces, dot (.) , comma (,) , apostrophe (') and dash (-).
 
 - response body :
 ```
