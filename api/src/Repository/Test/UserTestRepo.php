@@ -4,7 +4,6 @@
 namespace App\Repository\Test;
 
 use App\Entity\User;
-use App\Interfaces\IEntity;
 use App\Interfaces\IUserRepo;
 
 class UserTestRepo implements IUserRepo
@@ -22,7 +21,7 @@ class UserTestRepo implements IUserRepo
         ]);
     }
 
-    public function create(array $requestBody): IEntity
+    public function create(array $requestBody): User
     {
         $user = new User();
         $user->setId($this->id);

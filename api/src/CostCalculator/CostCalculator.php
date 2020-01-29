@@ -32,7 +32,7 @@ class CostCalculator
             return ($this->internationalCostCalculator->calculate($id_user, $request_body[Order::LINE_ITEMS]));
     }
 
-    public static function express_shipping(array $request_body):bool
+    public static function express_shipping(array $request_body): bool
     {
         if (array_key_exists(Order::INFO, $request_body)
             && array_key_exists(Order::EXPRESS_SHIPPING, $request_body[Order::INFO])

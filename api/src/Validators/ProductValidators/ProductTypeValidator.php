@@ -24,17 +24,4 @@ class ProductTypeValidator
             return (true);
         return (false);
     }
-
-    public function getAllowed(): string
-    {
-        $productsString = '';
-        foreach ($this->allowedProducts as $product)
-        {
-            if ($productsString === '')
-                $productsString = $productsString . $product;
-            else
-                $productsString = $productsString . " " . $product;
-        }
-        return $productsString;
-    }
 }

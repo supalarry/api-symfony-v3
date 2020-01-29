@@ -3,7 +3,6 @@
 namespace App\Repository\Prod;
 
 use App\Entity\Product;
-use App\Interfaces\IEntity;
 use App\Interfaces\IProductRepo;
 use App\Validators\UserValidators\UidValidator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -28,7 +27,7 @@ class ProductRepo extends ServiceEntityRepository implements IProductRepo
         $this->userIdValidator = $userIdValidator;
     }
 
-    public function create(int $id_owner, array $requestBody): IEntity
+    public function create(int $id_owner, array $requestBody): Product
     {
         $product = new Product();
         $product->setOwnerId($id_owner);

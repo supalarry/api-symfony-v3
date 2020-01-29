@@ -3,6 +3,7 @@
 
 namespace App\Product;
 
+use App\Entity\Product;
 use App\Entity\User;
 use App\Exception\DuplicateException;
 use App\Exception\ProductCreatorException;
@@ -28,7 +29,7 @@ class ProductCreator
         $this->validator = $validator;
     }
 
-    public function handle(int $id_user)
+    public function handle(int $id_user): Product
     {
         if (!$this->uidValidator->validate($id_user))
             throw new UidValidatorException([User::ID => User::INVALID]);

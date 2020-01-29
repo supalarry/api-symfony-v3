@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Interfaces;
-use App\Interfaces\IEntity;
+use App\Entity\Product;
 
 interface IProductRepo
 {
-    public function create(int $id_owner, array $characteristics): IEntity;
+    public function create(int $id_owner, array $characteristics): Product;
 }

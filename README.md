@@ -14,7 +14,7 @@ API for creating users, products and orders for an e-commerce store.
 Clone this repository
 
 ```
-git@github.com:lauris-printify/homework-v3.git
+git clone git@github.com:lauris-printify/homework-v3.git
 ```
 
 Switch to project folder
@@ -48,7 +48,7 @@ password: rootroot
 
 This project uses mysql together with doctrine within the symfony framework.
 
-After executing `docker-compose up` mysql is setup from `docker/backup/mysql/api.sql` file.
+After executing `docker-compose up` mysql is set up from `docker/backup/mysql/api.sql` file.
 
 All work occurs in `printify_api` database.
 
@@ -76,7 +76,7 @@ Tests are written with phpunit and are located in `api/tests`.
 > `api/config/services.yml` : declares which repositories are used for production. Production repositories are stored in api/src/Repository/Prod.
 
 
-With docker running, switch to api folder
+With docker running, open a new terminal in the root folder and switch to api folder
 
 ```
 cd api
@@ -136,9 +136,9 @@ Both examples are valid.
 }
 ```
 
-> "name" : accepts upper and lowercase letters, spaces, dot (.) , comma (,) , apastrophe (') and dash (-).
+> "name" : accepts upper and lowercase letters, spaces, dot (.) , comma (,) , apostrophe (') and dash (-).
 
-> "surname" : accepts upper and lowercase letters, spaces, dot (.) , comma (,) , apastrophe (') and dash (-).
+> "surname" : accepts upper and lowercase letters, spaces, dot (.) , comma (,) , apostrophe (') and dash (-).
 
 - response body :
 ```

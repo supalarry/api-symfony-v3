@@ -14,7 +14,7 @@ class ShipmentType
 
     private $errors = [];
 
-    public function getType(array $ship_to_address)
+    public function getType(array $ship_to_address): ?string
     {
         if (!array_key_exists(Order::COUNTRY, $ship_to_address))
         {
@@ -30,7 +30,7 @@ class ShipmentType
         return (Order::INTERNATIONAL_ORDER);
     }
 
-    public function getErrors()
+    public function getErrors(): array
     {
         return $this->errors;
     }

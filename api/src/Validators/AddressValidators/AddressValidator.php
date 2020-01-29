@@ -36,7 +36,7 @@ class AddressValidator
         return (true);
     }
 
-    public function getErrors()
+    public function getErrors(): array
     {
         return $this->errors;
     }

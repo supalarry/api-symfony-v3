@@ -42,7 +42,7 @@ class ProductController extends AbstractController
      * @return JsonResponse|Response
      */
 
-    public function getProductById(IProductRepo $repo, int $id_user, int $id): Response
+    public function getProductById(IProductRepo $repo, int $id_user, int $id)
     {
         $product = $repo->getById($id_user, $id);
         if ($product !== null)
@@ -57,7 +57,7 @@ class ProductController extends AbstractController
      * @return JsonResponse|Response
      */
 
-    public function getProducts(IProductRepo $repo, int $id_user): Response
+    public function getProducts(IProductRepo $repo, int $id_user)
     {
         $products = $repo->getAll($id_user);
         if ($products !== null)

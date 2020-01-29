@@ -48,13 +48,13 @@ class ProductValidator
                 $this->errorsLoader->load(Product::TITLE, Product::INVALID_TITLE, $this->errors);
             elseif ($key === Product::SKU && !$this->skuValidator->validate($value, $id_user))
                 $this->errorsLoader->load(Product::SKU, Product::INVALID_SKU, $this->errors);
-            elseif ($key === Product::COST && !is_int($value))
+            elseif ($key === Product::COST && (!is_int($value) || $value < 1))
                 $this->errorsLoader->load(Product::COST, Product::INVALID_COST, $this->errors);
         }
 
         if (!empty($this->errors))
         {
-            if (array_key_exists(Product::SKU, $this->errors) && $this->errors[Product::SKU] === Product::INVALID_SKU && count($this->errors) == 1)
+            if (array_key_exists(Product::SKU, $this->errors) && in_array(Product::INVALID_SKU, $this->errors[Product::SKU]) && count($this->errors) == 1)
                 throw new DuplicateException($this->errors);
             throw new ProductValidatorException($this->errors);
         }
