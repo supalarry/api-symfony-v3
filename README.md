@@ -14,7 +14,7 @@ API for creating users, products and orders for an e-commerce store.
 Clone this repository
 
 ```
-git@github.com:lauris-printify/homework-v3.git
+git clone git@github.com:lauris-printify/homework-v3.git
 ```
 
 Switch to project folder
