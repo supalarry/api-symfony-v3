@@ -65,7 +65,7 @@ class ValidateUserTest extends TestCase
         } catch (UserValidatorException $e){
             $errors = $validator->getErrors();
             $this->assertArrayHasKey(User::NAME, $errors);
-            $this->assertEquals($errors[User::NAME][0], 'Invalid name. It can only consist of letters and can not be empty');
+            $this->assertEquals($errors[User::NAME][0], User::INVALID_NAME);
         }
     }
 
@@ -105,7 +105,7 @@ class ValidateUserTest extends TestCase
         } catch (UserValidatorException $e){
             $errors = $validator->getErrors();
             $this->assertArrayHasKey(User::SURNAME, $errors);
-            $this->assertEquals($errors[User::SURNAME][0], 'Invalid surname. It can only consist of letters and can not be empty');
+            $this->assertEquals($errors[User::SURNAME][0], User::INVALID_SURNAME);
         }
     }
 
@@ -125,7 +125,7 @@ class ValidateUserTest extends TestCase
         } catch (UserValidatorException $e){
             $errors = $validator->getErrors();
             $this->assertArrayHasKey(User::NAME, $errors);
-            $this->assertEquals($errors[User::NAME][0], 'Invalid name. It can only consist of letters and can not be empty');
+            $this->assertEquals($errors[User::NAME][0], User::INVALID_NAME);
         }
     }
 
@@ -145,7 +145,7 @@ class ValidateUserTest extends TestCase
         } catch (UserValidatorException $e){
             $errors = $validator->getErrors();
             $this->assertArrayHasKey(User::SURNAME, $errors);
-            $this->assertEquals($errors[User::SURNAME][0], 'Invalid surname. It can only consist of letters and can not be empty');
+            $this->assertEquals($errors[User::SURNAME][0], User::INVALID_SURNAME);
         }
     }
 

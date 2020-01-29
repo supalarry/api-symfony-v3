@@ -18,8 +18,8 @@ class User implements IEntity
 
     const NO_NAME = "name key not set";
     const NO_SURNAME = "surname key not set";
-    const INVALID_NAME = "Invalid name. It can only consist of letters and can not be empty";
-    const INVALID_SURNAME = "Invalid surname. It can only consist of letters and can not be empty";
+    const INVALID_NAME = "Invalid name. It can only consist of letters, spaces, dot (.) , comma (,) , apostrophe ('), dash (-) and can not be empty";
+    const INVALID_SURNAME = "Invalid surname. It can only consist of letters, spaces, dot (.) , comma (,) , apostrophe ('), dash (-) and can not be empty";
 
     /**
      * @ORM\Id()

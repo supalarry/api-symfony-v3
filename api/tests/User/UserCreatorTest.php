@@ -137,7 +137,7 @@ class UserCreatorTest extends WebTestCase
         $this->assertEquals(Response::HTTP_BAD_REQUEST, $client->getResponse()->getStatusCode());
         $responseBody = json_decode($client->getResponse()->getContent(), TRUE);
         $this->assertArrayHasKey(User::NAME, $responseBody);
-        $this->assertEquals($responseBody[User::NAME][0], "Invalid name. It can only consist of letters and can not be empty");
+        $this->assertEquals($responseBody[User::NAME][0], User::INVALID_NAME);
     }
 
     public function test_missing_surname_key()
@@ -177,7 +177,7 @@ class UserCreatorTest extends WebTestCase
 
         $responseBody = json_decode($client->getResponse()->getContent(), TRUE);
         $this->assertArrayHasKey(User::SURNAME, $responseBody);
-        $this->assertEquals($responseBody[User::SURNAME][0], "Invalid surname. It can only consist of letters and can not be empty");
+        $this->assertEquals($responseBody[User::SURNAME][0], User::INVALID_SURNAME);
     }
 
     public function test_multiple_errors_missing_both_keys()
@@ -221,6 +221,6 @@ class UserCreatorTest extends WebTestCase
         $this->assertArrayHasKey(User::NAME, $responseBody);
         $this->assertArrayHasKey(User::SURNAME, $responseBody);
         $this->assertEquals($responseBody[User::NAME][0], "name key not set");
-        $this->assertEquals($responseBody[User::SURNAME][0], "Invalid surname. It can only consist of letters and can not be empty");
+        $this->assertEquals($responseBody[User::SURNAME][0], User::INVALID_SURNAME);
     }
 }
