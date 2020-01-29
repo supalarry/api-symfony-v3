@@ -48,7 +48,7 @@ password: rootroot
 
 This project uses mysql together with doctrine within the symfony framework.
 
-After executing `docker-compose up` mysql is setup from `docker/backup/mysql/api.sql` file.
+After executing `docker-compose up` mysql is set up from `docker/backup/mysql/api.sql` file.
 
 All work occurs in `printify_api` database.
 
