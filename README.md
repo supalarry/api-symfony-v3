@@ -190,7 +190,7 @@ Each user is assigned 100$ or 10000 cents as a starting balance to make orders l
 ]
 ```
 
-### 2.1 Create a new product
+### 2.1 Create a new product for user
 - endpoint : /users/{id}/products
 - method : POST
 - url : http://localhost:8098/users/{id}/products
@@ -226,7 +226,7 @@ Each user is assigned 100$ or 10000 cents as a starting balance to make orders l
 }
 ```
 
-### 2.2 View a product
+### 2.2 View user's product
 - endpoint : /users/{id}/products/{id}
 - method : GET
 - url : http://localhost:8098/users/{id}/products/{id}
@@ -243,7 +243,7 @@ Each user is assigned 100$ or 10000 cents as a starting balance to make orders l
 }
 ```
 
-### 2.3 View all products
+### 2.3 View user's all products
 - endpoint : /users/{id}/products
 - method : GET
 - url : http://localhost:8098/users/{id}/products
@@ -270,7 +270,7 @@ Each user is assigned 100$ or 10000 cents as a starting balance to make orders l
 ]
 ```
 
-### 3.1 Create a new order
+### 3.1 Create a new order for user
 - endpoint : /users/{id}/orders
 - method : POST
 - url : http://localhost:8098/users/{id}/orders
@@ -378,7 +378,7 @@ This part is only applicable to US orders and is optional. If `expressShipping` 
 }
 ```
 
-### 3.2 View an order
+### 3.2 View user's order
 - endpoint : /users/{id}/orders/{id}
 - method : GET
 - url : http://localhost:8098/users/{id}/orders/{id}
@@ -427,7 +427,7 @@ This part is only applicable to US orders and is optional. If `expressShipping` 
 ```
 
 
-### 3.3 View orders
+### 3.3 View user's all orders
 - endpoint : /users/{id}/orders
 - method : GET
 - url : http://localhost:8098/users/{id}/orders
