@@ -189,7 +189,7 @@ class ProductCreatorTest extends WebTestCase
         $this->assertEquals(Response::HTTP_BAD_REQUEST, $client->getResponse()->getStatusCode());
         $responseBody = json_decode($client->getResponse()->getContent(), TRUE);
         $this->assertArrayHasKey(Product::TITLE, $responseBody);
-        $this->assertEquals($responseBody[Product::TITLE][0], "Invalid title. It can only consist of letters, digits and dash(-)");
+        $this->assertEquals($responseBody[Product::TITLE][0], Product::INVALID_TITLE);
     }
 
     public function test_missing_sku_key()
@@ -286,6 +286,6 @@ class ProductCreatorTest extends WebTestCase
         $this->assertArrayHasKey(Product::TYPE, $responseBody);
         $this->assertEquals($responseBody[Product::TYPE][0], "type key not set");
         $this->assertArrayHasKey(Product::TITLE, $responseBody);
-        $this->assertEquals($responseBody[Product::TITLE][0], "Invalid title. It can only consist of letters, digits and dash(-)");
+        $this->assertEquals($responseBody[Product::TITLE][0], Product::INVALID_TITLE);
     }
 }

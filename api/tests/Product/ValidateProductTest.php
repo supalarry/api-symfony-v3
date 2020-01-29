@@ -187,7 +187,7 @@ class ValidateProductTest extends TestCase
         } catch (ProductValidatorException $e){
             $errors = $validator->getErrors();
             $this->assertArrayHasKey(Product::TITLE, $errors);
-            $this->assertEquals($errors[Product::TITLE][0], 'Invalid title. It can only consist of letters, digits and dash(-)');
+            $this->assertEquals($errors[Product::TITLE][0], Product::INVALID_TITLE);
         }
     }
 
@@ -293,7 +293,7 @@ class ValidateProductTest extends TestCase
             $this->assertArrayHasKey(Product::TYPE, $errors);
             $this->assertEquals($errors[Product::TYPE][0], 'Invalid type');
             $this->assertArrayHasKey(Product::TITLE, $errors);
-            $this->assertEquals($errors[Product::TITLE][0], 'Invalid title. It can only consist of letters, digits and dash(-)');
+            $this->assertEquals($errors[Product::TITLE][0], Product::INVALID_TITLE);
             $this->assertArrayHasKey(Product::SKU, $errors);
             $this->assertEquals($errors[Product::SKU][0], Product::INVALID_SKU);
             $this->assertArrayHasKey(Product::COST, $errors);
