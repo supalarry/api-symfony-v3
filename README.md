@@ -76,7 +76,7 @@ Tests are written with phpunit and are located in `api/tests`.
 > `api/config/services.yml` : declares which repositories are used for production. Production repositories are stored in api/src/Repository/Prod.
 
 
-With docker running, switch to api folder
+With docker running, open a new terminal in the root folder and switch to api folder
 
 ```
 cd api
