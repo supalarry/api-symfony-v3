@@ -20,7 +20,7 @@ git clone https://github.com/supalarry/api-symfony-v3.git
 Switch to project folder
 
 ```
-cd homework-v3
+cd api-symfony-v3
 ```
 
 Install dependencies
