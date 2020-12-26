@@ -14,7 +14,7 @@ API for creating users, products and orders for an e-commerce store.
 Clone this repository
 
 ```
-git clone git@github.com:lauris-printify/homework-v3.git
+git clone https://github.com/supalarry/api-symfony-v3.git
 ```
 
 Switch to project folder
